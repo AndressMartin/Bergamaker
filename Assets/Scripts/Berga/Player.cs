@@ -6,16 +6,11 @@ public class Player : MonoBehaviour
 {
     Rigidbody2D rb;
     BoxCollider2D Mybox2d;
-
-    float horizontal;
-    float vertical;
+    public float horizontal { get;private  set; }
+    public float vertical { get; private set; }
+    public bool interagindo { get; private set; }
 
     public float runSpeed = 5.0f;
-
-    public bool interagindo = false;
-
-    [SerializeField]
-   
 
     void Start()
     {
@@ -25,21 +20,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
-
-        horizontal = Input.GetAxisRaw("Horizontal"); // -1 is left
-        vertical = Input.GetAxisRaw("Vertical"); // -1 is down
-   
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            interagindo = !interagindo;
-        }
-        
-
+       
     }
-
+  
     void FixedUpdate()
     {
         rb.velocity = new Vector2(horizontal, vertical).normalized * runSpeed;
+    }
+
+    public void AlterarDirecao(float HorizontalEST,float VerticalEST)
+    {
+        horizontal = HorizontalEST;
+        vertical = VerticalEST;
+    }
+    public void AlterarInteracao(bool InteracaoEST)
+    {
+        interagindo = InteracaoEST;
     }
 }

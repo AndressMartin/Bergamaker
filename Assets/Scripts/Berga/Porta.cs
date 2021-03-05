@@ -21,12 +21,19 @@ public class Porta : MonoBehaviour
                 colisao = mb;
 
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {OnTriggerEnter2D(collision);}
+   
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag ("Jogador"))
+        {
+            if (jogador.interagindo)
+                Open();
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Jogador" && jogador.interagindo)
+        if (collision.gameObject..CompareTag("Jogador") && jogador.interagindo)
             Open();
     }
 
@@ -35,7 +42,7 @@ public class Porta : MonoBehaviour
         if (collision.gameObject.tag == "Jogador")
         {
             Close();
-            jogador.interagindo = false;
+            jogador.AlterarInteracao(false);
         }
     }
 
