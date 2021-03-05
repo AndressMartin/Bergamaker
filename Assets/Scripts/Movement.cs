@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MyPlayer : MonoBehaviour
+public class Movement : MonoBehaviour
 {
 
     public float velocidade = 4f;
@@ -29,6 +29,5 @@ public class MyPlayer : MonoBehaviour
     {
         if (!_dash.dashing) 
             rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade;
-
     }
 }

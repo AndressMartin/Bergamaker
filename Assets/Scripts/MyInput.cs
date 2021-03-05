@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class MyInput : MonoBehaviour
 {
-    private MyDash _dash;
-    private MyPlayer _player;
-
-    public float horizontal, vertical;
+    public float horizontal { get; private set; }
+    public float vertical { get; private set; }
+    public bool dashPress { get; private set; }
     private void Start()
     {
-        _dash = FindObjectOfType<MyDash>();
-        _player = FindObjectOfType<MyPlayer>();
     }
     private void Update()
     {
@@ -19,12 +16,9 @@ public class MyInput : MonoBehaviour
         GetMove(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
-    public void GetDash(bool input)
+    public void GetDash(bool _dashPress)
     {
-        if (input)
-        {
-            _dash.startDash();
-        }
+        dashPress = _dashPress;
     }
     public void GetMove(float _horizontal, float _vertical)
     {
