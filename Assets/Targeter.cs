@@ -6,10 +6,12 @@ public class Targeter : MonoBehaviour
 {
     internal bool onSearchMode = false;
     public GameObject targetUnit = null;
+    private Outline outline;
     private void Update()
     {
         if (onSearchMode == true)
             Target();
+        AddOrRemoveOutline();
     }
     private GameObject Target()
     {
@@ -35,5 +37,15 @@ public class Targeter : MonoBehaviour
         return targetUnit;
     }
 
-    
+    void AddOrRemoveOutline()
+    {
+        if (targetUnit != null)
+        {
+            outline = targetUnit.AddComponent<Outline>();
+        }
+        //else
+        //{
+        //    Destroy(outline);
+        //}
+    }
 }
