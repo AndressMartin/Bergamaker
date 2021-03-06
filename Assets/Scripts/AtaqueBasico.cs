@@ -94,6 +94,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
         else
         {
             Debug.LogError($"{target} was super far! Distance: {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
+            Fail();
         }
     }
 
@@ -104,6 +105,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
     }
     public void ChargeIni()
     {
+        _targeter.TargetedOutline(target);
         StartCoroutine(ChargeEnd());
         FindObjectOfType<Movement>().ChargingColor();
     }
@@ -114,6 +116,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
         FindObjectOfType<Movement>().DefaultColor();
         CustarAP();
         MakeEffect();
+        _targeter.ResetMat(target);
     }
 
     public void CustarAP()
@@ -135,6 +138,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public void Fail()
     {
         FindObjectOfType<Movement>().DefaultColor();
+        _targeter.ResetMat(target);
     }
 
 }

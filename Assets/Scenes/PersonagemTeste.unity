@@ -303,6 +303,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUnit: {fileID: 0}
+  targetMat: {fileID: 2100000, guid: 159de79a04be15e4bac51562b2cd63e0, type: 2}
+  selectMat: {fileID: 2100000, guid: e81b587088db0de44b7785e3615f1e95, type: 2}
+  defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &793690908 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6152096554989272347, guid: 89b5a42527dab1e488a0ca5e5f4547cb, type: 3}
@@ -497,6 +500,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3872854675612935566, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3872854675630421938, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_Camera
       value: 
@@ -567,6 +574,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6152096554989272344, guid: 89b5a42527dab1e488a0ca5e5f4547cb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 6152096554989272346, guid: 89b5a42527dab1e488a0ca5e5f4547cb, type: 3}
       propertyPath: m_RootOrder
       value: 1
