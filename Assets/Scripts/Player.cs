@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player: MonoBehaviour, IActor
@@ -36,6 +35,7 @@ public class Player: MonoBehaviour, IActor
         checkPAMinMax();    
         checkPVMinMax();
         checkMNMinMax();
+
     }
 
     //IActor Methods
@@ -90,14 +90,18 @@ public class Player: MonoBehaviour, IActor
         {
             StartCoroutine(PVRegen());
         }
+        if (PV > PVMax)
+        {
+            PV = PVMax;
+        }
     }
     private IEnumerator PVRegen()
     {
         pvRegen = true;
         while (PV < PVMax)
         {
-            PV = AlterarPV(1);
             yield return new WaitForSeconds(1);
+            PV = AlterarPV(1);
         }
         pvRegen = false;
     }
@@ -108,14 +112,18 @@ public class Player: MonoBehaviour, IActor
         {
             StartCoroutine(PARegen());
         }
+        if (PA > PAMax)
+        {
+            PA = PAMax;
+        }
     }
     private IEnumerator PARegen()
     {
         paRegen = true;
         while (PA < PAMax)
         {
-            PA = AlterarPA(10);
             yield return new WaitForSeconds(1);
+            PA = AlterarPA(10);
         }
         paRegen = false;
     }
@@ -126,15 +134,20 @@ public class Player: MonoBehaviour, IActor
         {
             StartCoroutine(MNRegen());
         }
+        if (MN > MNMax)
+        {
+            MN = MNMax;
+        }
     }
     private IEnumerator MNRegen()
     {
         mnRegen = true;
         while (MN < MNMax)
         {
-            MN = AlterarMN(5);
             yield return new WaitForSeconds(1);
+            MN = AlterarMN(5);
         }
         mnRegen = false;
     }
+
 }

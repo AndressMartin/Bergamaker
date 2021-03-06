@@ -10,11 +10,19 @@ public interface IAction
     public float chargeTime { get; }
     public int MNCost { get; }
     public float CD { get; }
-
+    GameObject target { get; }
+    Player actionMaker { get; }
+    Transform actionChild { get; }
+    void Activated();
+    void SendTargetRequest();
+    void ActivateRange();
+    void TestDistance();
+    void DeactivateRange();
+    void WaitTarget();
     void ChargeIni();
-    void ChargeEnd();
+    IEnumerator ChargeEnd();
+    void Fail();
     void CustarAP();
     void CustarMN();
     void MakeEffect();
-
 }

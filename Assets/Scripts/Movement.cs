@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-
     public float velocidade = 4f;
 
     private Rigidbody2D rb;
@@ -29,5 +28,23 @@ public class Movement : MonoBehaviour
     {
         if (!_dash.dashing) 
             rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade;
+    }
+    public void ChargingColor()
+    {
+        spriteRend.color = Color.yellow;
+    }
+
+    public void DefaultColor()
+    {
+        spriteRend.color = Color.green;
+    }
+    public void AttackColor()
+    {
+        spriteRend.color = Color.red;
+    }
+
+    public void DashingColor()
+    {
+        spriteRend.color = Color.blue;
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MyDash : MonoBehaviour
@@ -34,14 +31,14 @@ public class MyDash : MonoBehaviour
     }
     private void DoDash()
     {
-        _spriteRend.color = Color.blue;
+        _move.DashingColor();
         timeDash -= Time.deltaTime;
         //Debug.LogWarning($"Dashing at {_rb.velocity} with {timeDash} remaining.");
         if (timeDash <= 0)
         {
             timeDash = 0;
             dashing = false;
-            _spriteRend.color = Color.red;
+            _move.DefaultColor();
         }
     }
 
