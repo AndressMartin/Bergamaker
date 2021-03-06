@@ -5,6 +5,9 @@ using UnityEngine;
 public class Targeter : MonoBehaviour
 {
     internal bool onSearchMode = false;
+    public string desiredTarget { get; set; }
+    public float range { get; set; }
+
     public GameObject targetUnit = null;
 
     public Material targetMat;
@@ -20,37 +23,8 @@ public class Targeter : MonoBehaviour
         //----Não chamar Aqui
         //TargetedOutline(targetUnit);
     }
-    private void FindSelectable()
-    {
-        if (_selectable != null)
-        {
-            var selectionRenderer = _selectable.GetComponent<SpriteRenderer>();
-            selectionRenderer.material = defaultMat;
-            _selectable = null;
-        }
-
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
-        {
-            var selectable = hit.transform;
-            if (selectable.CompareTag("Selectable"))
-            {
-                var selectionRenderer = selectable.GetComponent<Renderer>();
-                if (selectionRenderer != null)
-                {
-                    selectionRenderer.material = targetMat;
-                }
-
-                _selectable = selectable;
-            }
-        }
-    }
     private GameObject Target()
     {
-        //Debug.Log($"LF target");
-
-        //-----------PLAY ANIM OF FINDING ENEMY-----------
         if (_selectable != null)
         {
             ResetMat(_selectable.gameObject);
@@ -59,17 +33,16 @@ public class Targeter : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hit.collider != null)
         {
-            SelectableOutline(hit.collider.gameObject);
+            if (hit.collider.tag == desiredTarget)
+                SelectableOutline(hit.collider.gameObject);
         }
         _selectable = hit.transform;
         if (Input.GetMouseButtonDown(0))
         {
-
+            //-----------PLAY ANIM OF FINDING ENEMY-----------
             if (hit.collider != null)
             {
-                //Debug.Log("Target object: " + hit.collider.gameObject.name);
-
-                if (hit.collider.tag == "Enemy")
+                if (hit.collider.tag == desiredTarget)
                 {
                     targetUnit = hit.transform.gameObject;
                     Debug.Log(targetUnit.name);
@@ -78,7 +51,6 @@ public class Targeter : MonoBehaviour
         }
         return targetUnit;
     }
-
     public void TargetedOutline(GameObject _obj)
     {
         if (_obj != null)

@@ -10,14 +10,21 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public int PACost { get; private set; } = 10;
     public bool isMagic { get; private set; } = false;
     public float range { get; private set; } = 2;
-    public float chargeTime { get; private set; } = 1f;
+    public float chargeTimeMax { get; private set; } = 1f;
+    public float chargeTime { get; private set; }
+    public bool charging{ get; private set; }
     public int MNCost { get; private set; } = 0;
     public float CD { get; private set; } = .5f;
     //IClickable
     public bool IsInstant { get; private set; } = false;
-    public GameObject target { get; private set; }
+    public GameObject target { get; private set; } 
     public Player actionMaker { get; private set; }
     public Transform actionChild { get; private set; }
+    public int onButton { get => throw new NotImplementedException(); set => throw new NotImplementedException(); } //TODO: Implementar referencia ao indice do botao
+
+    public bool istarget => throw new NotImplementedException(); //TODO: Implementar target ou área
+
+    public bool isEnemy { get; } = true; //TODO: Implementar heal ou damage
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +42,8 @@ public class AtaqueBasico : MonoBehaviour, IAction
 
         if (_targeter.onSearchMode == true)
             WaitTarget();
+        if (charging)
+            Charge();
     }
     public void Activated()
     {
@@ -52,6 +61,10 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public void SendTargetRequest()
     {
         _targeter.onSearchMode = true;
+        if (isEnemy)
+            _targeter.desiredTarget = "Enemy";
+        else
+            _targeter.desiredTarget = "Player";
         Debug.LogAssertion("Sent Target Request");
     }
 
@@ -74,6 +87,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
 
     public void WaitTarget()
     {
+        actionMaker.GetComponent<Movement>().Lento(true);
         //Debug.Log("Waiting For Target");
         if (_targeter.targetUnit != null)
         {
@@ -82,6 +96,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
             Debug.LogError($"This is the target: {target}");
             _targeter.targetUnit = null;
             TestDistance();
+            actionMaker.GetComponent<Movement>().Lento(false);
         }
     }
     public void TestDistance()
@@ -106,17 +121,26 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public void ChargeIni()
     {
         _targeter.TargetedOutline(target);
-        StartCoroutine(ChargeEnd());
         FindObjectOfType<Movement>().ChargingColor();
+        charging = true;
+        chargeTime = chargeTimeMax;
     }
-    public IEnumerator ChargeEnd()
+    public void Charge()
     {
+        chargeTime -= Time.deltaTime;
+        var actionMakerMove = actionMaker.GetComponent<Movement>();
+        actionMakerMove.PermitirMovimento(false);
+        if (chargeTime <= 0)
+        {
+            charging = false;
+            chargeTime = 0;
 
-        yield return new WaitForSeconds(chargeTime);
-        FindObjectOfType<Movement>().DefaultColor();
-        CustarAP();
-        MakeEffect();
-        _targeter.ResetMat(target);
+            FindObjectOfType<Movement>().DefaultColor();
+            CustarAP();
+            MakeEffect();
+            _targeter.ResetMat(target);
+            actionMakerMove.PermitirMovimento(true);
+        }
     }
 
     public void CustarAP()
@@ -141,4 +165,8 @@ public class AtaqueBasico : MonoBehaviour, IAction
         _targeter.ResetMat(target);
     }
 
+    public void GetButtonIndex()
+    {
+        throw new NotImplementedException();
+    }
 }

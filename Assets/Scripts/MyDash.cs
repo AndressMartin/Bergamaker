@@ -8,7 +8,6 @@ public class MyDash : MonoBehaviour
     private Movement _move;
     private MyInput _input;
     private Rigidbody2D _rb;
-    private SpriteRenderer _spriteRend;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +15,6 @@ public class MyDash : MonoBehaviour
         _move = FindObjectOfType<Movement>();
         _input = FindObjectOfType<MyInput>();
         _rb = _move.GetComponent<Rigidbody2D>();
-        _spriteRend = _move.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -24,7 +22,7 @@ public class MyDash : MonoBehaviour
     {
         if (dashing == true)
             DoDash();
-        if (_input.dashPress)
+        if (_input.dashPress && _move.lento != true && _move._permissaoAndar == true)
         {
             startDash();
         }

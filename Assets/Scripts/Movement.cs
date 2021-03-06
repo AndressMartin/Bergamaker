@@ -11,7 +11,8 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRend;
     private MyDash _dash;
     private MyInput _input;
-
+    public bool _permissaoAndar { get; set; } = true;
+    public bool lento { get; private set; }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,9 +27,27 @@ public class Movement : MonoBehaviour
 
     public void Move(float horizontal, float vertical)
     {
-        if (!_dash.dashing) 
-            rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade;
+        if (_permissaoAndar)
+            if (!_dash.dashing)
+            {
+                if (!lento)
+                    rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade;
+                else
+                    rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade/2;
+            }
     }
+
+    public void PermitirMovimento(bool permissao)
+    {
+        _permissaoAndar = permissao;
+        rb.velocity = new Vector2(0f, 0f);
+    }
+
+    public void Lento(bool condicao)
+    {
+        lento = condicao;
+    }
+
     public void ChargingColor()
     {
         spriteRend.color = Color.yellow;
