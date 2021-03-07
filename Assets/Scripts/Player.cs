@@ -100,7 +100,7 @@ public class Player: MonoBehaviour, IActor
         pvRegen = true;
         while (PV < PVMax)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(pvRegenRate);
             PV = AlterarPV(1);
         }
         pvRegen = false;
@@ -122,7 +122,7 @@ public class Player: MonoBehaviour, IActor
         paRegen = true;
         while (PA < PAMax)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(paRegenRate);
             PA = AlterarPA(10);
         }
         paRegen = false;
@@ -144,7 +144,7 @@ public class Player: MonoBehaviour, IActor
         mnRegen = true;
         while (MN < MNMax)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(mnRegenRate);
             MN = AlterarMN(5);
         }
         mnRegen = false;

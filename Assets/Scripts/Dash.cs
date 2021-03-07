@@ -1,20 +1,22 @@
 using UnityEngine;
 
-public class MyDash : MonoBehaviour
+public class Dash : MonoBehaviour
 {
     public float timeDash;
-    private float startTimeDash = .4f;
+    private float startTimeDash = .25f;
     public bool dashing;
     private Movement _move;
-    private MyInput _input;
+    private InputSys _input;
     private Rigidbody2D _rb;
+    private ColorSys _colorsys;
 
     // Start is called before the first frame update
     void Start()
     {
-        _move = FindObjectOfType<Movement>();
-        _input = FindObjectOfType<MyInput>();
+        _move = GetComponent<Movement>();
+        _input = GetComponent<InputSys>();
         _rb = _move.GetComponent<Rigidbody2D>();
+        _colorsys = GetComponent<ColorSys>();
     }
 
     // Update is called once per frame
@@ -29,14 +31,14 @@ public class MyDash : MonoBehaviour
     }
     private void DoDash()
     {
-        _move.DashingColor();
+        _colorsys.DashingColor();
         timeDash -= Time.deltaTime;
         //Debug.LogWarning($"Dashing at {_rb.velocity} with {timeDash} remaining.");
         if (timeDash <= 0)
         {
             timeDash = 0;
             dashing = false;
-            _move.DefaultColor();
+            _colorsys.DefaultColor();
         }
     }
 

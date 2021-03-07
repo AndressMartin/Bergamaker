@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class MyInput : MonoBehaviour
+public class InputSys : MonoBehaviour
 {
     public float horizontal { get; private set; }
     public float vertical { get; private set; }
@@ -12,8 +12,8 @@ public class MyInput : MonoBehaviour
     }
     private void Update()
     {
-        GetDash(Input.GetKeyDown(KeyCode.Space));
-        GetMove(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        GetDash(UnityEngine.Input.GetKeyDown(KeyCode.Space));
+        GetMove(UnityEngine.Input.GetAxisRaw("Horizontal"), UnityEngine.Input.GetAxisRaw("Vertical"));
     }
 
     public void GetDash(bool _dashPress)

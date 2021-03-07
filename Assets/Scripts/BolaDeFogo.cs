@@ -8,7 +8,7 @@ public class BolaDeFogo : MonoBehaviour, IAction
 
     public bool isMagic => throw new System.NotImplementedException();
 
-    public float range => throw new System.NotImplementedException();
+    public int range => throw new System.NotImplementedException();
 
     public float chargeTimeMax => throw new System.NotImplementedException();
 
@@ -78,6 +78,11 @@ public class BolaDeFogo : MonoBehaviour, IAction
     }
 
     public void MakeEffect()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public int PassRange()
     {
         throw new System.NotImplementedException();
     }

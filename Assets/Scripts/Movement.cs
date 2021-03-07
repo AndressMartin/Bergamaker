@@ -9,16 +9,16 @@ public class Movement : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRend;
-    private MyDash _dash;
-    private MyInput _input;
+    private Dash _dash;
+    private InputSys _input;
     public bool _permissaoAndar { get; set; } = true;
     public bool lento { get; private set; }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRend = GetComponent<SpriteRenderer>();
-        _dash = FindObjectOfType<MyDash>();
-        _input = FindObjectOfType<MyInput>();
+        _dash = FindObjectOfType<Dash>();
+        _input = FindObjectOfType<InputSys>();
     }
     private void FixedUpdate()
     {
@@ -48,22 +48,5 @@ public class Movement : MonoBehaviour
         lento = condicao;
     }
 
-    public void ChargingColor()
-    {
-        spriteRend.color = Color.yellow;
-    }
-
-    public void DefaultColor()
-    {
-        spriteRend.color = Color.green;
-    }
-    public void AttackColor()
-    {
-        spriteRend.color = Color.red;
-    }
-
-    public void DashingColor()
-    {
-        spriteRend.color = Color.blue;
-    }
+    
 }

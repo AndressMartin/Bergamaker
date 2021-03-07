@@ -9,7 +9,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
     //IAction
     public int PACost { get; private set; } = 10;
     public bool isMagic { get; private set; } = false;
-    public float range { get; private set; } = 2;
+    public int range { get; private set; } = 2;
     public float chargeTimeMax { get; private set; } = 1f;
     public float chargeTime { get; private set; }
     public bool charging{ get; private set; }
@@ -54,27 +54,26 @@ public class AtaqueBasico : MonoBehaviour, IAction
             SendTargetRequest();
             ActivateRange();
         }
-        Debug.LogAssertion("Activated");
-        FindObjectOfType<Movement>().AttackColor();
+        FindObjectOfType<ColorSys>().AttackColor();
     }
 
     public void SendTargetRequest()
     {
-        _targeter.onSearchMode = true;
+        _targeter.StartSearchMode(true, PassRange());
         if (isEnemy)
             _targeter.desiredTarget = "Enemy";
         else
             _targeter.desiredTarget = "Player";
         Debug.LogAssertion("Sent Target Request");
     }
-
+    public int PassRange()
+    {
+        return range;
+    }
     public void ActivateRange()
     {
-        Debug.Log("Range, apareça!");
-        //actionChild.lossyScale.Set(range, range, 1);
-        //actionChild.localScale = new Vector3(range, range, 1);
-        //actionChild.gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        //actionChild.gameObject.GetComponent<CircleCollider2D>().radius = range / 3;
+        actionChild.GetComponent<LineRenderer>().enabled = true;
+        actionChild.GetComponent<AuraDrawer>().radius = range;
 
     }
 
@@ -88,10 +87,10 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public void WaitTarget()
     {
         actionMaker.GetComponent<Movement>().Lento(true);
-        //Debug.Log("Waiting For Target");
+        _targeter.SetActionMaker(actionMaker.transform);
         if (_targeter.targetUnit != null)
         {
-            _targeter.onSearchMode = false;
+            _targeter.StartSearchMode(false);
             target = _targeter.targetUnit;
             Debug.LogError($"This is the target: {target}");
             _targeter.targetUnit = null;
@@ -115,13 +114,13 @@ public class AtaqueBasico : MonoBehaviour, IAction
 
     public void DeactivateRange()
     {
-        Debug.Log("Range, desapareça!");
-        //actionChild.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        actionChild.GetComponent<LineRenderer>().enabled = false;
     }
     public void ChargeIni()
     {
+        DeactivateRange();
         _targeter.TargetedOutline(target);
-        FindObjectOfType<Movement>().ChargingColor();
+        actionMaker.GetComponent<ColorSys>().ChargingColor();
         charging = true;
         chargeTime = chargeTimeMax;
     }
@@ -135,7 +134,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
             charging = false;
             chargeTime = 0;
 
-            FindObjectOfType<Movement>().DefaultColor();
+            actionMaker.GetComponent<ColorSys>().DefaultColor();
             CustarAP();
             MakeEffect();
             _targeter.ResetMat(target);
@@ -161,7 +160,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
 
     public void Fail()
     {
-        FindObjectOfType<Movement>().DefaultColor();
+        actionMaker.GetComponent<ColorSys>().DefaultColor();
         _targeter.ResetMat(target);
     }
 

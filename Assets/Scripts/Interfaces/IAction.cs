@@ -8,7 +8,7 @@ public interface IAction
     bool isMagic { get; }
     public bool istarget { get; }
     public bool isEnemy { get;}
-    float range { get; }
+    int range { get; }
     public float chargeTimeMax { get; }
     public float chargeTime { get; }
     public bool charging { get; }
@@ -21,6 +21,7 @@ public interface IAction
 
     void Activated();
     void SendTargetRequest();
+    int PassRange();
     void ActivateRange();
     void TestDistance();
     void DeactivateRange();

@@ -1342,7 +1342,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 24.5, y: -97}
-  m_SizeDelta: {x: 87.5618, y: 77.0502}
+  m_SizeDelta: {x: 53.3414, y: 77.0502}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &944364156
 GameObject:
@@ -2519,12 +2519,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3872854675612935566, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3872854675630421938, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 3872854675630421942, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
 --- !u!1001 &4199823260763934009
@@ -2595,10 +2599,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6152096554989272344, guid: 89b5a42527dab1e488a0ca5e5f4547cb, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 6152096554989272346, guid: 89b5a42527dab1e488a0ca5e5f4547cb, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2646,10 +2646,6 @@ PrefabInstance:
     - target: {fileID: 6152096554989272348, guid: 89b5a42527dab1e488a0ca5e5f4547cb, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8469203002359171745, guid: 89b5a42527dab1e488a0ca5e5f4547cb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89b5a42527dab1e488a0ca5e5f4547cb, type: 3}

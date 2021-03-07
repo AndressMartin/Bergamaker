@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class Targeter : MonoBehaviour
 {
-    internal bool onSearchMode = false;
+    internal bool onSearchMode { get; private set; } = false;
     public string desiredTarget { get; set; }
-    public float range { get; set; }
+    private int _range;
+    private Transform _actionMaker;
 
     public GameObject targetUnit = null;
 
@@ -15,7 +17,6 @@ public class Targeter : MonoBehaviour
     public Material defaultMat;
 
     private Transform _selectable;
-
     private void Update()
     {
         if (onSearchMode == true)
@@ -23,6 +24,22 @@ public class Targeter : MonoBehaviour
         //----Não chamar Aqui
         //TargetedOutline(targetUnit);
     }
+
+    public void StartSearchMode(bool boo)
+    {
+        onSearchMode = boo;
+    }
+    public void StartSearchMode(bool boo, int range)
+    {
+        onSearchMode = boo;
+        _range = range;
+    }
+
+    public void SetActionMaker(Transform actionMaker)
+    {
+        _actionMaker = actionMaker;
+    }
+
     private GameObject Target()
     {
         if (_selectable != null)
@@ -33,7 +50,8 @@ public class Targeter : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
         if (hit.collider != null)
         {
-            if (hit.collider.tag == desiredTarget)
+            float distance = Vector2.Distance(_actionMaker.transform.position, hit.collider.transform.position);
+            if (hit.collider.tag == desiredTarget && distance <= 2)
                 SelectableOutline(hit.collider.gameObject);
         }
         _selectable = hit.transform;
