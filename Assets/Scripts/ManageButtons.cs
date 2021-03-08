@@ -31,24 +31,25 @@ public class ManageButtons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        KeepTrackOfOneSlider();
-
+        KeepTrackOfOneSlider(sliders[0], _ataque);
+        KeepTrackOfOneSlider(sliders[1], _bola);
     }
 
     void ManageSlider()
     {
+        int cont = 0;
         foreach (Button button in buttons)
         {
-            int cont = 0;
             sliders[cont] = button.GetComponentInChildren<Slider>();
             sliders[cont].maxValue = _ataque.chargeTimeMax;
             sliders[cont].value = _ataque.chargeTime;
             cont++;
         }
     }
-    void KeepTrackOfOneSlider()
+    void KeepTrackOfOneSlider(Slider slider, IAction script)
     {
-        sliders[0].value = _ataque.chargeTime;
+        slider.value = script.chargeTime;
+            
     }
     List<Type> FindAllActions()
     {
