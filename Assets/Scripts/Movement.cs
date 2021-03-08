@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     private InputSys _input;
     public bool _permissaoAndar { get; set; } = true;
     public bool lento { get; private set; }
+    private float lentidao = 2.5f;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,7 +34,7 @@ public class Movement : MonoBehaviour
                 if (!lento)
                     rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade;
                 else
-                    rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade/2;
+                    rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade/lentidao;
             }
     }
 

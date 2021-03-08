@@ -11,8 +11,15 @@ public class Player: MonoBehaviour, IActor
     [SerializeField] public int MN { get; private set; }
     [SerializeField] public int PA { get; private set; }
 
-    private bool pvRegen, paRegen, mnRegen = false;
-    private float pvRegenRate, paRegenRate, mnRegenRate = 1.0f;
+    private bool pvRegen, paRegen, mnRegen;
+    private float pvRegenRate = 1.0f;
+    private float paRegenRate = 1.0f;
+    private float mnRegenRate = 1.0f;
+    private int pvRegenAmout = 1;
+    private int paRegenAmout = 10;
+    private int mnRegenAmout = 5;
+
+
 
     [SerializeField] private int FOR, DEX, INT, MEM, ATE;
 
@@ -101,7 +108,7 @@ public class Player: MonoBehaviour, IActor
         while (PV < PVMax)
         {
             yield return new WaitForSeconds(pvRegenRate);
-            PV = AlterarPV(1);
+            PV = AlterarPV(pvRegenAmout);
         }
         pvRegen = false;
     }
@@ -123,7 +130,7 @@ public class Player: MonoBehaviour, IActor
         while (PA < PAMax)
         {
             yield return new WaitForSeconds(paRegenRate);
-            PA = AlterarPA(10);
+            PA = AlterarPA(paRegenAmout);
         }
         paRegen = false;
     }
@@ -145,7 +152,7 @@ public class Player: MonoBehaviour, IActor
         while (MN < MNMax)
         {
             yield return new WaitForSeconds(mnRegenRate);
-            MN = AlterarMN(5);
+            MN = AlterarMN(mnRegenAmout);
         }
         mnRegen = false;
     }

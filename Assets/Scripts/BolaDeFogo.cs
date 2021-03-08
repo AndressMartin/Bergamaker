@@ -32,6 +32,10 @@ public class BolaDeFogo : MonoBehaviour, IAction
 
     public bool isEnemy => throw new System.NotImplementedException();
 
+    public Transform SkillHolder => throw new System.NotImplementedException();
+
+    public InputSys actionMakerInput => throw new System.NotImplementedException();
+
     public void Activated()
     {
         throw new System.NotImplementedException();
@@ -72,7 +76,7 @@ public class BolaDeFogo : MonoBehaviour, IAction
         throw new System.NotImplementedException();
     }
 
-    public void GetButtonIndex()
+    public int FindStoredButton()
     {
         throw new System.NotImplementedException();
     }
@@ -83,6 +87,11 @@ public class BolaDeFogo : MonoBehaviour, IAction
     }
 
     public int PassRange()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public int SendButtonToInput()
     {
         throw new System.NotImplementedException();
     }

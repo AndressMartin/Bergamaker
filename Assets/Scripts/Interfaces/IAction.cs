@@ -6,19 +6,20 @@ public interface IAction
 {
     int PACost { get; }
     bool isMagic { get; }
-    public bool istarget { get; }
-    public bool isEnemy { get;}
+    bool istarget { get; }
+    bool isEnemy { get;}
     int range { get; }
-    public float chargeTimeMax { get; }
-    public float chargeTime { get; }
-    public bool charging { get; }
-    public int MNCost { get; }
-    public float CD { get; }
+    float chargeTimeMax { get; }
+    float chargeTime { get; }
+    bool charging { get; }
+    int MNCost { get; }
+    float CD { get; }
     GameObject target { get; }
     Player actionMaker { get; }
+    InputSys actionMakerInput { get; }
     Transform actionChild { get; }
-    public int onButton { get; set; }
-
+    int onButton { get; }
+    Transform SkillHolder { get; }
     void Activated();
     void SendTargetRequest();
     int PassRange();
@@ -33,5 +34,6 @@ public interface IAction
     void CustarAP();
     void CustarMN();
     void MakeEffect();
-    void GetButtonIndex();
+    int FindStoredButton();
+    int SendButtonToInput();
 }

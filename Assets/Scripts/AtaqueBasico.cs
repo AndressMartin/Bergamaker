@@ -2,11 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class AtaqueBasico : MonoBehaviour, IAction
 {
     private Targeter _targeter;
-    //IAction
     public int PACost { get; private set; } = 10;
     public bool isMagic { get; private set; } = false;
     public int range { get; private set; } = 2;
@@ -15,25 +13,31 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public bool charging{ get; private set; }
     public int MNCost { get; private set; } = 0;
     public float CD { get; private set; } = .5f;
-    //IClickable
     public bool IsInstant { get; private set; } = false;
     public GameObject target { get; private set; } 
     public Player actionMaker { get; private set; }
+    public InputSys actionMakerInput { get; private set; }
     public Transform actionChild { get; private set; }
-    public int onButton { get => throw new NotImplementedException(); set => throw new NotImplementedException(); } //TODO: Implementar referencia ao indice do botao
+    public Transform SkillHolder { get; private set; }
+    public int onButton { get; private set; } //TODO: Implementar referencia ao indice do botao
 
     public bool istarget => throw new NotImplementedException(); //TODO: Implementar target ou área
 
     public bool isEnemy { get; } = true; //TODO: Implementar heal ou damage
 
+
+
     // Start is called before the first frame update
     void Start()
     {
+        SkillHolder = gameObject.transform.parent;
+        onButton = FindStoredButton();
+        //actionMakerInput.GetSkillButton(onButton);
         _targeter = FindObjectOfType<Targeter>();
         actionMaker = FindObjectOfType<Player>();
+        actionMakerInput = actionMaker.GetComponent<InputSys>();
         actionChild = actionMaker.transform.GetChild(0);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -44,6 +48,11 @@ public class AtaqueBasico : MonoBehaviour, IAction
             WaitTarget();
         if (charging)
             Charge();
+        if (actionMakerInput.skillNum == onButton 
+            && actionMakerInput.skillPress)
+        {
+            Activated();
+        }
     }
     public void Activated()
     {
@@ -59,7 +68,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
 
     public void SendTargetRequest()
     {
-        _targeter.StartSearchMode(true, PassRange());
+        _targeter.StartSearchMode(true, PassRange(), PassActionMaker());
         if (isEnemy)
             _targeter.desiredTarget = "Enemy";
         else
@@ -69,6 +78,10 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public int PassRange()
     {
         return range;
+    }
+    public Transform PassActionMaker()
+    {
+        return actionMaker.transform;
     }
     public void ActivateRange()
     {
@@ -87,15 +100,20 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public void WaitTarget()
     {
         actionMaker.GetComponent<Movement>().Lento(true);
-        _targeter.SetActionMaker(actionMaker.transform);
         if (_targeter.targetUnit != null)
         {
-            _targeter.StartSearchMode(false);
+            _targeter.SearchMode(false);
             target = _targeter.targetUnit;
             Debug.LogError($"This is the target: {target}");
             _targeter.targetUnit = null;
             TestDistance();
             actionMaker.GetComponent<Movement>().Lento(false);
+        }
+        else if(Interruption())
+        {
+            Debug.LogError("An interruption to targeting ocurred");
+            ResetTargetParams();
+            //Fail();
         }
     }
     public void TestDistance()
@@ -108,7 +126,8 @@ public class AtaqueBasico : MonoBehaviour, IAction
         else
         {
             Debug.LogError($"{target} was super far! Distance: {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
-            Fail();
+            //Fail();
+            ResetTargetParams();
         }
     }
 
@@ -131,17 +150,46 @@ public class AtaqueBasico : MonoBehaviour, IAction
         actionMakerMove.PermitirMovimento(false);
         if (chargeTime <= 0)
         {
-            charging = false;
-            chargeTime = 0;
-
-            actionMaker.GetComponent<ColorSys>().DefaultColor();
+            ResetChargeParams();
             CustarAP();
             MakeEffect();
-            _targeter.ResetMat(target);
-            actionMakerMove.PermitirMovimento(true);
+        }
+        if (Interruption())
+        {
+            ResetChargeParams();
+            //Fail();
         }
     }
-
+    public void ResetChargeParams()
+    {
+        charging = false;
+        chargeTime = 0;
+        actionMaker.GetComponent<ColorSys>().DefaultColor();
+        _targeter.ResetMat(target);
+        actionMaker.GetComponent<Movement>().PermitirMovimento(true);
+    }
+    public void ResetTargetParams()
+    {
+        DeactivateRange();
+        actionMaker.GetComponent<Movement>().Lento(false);
+        _targeter.SearchMode(false);
+        actionMaker.GetComponent<ColorSys>().DefaultColor();
+        _targeter.ResetMat(target);
+        actionMaker.GetComponent<Movement>().PermitirMovimento(true);
+    }
+    public bool Interruption()
+    {
+        var actionMakerInput = actionMaker.GetComponent<InputSys>();
+        if (actionMakerInput.CancelPress() ||
+            actionMakerInput.DashPress())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void CustarAP()
     {
         actionMaker.AlterarPA(-PACost);
@@ -160,12 +208,31 @@ public class AtaqueBasico : MonoBehaviour, IAction
 
     public void Fail()
     {
-        actionMaker.GetComponent<ColorSys>().DefaultColor();
-        _targeter.ResetMat(target);
+        //Does nothing for now
+        throw new NotImplementedException();
     }
 
-    public void GetButtonIndex()
+    public int FindStoredButton()
+    {
+        var _index = -1;
+        for (int i = 0; i < SkillHolder.childCount; i++)
+        {
+            if (SkillHolder.GetChild(i) == gameObject.transform)
+            {
+                Debug.Log("passou pelo if");
+                if (i != 10)
+                    _index = i+1;
+                else
+                    _index = 0;
+            }
+        }
+        Debug.Log($"{_index}, {SkillHolder.childCount}");
+        return _index;
+    }
+
+    public int SendButtonToInput()
     {
         throw new NotImplementedException();
+        //return onButton;
     }
 }

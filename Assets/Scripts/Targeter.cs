@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -5,7 +6,11 @@ using UnityEngine;
 
 public class Targeter : MonoBehaviour
 {
-    internal bool onSearchMode { get; private set; } = false;
+    internal bool onSearchMode { get; private set; }
+    internal bool usingMouse { get; private set; }
+
+    private bool beganSettingMouseToFalse;
+    internal GameObject autoSelected { get; private set; }
     public string desiredTarget { get; set; }
     private int _range;
     private Transform _actionMaker;
@@ -17,30 +22,59 @@ public class Targeter : MonoBehaviour
     public Material defaultMat;
 
     private Transform _selectable;
+
     private void Update()
     {
         if (onSearchMode == true)
-            Target();
+        {
+            if ((Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) && usingMouse == false)
+            {
+                usingMouse = true;
+            }
+            //else if ((Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0) && usingMouse == true)
+            //{
+            //     if (beganSettingMouseToFalse)
+            //        StartCoroutine(SetUsingMouseAsFalse());
+            //}
+            if (usingMouse)
+            {
+                autoSelected = RemovePreviousAutoSelection(autoSelected);
+                TargetWithMouse();
+            }
+            else
+            {
+                if (autoSelected == null)
+                {
+                    var closest = FindClosestEnemy();
+                    AutoSelect(closest);
+                }
+            }
+        }
         //----Não chamar Aqui
         //TargetedOutline(targetUnit);
     }
 
-    public void StartSearchMode(bool boo)
+    private IEnumerator SetUsingMouseAsFalse()
+    {
+        beganSettingMouseToFalse = true;
+        yield return new WaitForSeconds(1f);
+        usingMouse = false;
+        beganSettingMouseToFalse = false;
+        Debug.Log("not using mouse");
+    }
+
+    public void SearchMode(bool boo)
     {
         onSearchMode = boo;
     }
-    public void StartSearchMode(bool boo, int range)
+    public void StartSearchMode(bool boo, int range, Transform actionMaker)
     {
         onSearchMode = boo;
         _range = range;
-    }
-
-    public void SetActionMaker(Transform actionMaker)
-    {
         _actionMaker = actionMaker;
     }
 
-    private GameObject Target()
+    private GameObject TargetWithMouse()
     {
         if (_selectable != null)
         {
@@ -68,6 +102,60 @@ public class Targeter : MonoBehaviour
             }
         }
         return targetUnit;
+    }
+    private GameObject FindClosestEnemy()
+    {
+        Debug.Log("Auto Selection started");
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag(desiredTarget);
+        float distance = Mathf.Infinity;
+        Vector3 position = _actionMaker.transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                GameObject closest = go;
+                distance = curDistance;
+                Debug.Log(closest + "is the closest");
+                return closest;
+            }
+            else
+                return null;
+        }
+        return null;
+    }
+    private void FindAll()
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag(desiredTarget);
+        float distance = Mathf.Infinity;
+        Vector3 position = _actionMaker.transform.position;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                GameObject closest = go;
+                distance = curDistance;
+                Debug.Log(closest + "is the closest");
+                AutoSelect(closest);
+            }
+        }
+    }
+    GameObject RemovePreviousAutoSelection(GameObject previousSelection)
+    {
+        ResetMat(previousSelection);
+        return null;
+    }
+    private void AutoSelect(GameObject closestTarget)
+    {
+        //closestTarget = FindClosestEnemy();
+        //targetUnit = closestTarget;
+        SelectableOutline(closestTarget);
+        autoSelected = closestTarget;
     }
     public void TargetedOutline(GameObject _obj)
     {
