@@ -10,17 +10,29 @@ public class InputSys : MonoBehaviour
     public bool cancelPress { get; private set; }
     public bool skillPress { get; private set; }
     public int skillNum { get; private set; }
+    public bool interacPress { get; private set; }
     public List<int> buttons = new List<int>();
     private void Start()
     {
     }
     private void Update()
     {
-        DashPress(Input.GetButtonDown("Dash"));
+        if (Input.anyKeyDown)
+        {
+            InteractPress(Input.GetButtonDown("Interact"));
+            DashPress(Input.GetButtonDown("Dash"));
+            CancelPress(Input.GetButtonDown("Cancel"));
+            //FindSkillPressed(Input.anyKeyDown);
+            FirstSkillPress(Input.GetButtonDown("Skill1"));
+        }
         MovePress(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        CancelPress(Input.GetButtonDown("Cancel"));
-        //FindSkillPressed(Input.anyKeyDown);
-        FirstSkillPress(Input.GetButtonDown("Skill1"));
+
+    }
+
+    public void InteractPress(bool _interacPress)
+    {
+        Debug.LogWarning("Interarc press");
+        interacPress = _interacPress;
     }
 
     public void DashPress(bool _dashPress)

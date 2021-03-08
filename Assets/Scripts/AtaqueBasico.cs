@@ -73,7 +73,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
             _targeter.desiredTarget = "Enemy";
         else
             _targeter.desiredTarget = "Player";
-        Debug.LogAssertion("Sent Target Request");
+
     }
     public int PassRange()
     {
