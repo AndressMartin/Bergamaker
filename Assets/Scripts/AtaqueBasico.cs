@@ -37,17 +37,24 @@ public class AtaqueBasico : MonoBehaviour, IAction
     // Update is called once per frame
     void Update()
     {
+        if (activated)
+        {
+            if (_targeter.onSearchMode == true)
+                WaitTarget();
 
-        if (_targeter.onSearchMode == true && activated)
-            WaitTarget();
-        if (charging)
-            Charge();
+            if (charging)
+                Charge();
+        }
         if (actionMakerInput.skillNum == onButton 
             && actionMakerInput.skillPress)
         {
             Activated();
             actionMakerInput.skillPress = false;
         }
+        //else if (actionMakerInput.skillNum != onButton)
+        //{
+        //    Fail();
+        //}
     }
     public void Activated()
     {
@@ -69,7 +76,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
             _targeter.desiredTarget = "Enemy";
         else
             _targeter.desiredTarget = "Player";
-        Debug.LogAssertion($"Sent Target Request with {range}");
+        Debug.LogAssertion($"Sent Target Request with range {range}");
     }
     public int PassRange()
     {
@@ -185,6 +192,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
     {
         Debug.Log($"Causou {efeito} de dano em {target}");
         target.GetComponent<Creature>().AlterarPV(efeito);
+        activated = false;
     }
     public void Fail()
     {

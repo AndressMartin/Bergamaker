@@ -40,14 +40,15 @@ public class Targeter : MonoBehaviour
                 autoSelected = RemovePreviousAutoSelection(autoSelected);
                 TargetWithMouse();
             }
-            else
-            {
-                if (autoSelected == null)
-                {
-                    var closest = FindClosestEnemy();
-                    AutoSelect(closest);
-                }
-            }
+            //DESATIVADO ENQUANTO NÃO FUNCIONA
+            //else
+            //{
+            //    if (autoSelected == null)
+            //    {
+            //        var closest = FindClosestEnemy();
+            //        AutoSelect(closest);
+            //    }
+            //}
         }
         //----Não chamar Aqui
         //TargetedOutline(targetUnit);
@@ -100,11 +101,14 @@ public class Targeter : MonoBehaviour
                 {
                     targetUnit = hit.transform.gameObject;
                     Debug.Log(targetUnit.name);
+                    
                 }
             }
         }
         return targetUnit;
     }
+
+
     private GameObject FindClosestEnemy()
     {
         Debug.Log("Auto Selection started");
@@ -147,16 +151,26 @@ public class Targeter : MonoBehaviour
             }
         }
     }
-    GameObject RemovePreviousAutoSelection(GameObject previousSelection)
-    {
-        ResetMat(previousSelection);
-        return null;
-    }
     private void AutoSelect(GameObject closestTarget)
     {
         SelectableOutline(closestTarget);
         autoSelected = closestTarget;
+        ResetParams(onSearchMode, _range, _actionMaker, autoSelected);
         Debug.Log("AUTOSELECTED" + autoSelected);
+    }
+
+    private void ResetParams(bool boo, int range, Transform actionMaker, GameObject target)
+    {
+        boo = false;
+        range = 0;
+        actionMaker = null;
+        target = null;
+    }
+
+    GameObject RemovePreviousAutoSelection(GameObject previousSelection)
+    {
+        ResetMat(previousSelection);
+        return null;
     }
     public void TargetedOutline(GameObject _obj)
     {

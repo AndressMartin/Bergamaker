@@ -2,17 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class BolaDeFogo : MonoBehaviour, IAction, IMagic
+public class BolaDeFogo : MonoBehaviour, IAction
 {
     public Targeter _targeter { get; private set; }
-    public int PACost { get; private set; } = 50;
-    public int range { get; private set; } = 6;
-    public int efeito { get; private set; } = -60;
-    public float chargeTimeMax { get; private set; } = 3f;
+    public int PACost { get; private set; } = 20;
+    public int range { get; private set; } = 4;
+    public int efeito { get; private set; } = -30;
+    public float chargeTimeMax { get; private set; } = 2f;
     public float chargeTime { get; private set; }
     public bool charging { get; private set; }
-    public float CD { get; private set; } = 5f;
+    public float CD { get; private set; } = .5f;
     public bool IsInstant { get; private set; } = false;
     public GameObject target { get; private set; }
     public Player actionMaker { get; private set; }
@@ -20,10 +19,9 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
     public Transform actionChild { get; private set; }
     public Transform SkillHolder { get; private set; }
     public int onButton { get; private set; }
-    public bool isEnemy { get; } = true;
+    public bool isEnemy { get; private set; } = true;
     public bool activated { get; private set; }
 
-    public int MNCost { get; private set; } = 50;
 
     // Start is called before the first frame update
     void Start()
@@ -39,17 +37,24 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
     // Update is called once per frame
     void Update()
     {
+        if (activated)
+        {
+            if (_targeter.onSearchMode == true)
+                WaitTarget();
 
-        if (_targeter.onSearchMode == true && activated)
-            WaitTarget();
-        if (charging)
-            Charge();
+            if (charging)
+                Charge();
+        }
         if (actionMakerInput.skillNum == onButton
             && actionMakerInput.skillPress)
         {
             Activated();
             actionMakerInput.skillPress = false;
         }
+        //else if (actionMakerInput.skillNum != onButton)
+        //{
+        //    Fail();
+        //}
     }
     public void Activated()
     {
@@ -71,7 +76,7 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
             _targeter.desiredTarget = "Enemy";
         else
             _targeter.desiredTarget = "Player";
-        Debug.LogAssertion($"Sent Target Request with {range}");
+        Debug.LogAssertion($"Sent Target Request with range {range}");
     }
     public int PassRange()
     {
@@ -117,6 +122,7 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
         {
             Debug.LogError($"{target} was super far! Distance: {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
             Fail();
+            ResetTargetParams();
         }
     }
     public void DeactivateRange()
@@ -144,6 +150,7 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
         }
         if (Interruption())
         {
+            ResetChargeParams();
             Fail();
         }
     }
@@ -185,6 +192,7 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
     {
         Debug.Log($"Causou {efeito} de dano em {target}");
         target.GetComponent<Creature>().AlterarPV(efeito);
+        activated = false;
     }
     public void Fail()
     {
@@ -207,10 +215,5 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
         }
         Debug.Log("Ataque basico em " + _index);
         return _index;
-    }
-
-    public void CustarMN()
-    {
-        throw new NotImplementedException();
     }
 }
