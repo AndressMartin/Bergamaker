@@ -12,6 +12,8 @@ public class InputSys : MonoBehaviour
     public int skillNum { get; private set; }
     public bool selectPress { get; set; }
     public bool holdingSkill { get; set; }
+	public bool interactPress { get; private set; }
+
     public List<int> buttons = new List<int>();
     private void Update()
     {
@@ -19,6 +21,10 @@ public class InputSys : MonoBehaviour
 
         DashPress(Input.GetButtonDown("Dash"));
         CancelPress(Input.GetButtonDown("Cancel"));
+		
+		if(Input.anyKeyDown)
+            GetInteract(Input.GetButtonDown("Interact"));
+		
         if (holdingSkill == false)
         {
             if (Input.GetButtonDown("Skill1"))
@@ -89,6 +95,10 @@ public class InputSys : MonoBehaviour
     {
         throw new NotImplementedException();
         //buttons.Add(button);
+    }
+	public void GetInteract(bool _interactPress)
+    {
+        interactPress = _interactPress;
     }
     
     //public int FindSkillPressed(KeyCode keyCode)

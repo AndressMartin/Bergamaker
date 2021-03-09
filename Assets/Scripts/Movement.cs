@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     private SpriteRenderer spriteRend;
     private Dash _dash;
     private InputSys _input;
-    public bool _permissaoAndar { get; set; } = true;
+    public bool _permissaoAndar = true;
     public bool lento { get; private set; }
     private float lentidao = 2.5f;
     void Start()
