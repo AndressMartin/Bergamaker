@@ -189,6 +189,8 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public void Fail()
     {
         activated = false;
+        ResetChargeParams();
+        ResetTargetParams();
     }
     public int FindStoredButton()
     {

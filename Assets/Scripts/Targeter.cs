@@ -1,4 +1,4 @@
-    using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -72,18 +72,19 @@ public class Targeter : MonoBehaviour
         _range = range;
         _actionMaker = actionMaker;
         _inputSys = _actionMaker.GetComponent<InputSys>();
-        Debug.LogAssertion(boo + ""+ range + ""+ actionMaker);
+        Debug.LogAssertion(boo + "" + range + "" + actionMaker);
     }
 
     private GameObject TargetWithMouse()
     {
         if (_selectable != null)
         {
-            ResetMat(_selectable.gameObject);
+            if (_selectable.gameObject.tag == desiredTarget)
+                ResetMat(_selectable.gameObject);
             _selectable = null;
         }
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit.collider != null)
+        if (hit.collider != null && hit.transform.gameObject.tag == desiredTarget)
         {
             float distance = Vector2.Distance(_actionMaker.transform.position, hit.collider.transform.position);
             if (hit.collider.tag == desiredTarget && distance <= 2)
@@ -170,7 +171,7 @@ public class Targeter : MonoBehaviour
         {
             _obj.GetComponent<SpriteRenderer>().material = selectMat;
         }
-            
+
     }
     public void ResetMat(GameObject _obj)
     {

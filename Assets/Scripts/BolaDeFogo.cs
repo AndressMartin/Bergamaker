@@ -117,7 +117,6 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
         {
             Debug.LogError($"{target} was super far! Distance: {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
             Fail();
-            ResetTargetParams();
         }
     }
     public void DeactivateRange()
@@ -145,7 +144,6 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
         }
         if (Interruption())
         {
-            ResetChargeParams();
             Fail();
         }
     }
@@ -191,6 +189,8 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
     public void Fail()
     {
         activated = false;
+        ResetChargeParams();
+        ResetTargetParams();
     }
     public int FindStoredButton()
     {
@@ -205,7 +205,7 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
                     _index = 0;
             }
         }
-        Debug.Log("Bola de Foisgo em " + _index);
+        Debug.Log("Ataque basico em " + _index);
         return _index;
     }
 
