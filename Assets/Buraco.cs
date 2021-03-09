@@ -5,14 +5,8 @@ using UnityEngine;
 
 public class Buraco : MonoBehaviour
 {
-    private BoxCollider2D bc2;
 
-    private void Start()
-    {
-        bc2 = GetComponent<BoxCollider2D>();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.transform.parent != null)
         {

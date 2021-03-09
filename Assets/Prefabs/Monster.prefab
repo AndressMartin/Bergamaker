@@ -104,7 +104,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!114 &1994812241393454287
@@ -478,7 +478,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 596948781
+  m_SortingLayerID: -1830082563
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &3872854675630421939

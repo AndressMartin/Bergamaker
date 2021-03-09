@@ -11,7 +11,7 @@ public class Targeter : MonoBehaviour
 
     private bool beganSettingMouseToFalse;
     internal GameObject autoSelected { get; private set; }
-    public string desiredTarget { get; set; }
+    public string desiredTarget;
     private int _range;
     public int _aoe;
     private Transform _actionMaker;
@@ -21,7 +21,6 @@ public class Targeter : MonoBehaviour
     public Material targetMat;
     public Material selectMat;
     public Material defaultMat;
-
     private Transform _selectable;
     public Camera mainCamera;
     private void Update()
@@ -176,6 +175,28 @@ public class Targeter : MonoBehaviour
         Vector3 position = pointer;
         foreach (GameObject go in gos)
         {
+            Debug.Log(go.name);
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                GameObject closest = go;
+                distance = curDistance;
+                Debug.Log(closest + "is the closest");
+                return closest;
+            }
+        }
+        return null;
+    }
+    private GameObject FindAllForAOE(Vector2 pointer)
+    {
+        Debug.Log("Auto Selection started");
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Enemy");
+        float distance = _aoe;
+        Vector3 position = pointer;
+        foreach (GameObject go in gos)
+        {
             Vector3 diff = go.transform.position - position;
             float curDistance = diff.sqrMagnitude;
             if (curDistance < distance)
@@ -186,7 +207,7 @@ public class Targeter : MonoBehaviour
                 return closest;
             }
             else
-                return null;    
+                return null;
         }
         return null;
     }
@@ -218,12 +239,20 @@ public class Targeter : MonoBehaviour
         Debug.Log("AUTOSELECTED" + autoSelected);
     }
 
-    private void ResetParams(bool boo, int range, Transform actionMaker, GameObject target)
+    public void ResetParams(bool boo, int range, Transform actionMaker, GameObject target)
     {
         boo = false;
         range = 0;
         actionMaker = null;
         target = null;
+    }
+    public void ResetParams()
+    {
+        onSearchMode = false;
+        _range = 0;
+        _actionMaker = null;
+        _aoe = 0;
+        targetUnit = null;
     }
 
     GameObject RemovePreviousAutoSelection(GameObject previousSelection)

@@ -18,11 +18,13 @@ public class Player: MonoBehaviour, IActor
     private int pvRegenAmout = 1;
     private int paRegenAmout = 10;
     private int mnRegenAmout = 5;
+    private float invinciTimer = 1.0f;
 
     [SerializeField] private int FOR, DEX, INT, MEM, ATE;
 
     protected float ForAtt, DexAtt, Vel, Slots, SkillPt, CritCh, Pre, EsqCh, Def, Esp, Ten;
     protected float ResAgu, ResTer, ResAr, ResFog, ResLuz, ResSom;
+    private bool invinciFrames;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,8 @@ public class Player: MonoBehaviour, IActor
         checkPVMinMax();
         checkMNMinMax();
 
+        if (PV <= 0)
+            Die();
     }
 
     //IActor Methods
@@ -51,7 +55,13 @@ public class Player: MonoBehaviour, IActor
     }
     public int AlterarPV(int alteracao)
     {
-        PV += alteracao;
+        if (!invinciFrames)
+        {
+            PV += alteracao;
+            if (PV + alteracao < PV)
+                StartCoroutine(Invincibility());
+            return PV;
+        }
         return PV;
     }
     public int AlterarMN(int alteracao)
@@ -59,7 +69,12 @@ public class Player: MonoBehaviour, IActor
         MN += alteracao;
         return MN;
     }
-
+    public IEnumerator Invincibility()
+    {
+        invinciFrames = true;
+        yield return new WaitForSeconds(invinciTimer);
+        invinciFrames = false;
+    }
     //Player Methods
     private int PVMaxCalc()
     {
@@ -154,5 +169,8 @@ public class Player: MonoBehaviour, IActor
         }
         mnRegen = false;
     }
-
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
 }

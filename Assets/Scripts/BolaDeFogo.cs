@@ -119,7 +119,7 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
         actionChild.GetComponent<AuraDrawer>().enabled = true;
         actionChild.GetComponent<AuraDrawer>().update = true;
         actionChild.GetComponent<AuraDrawer>().radius = range;
-        if (isArea && mouseAuraHolder != null)
+        if (isArea)
         {
             mouseAuraHolder.GetComponent<LineRenderer>().enabled = true;
             mouseAuraHolder.GetComponent<AuraDrawer>().enabled = true;
@@ -164,7 +164,7 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
     {
         actionChild.GetComponent<LineRenderer>().enabled = false;
         actionChild.GetComponent<AuraDrawer>().enabled = false;
-        if (isArea && mouseAuraHolder != null)
+        if (isArea)
         {
             mouseAuraHolder.GetComponent<LineRenderer>().enabled = false;
             mouseAuraHolder.GetComponent<AuraDrawer>().enabled = false;
@@ -249,6 +249,7 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
     public void End()
     {
         activated = false;
+        _targeter.ResetParams();
         actionMakerInput.holdingSkill = false;
     }
     public int FindStoredButton()

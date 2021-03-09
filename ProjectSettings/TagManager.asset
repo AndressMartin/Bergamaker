@@ -16,8 +16,8 @@ TagManager:
   - UI
   - Fundo
   - "Ch\xE3o"
+  - Personagens
   - Parede
-  - 
   - 
   - 
   - 
@@ -47,12 +47,12 @@ TagManager:
   - name: Cenario
     uniqueID: 205759407
     locked: 0
-  - name: Enemies
-    uniqueID: 2464884733
-    locked: 0
   - name: Players
     uniqueID: 3509270737
     locked: 0
   - name: UI
     uniqueID: 596948781
+    locked: 0
+  - name: Enemies
+    uniqueID: 2464884733
     locked: 0
