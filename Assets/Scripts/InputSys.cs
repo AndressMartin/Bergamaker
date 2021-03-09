@@ -8,8 +8,9 @@ public class InputSys : MonoBehaviour
     public float vertical { get; private set; }
     public bool dashPress { get; private set; }
     public bool cancelPress { get; private set; }
-    public bool skillPress { get; private set; }
+    public bool skillPress { get; set; }
     public int skillNum { get; private set; }
+    public bool selectPress { get; set; }
     public List<int> buttons = new List<int>();
     private void Start()
     {
@@ -19,8 +20,19 @@ public class InputSys : MonoBehaviour
         DashPress(Input.GetButtonDown("Dash"));
         MovePress(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         CancelPress(Input.GetButtonDown("Cancel"));
+        if (Input.GetButtonDown("Skill1"))
+        {
+            skillPress = Input.GetButtonDown("Skill1");
+            skillNum = 1;
+        }
+        else if (Input.GetButtonDown("Skill2"))
+        {
+            skillPress = Input.GetButtonDown("Skill2");
+            skillNum = 2;
+        }
+        GetSelectPress(Input.GetButtonDown("Select"));
+
         //FindSkillPressed(Input.anyKeyDown);
-        FirstSkillPress(Input.GetButtonDown("Skill1"));
     }
 
     public void DashPress(bool _dashPress)
@@ -45,20 +57,38 @@ public class InputSys : MonoBehaviour
         return Input.GetButtonDown("Cancel");
     }
 
-    public void FirstSkillPress(bool _firstSkillPress)
+    //public void FirstSkillPress(bool _firstSkillPress)
+    //{
+    //    skillPress = _firstSkillPress;
+    //    skillNum = 1;
+    //}
+    //public bool FirstSkillPress()
+    //{
+    //    return Input.GetButtonDown("Skill1");
+    //}
+    //public void SecondSkillPress(bool _secondSkillPress)
+    //{
+    //    skillPress = _secondSkillPress;
+    //    skillNum = 2;
+    //}
+    //public bool SecondSkillPress()
+    //{
+    //    return Input.GetButtonDown("Skill2");
+    //}
+    public void GetSelectPress(bool _selectButtonPress)
     {
-        skillPress = _firstSkillPress;
-        skillNum = 1;
+        selectPress = _selectButtonPress;
     }
-    public bool FirstSkillPress()
+    public bool GetSelectPress()
     {
-        return Input.GetButtonDown("Skill1");
+        return selectPress;
     }
     public void GetSkillButton(int button)
     {
         throw new NotImplementedException();
         //buttons.Add(button);
     }
+    
     //public int FindSkillPressed(KeyCode keyCode)
     //{
     //    switch (keyCode)

@@ -14,7 +14,7 @@ public class Targeter : MonoBehaviour
     public string desiredTarget { get; set; }
     private int _range;
     private Transform _actionMaker;
-
+    private InputSys _inputSys;
     public GameObject targetUnit = null;
 
     public Material targetMat;
@@ -22,7 +22,6 @@ public class Targeter : MonoBehaviour
     public Material defaultMat;
 
     private Transform _selectable;
-
     private void Update()
     {
         if (onSearchMode == true)
@@ -72,6 +71,8 @@ public class Targeter : MonoBehaviour
         onSearchMode = boo;
         _range = range;
         _actionMaker = actionMaker;
+        _inputSys = _actionMaker.GetComponent<InputSys>();
+        Debug.LogAssertion(boo + ""+ range + ""+ actionMaker);
     }
 
     private GameObject TargetWithMouse()
@@ -152,10 +153,9 @@ public class Targeter : MonoBehaviour
     }
     private void AutoSelect(GameObject closestTarget)
     {
-        //closestTarget = FindClosestEnemy();
-        //targetUnit = closestTarget;
         SelectableOutline(closestTarget);
         autoSelected = closestTarget;
+        Debug.Log("AUTOSELECTED" + autoSelected);
     }
     public void TargetedOutline(GameObject _obj)
     {

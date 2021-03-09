@@ -41,14 +41,27 @@ public class ManageButtons : MonoBehaviour
         foreach (Button button in buttons)
         {
             sliders[cont] = button.GetComponentInChildren<Slider>();
-            sliders[cont].maxValue = _ataque.chargeTimeMax;
-            sliders[cont].value = _ataque.chargeTime;
+            //OS DOIS IFS ABAIXO SÃO PARA TAPAR O PROBLEMA DE QUE VOCÊ PRECISA PASSAR ATAQUES DIFERENTES.
+            //NO FUTURO, PASSAR IACTION NO ARGUMENTO
+            if (cont == 0)
+            {
+                sliders[cont].maxValue = _ataque.chargeTimeMax;
+                sliders[cont].value = _ataque.chargeTime;
+            }
+            if (cont == 1)
+            {
+                sliders[cont].maxValue = _bola.chargeTimeMax;
+                sliders[cont].value = _bola.chargeTime;
+            }
+            //sliders[cont].maxValue = _ataque.chargeTimeMax;
+            //sliders[cont].value = _ataque.chargeTime;
             cont++;
         }
     }
     void KeepTrackOfOneSlider(Slider slider, IAction script)
     {
         slider.value = script.chargeTime;
+        //Debug.Log(script.efeito);
             
     }
     List<Type> FindAllActions()

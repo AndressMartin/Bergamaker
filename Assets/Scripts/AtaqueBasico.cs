@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 public class AtaqueBasico : MonoBehaviour, IAction
 {
-    private Targeter _targeter;
+    public Targeter _targeter { get; private set; }
     public int PACost { get; private set; } = 10;
-    public bool isMagic { get; private set; } = false;
     public int range { get; private set; } = 2;
+    public int efeito { get; private set; } = -10;
     public float chargeTimeMax { get; private set; } = 1f;
     public float chargeTime { get; private set; }
     public bool charging{ get; private set; }
-    public int MNCost { get; private set; } = 0;
     public float CD { get; private set; } = .5f;
     public bool IsInstant { get; private set; } = false;
     public GameObject target { get; private set; } 
@@ -19,12 +18,9 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public InputSys actionMakerInput { get; private set; }
     public Transform actionChild { get; private set; }
     public Transform SkillHolder { get; private set; }
-    public int onButton { get; private set; } //TODO: Implementar referencia ao indice do botao
-
-    public bool istarget => throw new NotImplementedException(); //TODO: Implementar target ou área
-
-    public bool isEnemy { get; } = true; //TODO: Implementar heal ou damage
-
+    public int onButton { get; private set; }
+    public bool isEnemy { get; private set; } = true;
+    public bool activated { get; private set; }
 
 
     // Start is called before the first frame update
@@ -41,10 +37,8 @@ public class AtaqueBasico : MonoBehaviour, IAction
     // Update is called once per frame
     void Update()
     {
-        //---FOR TESTING RADIUS
-        //gizmosRadius = Vector2.Distance(actionChild.position, FindObjectOfType<Creature>().transform.position);
 
-        if (_targeter.onSearchMode == true)
+        if (_targeter.onSearchMode == true && activated)
             WaitTarget();
         if (charging)
             Charge();
@@ -52,10 +46,12 @@ public class AtaqueBasico : MonoBehaviour, IAction
             && actionMakerInput.skillPress)
         {
             Activated();
+            actionMakerInput.skillPress = false;
         }
     }
     public void Activated()
     {
+        activated = true;
         if (IsInstant)
             ChargeIni();
         else
@@ -73,7 +69,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
             _targeter.desiredTarget = "Enemy";
         else
             _targeter.desiredTarget = "Player";
-        Debug.LogAssertion("Sent Target Request");
+        Debug.LogAssertion($"Sent Target Request with {range}");
     }
     public int PassRange()
     {
@@ -89,14 +85,6 @@ public class AtaqueBasico : MonoBehaviour, IAction
         actionChild.GetComponent<AuraDrawer>().radius = range;
 
     }
-
-    //------NEEDS TO GO TO A SEPARATE CLASS THAT RECEIVES RANGE FROM ANY SKILL OR SPELL. The Sending method will be ActivateRange()
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireSphere(actionChild.position, /*gizmosRadius*/range);
-    //}
-
     public void WaitTarget()
     {
         actionMaker.GetComponent<Movement>().Lento(true);
@@ -113,7 +101,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
         {
             Debug.LogError("An interruption to targeting ocurred");
             ResetTargetParams();
-            //Fail();
+            Fail();
         }
     }
     public void TestDistance()
@@ -126,14 +114,13 @@ public class AtaqueBasico : MonoBehaviour, IAction
         else
         {
             Debug.LogError($"{target} was super far! Distance: {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
-            //Fail();
+            Fail();
             ResetTargetParams();
         }
     }
-
     public void DeactivateRange()
     {
-        actionChild.GetComponent<LineRenderer>().enabled = false;
+        actionChild.GetComponent<AuraDrawer>().enabled = false;
     }
     public void ChargeIni()
     {
@@ -157,7 +144,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
         if (Interruption())
         {
             ResetChargeParams();
-            //Fail();
+            Fail();
         }
     }
     public void ResetChargeParams()
@@ -194,24 +181,15 @@ public class AtaqueBasico : MonoBehaviour, IAction
     {
         actionMaker.AlterarPA(-PACost);
     }
-
-    public void CustarMN()
-    {
-        actionMaker.AlterarMN(-MNCost);
-    }
-
     public void MakeEffect()
     {
-        Debug.Log($"Causou {-20} de dano em {target}");
-        target.GetComponent<Creature>().AlterarPV(-20);
+        Debug.Log($"Causou {efeito} de dano em {target}");
+        target.GetComponent<Creature>().AlterarPV(efeito);
     }
-
     public void Fail()
     {
-        //Does nothing for now
-        throw new NotImplementedException();
+        activated = false;
     }
-
     public int FindStoredButton()
     {
         var _index = -1;
@@ -219,20 +197,13 @@ public class AtaqueBasico : MonoBehaviour, IAction
         {
             if (SkillHolder.GetChild(i) == gameObject.transform)
             {
-                Debug.Log("passou pelo if");
                 if (i != 10)
                     _index = i+1;
                 else
                     _index = 0;
             }
         }
-        Debug.Log($"{_index}, {SkillHolder.childCount}");
+        Debug.Log("Ataque basico em " + _index);
         return _index;
-    }
-
-    public int SendButtonToInput()
-    {
-        throw new NotImplementedException();
-        //return onButton;
     }
 }

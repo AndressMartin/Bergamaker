@@ -19,8 +19,6 @@ public class Player: MonoBehaviour, IActor
     private int paRegenAmout = 10;
     private int mnRegenAmout = 5;
 
-
-
     [SerializeField] private int FOR, DEX, INT, MEM, ATE;
 
     protected float ForAtt, DexAtt, Vel, Slots, SkillPt, CritCh, Pre, EsqCh, Def, Esp, Ten;
