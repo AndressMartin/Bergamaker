@@ -12,20 +12,24 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public float chargeTime { get; private set; }
     public bool charging{ get; private set; }
     public float CD { get; private set; } = .5f;
-    public bool IsInstant { get; private set; } = false;
+    public bool isInstant { get; private set; } = false;
+    public bool isArea { get; private set; } = false;
+    public int AOE { get; private set; }
+    public bool isEnemy { get; private set; } = true;
     public GameObject target { get; private set; } 
     public Player actionMaker { get; private set; }
     public InputSys actionMakerInput { get; private set; }
     public Transform actionChild { get; private set; }
     public Transform SkillHolder { get; private set; }
+    public GameObject mouseAuraHolder { get; private set; }
     public int onButton { get; private set; }
-    public bool isEnemy { get; private set; } = true;
     public bool activated { get; private set; }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        mouseAuraHolder = GameObject.FindGameObjectWithTag("MouseHolder");
         SkillHolder = gameObject.transform.parent;
         onButton = FindStoredButton();
         //actionMakerInput.GetSkillButton(onButton);
@@ -37,22 +41,34 @@ public class AtaqueBasico : MonoBehaviour, IAction
     // Update is called once per frame
     void Update()
     {
+        if (actionMaker.PA <= PACost)
+        {
+            Fail();
+        }
+        if (activated)
+        {
+            if (_targeter.onSearchMode == true)
+                WaitTarget();
 
-        if (_targeter.onSearchMode == true && activated)
-            WaitTarget();
-        if (charging)
-            Charge();
+            if (charging)
+                Charge();
+        }
         if (actionMakerInput.skillNum == onButton 
             && actionMakerInput.skillPress)
         {
             Activated();
             actionMakerInput.skillPress = false;
         }
+        //else if (actionMakerInput.skillNum != onButton)
+        //{
+        //    Fail();
+        //}
     }
     public void Activated()
     {
         activated = true;
-        if (IsInstant)
+        actionMakerInput.holdingSkill = true;
+        if (isInstant)
             ChargeIni();
         else
         {
@@ -64,12 +80,24 @@ public class AtaqueBasico : MonoBehaviour, IAction
 
     public void SendTargetRequest()
     {
-        _targeter.StartSearchMode(true, PassRange(), PassActionMaker());
-        if (isEnemy)
-            _targeter.desiredTarget = "Enemy";
+        if (AOE <= 0)
+            _targeter.StartSearchMode(true, PassRange(), PassActionMaker());
         else
-            _targeter.desiredTarget = "Player";
-        Debug.LogAssertion($"Sent Target Request with {range}");
+            _targeter.StartSearchMode(true, PassRange(), PassActionMaker(), AOE);
+        string desiredTarget;
+        if (isArea == false)
+        {
+            if (isEnemy)
+                desiredTarget = "Enemy";
+            else
+                desiredTarget = "Player";
+        }
+        else
+        {
+            desiredTarget = "Floor";
+        }
+        _targeter.desiredTarget = desiredTarget;
+        Debug.LogAssertion($"Sent Target Request with range {range} and desired target {desiredTarget} ");
     }
     public int PassRange()
     {
@@ -82,7 +110,16 @@ public class AtaqueBasico : MonoBehaviour, IAction
     public void ActivateRange()
     {
         actionChild.GetComponent<LineRenderer>().enabled = true;
+        actionChild.GetComponent<AuraDrawer>().enabled = true;
+        actionChild.GetComponent<AuraDrawer>().update = true;
         actionChild.GetComponent<AuraDrawer>().radius = range;
+        if (isArea)
+        {
+            mouseAuraHolder.GetComponent<LineRenderer>().enabled = true;
+            mouseAuraHolder.GetComponent<AuraDrawer>().enabled = true;
+            mouseAuraHolder.GetComponent<AuraDrawer>().update = true;
+            mouseAuraHolder.GetComponent<AuraDrawer>().radius = AOE;
+        }
 
     }
     public void WaitTarget()
@@ -106,7 +143,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
     }
     public void TestDistance()
     {
-        if (Vector2.Distance(actionMaker.transform.position, target.transform.position)<= 2)
+        if (Vector2.Distance(actionMaker.transform.position, target.transform.position)<= range)
         {
             Debug.Log($"{target} is at a distance of {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
             ChargeIni();
@@ -120,7 +157,13 @@ public class AtaqueBasico : MonoBehaviour, IAction
     }
     public void DeactivateRange()
     {
+        actionChild.GetComponent<LineRenderer>().enabled = false;
         actionChild.GetComponent<AuraDrawer>().enabled = false;
+        if (isArea)
+        {
+            mouseAuraHolder.GetComponent<LineRenderer>().enabled = false;
+            mouseAuraHolder.GetComponent<AuraDrawer>().enabled = false;
+        }
     }
     public void ChargeIni()
     {
@@ -140,11 +183,6 @@ public class AtaqueBasico : MonoBehaviour, IAction
             ResetChargeParams();
             CustarAP();
             MakeEffect();
-        }
-        if (Interruption())
-        {
-            ResetChargeParams();
-            Fail();
         }
     }
     public void ResetChargeParams()
@@ -185,12 +223,18 @@ public class AtaqueBasico : MonoBehaviour, IAction
     {
         Debug.Log($"Causou {efeito} de dano em {target}");
         target.GetComponent<Creature>().AlterarPV(efeito);
+        End();
     }
     public void Fail()
     {
-        activated = false;
         ResetChargeParams();
         ResetTargetParams();
+        End();
+    }
+    public void End()
+    {
+        activated = false;
+        actionMakerInput.holdingSkill = false;
     }
     public int FindStoredButton()
     {

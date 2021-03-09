@@ -11,38 +11,30 @@ public class InputSys : MonoBehaviour
     public bool skillPress { get; set; }
     public int skillNum { get; private set; }
     public bool selectPress { get; set; }
-    public bool interactPress { get; private set; }
-
+    public bool holdingSkill { get; set; }
     public List<int> buttons = new List<int>();
-    private void Start()
-    {
-    }
     private void Update()
     {
-        DashPress(Input.GetButtonDown("Dash"));
         MovePress(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        DashPress(Input.GetButtonDown("Dash"));
         CancelPress(Input.GetButtonDown("Cancel"));
-        if (Input.GetButtonDown("Skill1"))
+        if (holdingSkill == false)
         {
-            skillPress = Input.GetButtonDown("Skill1");
-            skillNum = 1;
-        }
-        else if (Input.GetButtonDown("Skill2"))
-        {
-            skillPress = Input.GetButtonDown("Skill2");
-            skillNum = 2;
+            if (Input.GetButtonDown("Skill1"))
+            {
+                skillPress = Input.GetButtonDown("Skill1");
+                skillNum = 1;
+            }
+            else if (Input.GetButtonDown("Skill2"))
+            {
+                skillPress = Input.GetButtonDown("Skill2");
+                skillNum = 2;
+            }
         }
         GetSelectPress(Input.GetButtonDown("Select"));
 
-        if(Input.anyKeyDown)
-            GetInteract(Input.GetButtonDown("Interact"));
-
-
         //FindSkillPressed(Input.anyKeyDown);
-    }
-    public void GetInteract(bool _interactPress)
-    {
-        interactPress = _interactPress;
     }
 
     public void DashPress(bool _dashPress)

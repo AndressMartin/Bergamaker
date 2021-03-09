@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Floor
+  - MouseHolder
   layers:
   - Default
   - TransparentFX
@@ -50,4 +52,7 @@ TagManager:
     locked: 0
   - name: Players
     uniqueID: 3509270737
+    locked: 0
+  - name: UI
+    uniqueID: 596948781
     locked: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +8,16 @@ public class AuraDrawer : MonoBehaviour
     private int vertexCount = 20; // 4 vertices == square
     public float lineWidth = 0.2f;
     public float radius;
+    [SerializeField] public bool radiusOnMouse;
 
     private LineRenderer lineRenderer;
     Vector3 pos;
     Vector3[] pontos;
+    public bool update;
+
+    //FOR MOUSE
+    [SerializeField] Vector3 mousePosition;
+
     private void Awake()
     {
         pontos = new Vector3[vertexCount];
@@ -20,9 +27,35 @@ public class AuraDrawer : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < lineRenderer.positionCount; i++) 
+        
         {
-            lineRenderer.SetPosition(i, pontos[i] + transform.position);
+            if (update)
+            {
+                SetupCircle();
+                update = false;
+            }
+            if (radiusOnMouse == false)
+            {
+                for (int i = 0; i < lineRenderer.positionCount; i++)
+                {
+                    lineRenderer.SetPosition(i, pontos[i] + transform.position);
+                }
+            }
+            else
+            {
+                FindWithMouse();
+            }
+        }
+    }
+
+  void FindWithMouse()
+    {
+        Debug.Log("Finding with mouse");
+        mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f);
+        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        for (int i = 0; i < lineRenderer.positionCount; i++)
+        {
+            lineRenderer.SetPosition(i, pontos[i] + mousePosition);
         }
     }
 
