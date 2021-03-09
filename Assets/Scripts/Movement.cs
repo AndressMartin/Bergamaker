@@ -35,8 +35,20 @@ public class Movement : MonoBehaviour
                 else
                     rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade/lentidao;
             }
+        Virar(horizontal, vertical);
+        
     }
-
+    private void Virar(float horizontal, float vertical)
+    {
+        if (horizontal == -1f)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (horizontal == +1f)
+        {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+    }
     public void PermitirMovimento(bool permissao)
     {
         _permissaoAndar = permissao;

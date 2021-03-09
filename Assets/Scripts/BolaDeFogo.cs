@@ -190,11 +190,6 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
             CustarMN();
             MakeEffect();
         }
-        if (Interruption())
-        {
-            ResetChargeParams();
-            Fail();
-        }
     }
     public void ResetChargeParams()
     {
