@@ -11,6 +11,8 @@ public class InputSys : MonoBehaviour
     public bool skillPress { get; set; }
     public int skillNum { get; private set; }
     public bool selectPress { get; set; }
+    public bool interactPress { get; private set; }
+
     public List<int> buttons = new List<int>();
     private void Start()
     {
@@ -32,7 +34,15 @@ public class InputSys : MonoBehaviour
         }
         GetSelectPress(Input.GetButtonDown("Select"));
 
+        if(Input.anyKeyDown)
+            GetInteract(Input.GetButtonDown("Interact"));
+
+
         //FindSkillPressed(Input.anyKeyDown);
+    }
+    public void GetInteract(bool _interactPress)
+    {
+        interactPress = _interactPress;
     }
 
     public void DashPress(bool _dashPress)
