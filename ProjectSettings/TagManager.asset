@@ -12,9 +12,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Fundo
+  - "Ch\xE3o"
+  - Parede
   - 
   - 
   - 
@@ -42,9 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Players
-    uniqueID: 3509270737
+  - name: Cenario
+    uniqueID: 205759407
     locked: 0
   - name: Enemies
     uniqueID: 2464884733
+    locked: 0
+  - name: Players
+    uniqueID: 3509270737
     locked: 0
