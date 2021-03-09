@@ -113,7 +113,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
         actionChild.GetComponent<AuraDrawer>().enabled = true;
         actionChild.GetComponent<AuraDrawer>().update = true;
         actionChild.GetComponent<AuraDrawer>().radius = range;
-        if (isArea)
+        if (isArea && mouseAuraHolder != null)
         {
             mouseAuraHolder.GetComponent<LineRenderer>().enabled = true;
             mouseAuraHolder.GetComponent<AuraDrawer>().enabled = true;
@@ -159,7 +159,7 @@ public class AtaqueBasico : MonoBehaviour, IAction
     {
         actionChild.GetComponent<LineRenderer>().enabled = false;
         actionChild.GetComponent<AuraDrawer>().enabled = false;
-        if (isArea)
+        if (isArea && mouseAuraHolder != null)
         {
             mouseAuraHolder.GetComponent<LineRenderer>().enabled = false;
             mouseAuraHolder.GetComponent<AuraDrawer>().enabled = false;

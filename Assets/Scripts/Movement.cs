@@ -6,13 +6,12 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float velocidade = 4f;
-
     private Rigidbody2D rb;
     private SpriteRenderer spriteRend;
     private Dash _dash;
     private InputSys _input;
     public bool _permissaoAndar = true;
-    public bool lento { get; private set; }
+    public bool lento;
     private float lentidao = 2.5f;
     void Start()
     {
