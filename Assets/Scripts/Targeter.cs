@@ -13,6 +13,7 @@ public class Targeter : MonoBehaviour
     internal GameObject autoSelected { get; private set; }
     public string desiredTarget { get; set; }
     private int _range;
+    public int _aoe;
     private Transform _actionMaker;
     private InputSys _inputSys;
     public GameObject targetUnit = null;
@@ -22,6 +23,7 @@ public class Targeter : MonoBehaviour
     public Material defaultMat;
 
     private Transform _selectable;
+    public Camera mainCamera;
     private void Update()
     {
         if (onSearchMode == true)
@@ -54,14 +56,6 @@ public class Targeter : MonoBehaviour
         //TargetedOutline(targetUnit);
     }
 
-    private IEnumerator SetUsingMouseAsFalse()
-    {
-        beganSettingMouseToFalse = true;
-        yield return new WaitForSeconds(1f);
-        usingMouse = false;
-        beganSettingMouseToFalse = false;
-        Debug.Log("not using mouse");
-    }
 
     public void SearchMode(bool boo)
     {
@@ -75,39 +69,80 @@ public class Targeter : MonoBehaviour
         _inputSys = _actionMaker.GetComponent<InputSys>();
         Debug.LogAssertion(boo + "" + range + "" + actionMaker);
     }
+    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe)
+    {
+        onSearchMode = boo;
+        _range = range;
+        _actionMaker = actionMaker;
+        _aoe = aoe;
+        _inputSys = _actionMaker.GetComponent<InputSys>();
+        Debug.LogAssertion(boo + "" + range + "" + actionMaker);
+    }
 
     private GameObject TargetWithMouse()
     {
-        if (_selectable != null)
-        {
-            if (_selectable.gameObject.tag == desiredTarget)
-                ResetMat(_selectable.gameObject);
-            _selectable = null;
-        }
         RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (hit.collider != null && hit.transform.gameObject.tag == desiredTarget)
+        if (desiredTarget == "Player " || desiredTarget == "Enemy")
         {
-            float distance = Vector2.Distance(_actionMaker.transform.position, hit.collider.transform.position);
-            if (hit.collider.tag == desiredTarget && distance <= 2)
-                SelectableOutline(hit.collider.gameObject);
+            if (_selectable != null)
+            {
+                if (_selectable.gameObject.tag == desiredTarget)
+                    ResetMat(_selectable.gameObject);
+                _selectable = null;
+            }
+            if (hit.collider != null && hit.transform.gameObject.tag == desiredTarget)
+            {
+                float distance = Vector2.Distance(_actionMaker.transform.position, hit.collider.transform.position);
+                if (hit.collider.tag == desiredTarget && distance <= _range)
+                    SelectableOutline(hit.collider.gameObject);
+            }
+            _selectable = hit.transform;
         }
-        _selectable = hit.transform;
+        //else if (desiredTarget == "Floor")
+        //{
+        //    if (_selectable != null)
+        //    {
+        //        _selectable = null;
+        //    }
+        //    if (hit.collider != null && hit.transform.gameObject.tag == desiredTarget)
+        //    {
+        //        float distance = Vector2.Distance(_actionMaker.transform.position, hit.collider.transform.position);
+        //        //if (hit.collider.tag == desiredTarget && distance <= _range)
+        //    }
+        //    _selectable = hit.transform;
+        //}
+
         if (Input.GetMouseButtonDown(0))
         {
             //-----------PLAY ANIM OF FINDING ENEMY-----------
             if (hit.collider != null)
             {
-                if (hit.collider.tag == desiredTarget)
+                if (_aoe <= 0)
                 {
-                    targetUnit = hit.transform.gameObject;
-                    Debug.Log(targetUnit.name);
-                    
+                    if (hit.collider.tag == desiredTarget)
+                    {
+                        targetUnit = hit.transform.gameObject;
+                    }
+                }
+                else
+                {
+                    if (hit.collider.tag == desiredTarget || hit.collider.tag == "Enemy") //NEEDS TO BE FIXED FOR FRIENDLY SKILLS
+                    {
+                        targetUnit = FindClosestEnemyTestForAOE(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    }
                 }
             }
         }
         return targetUnit;
     }
-
+    private IEnumerator SetUsingMouseAsFalse()
+    {
+        beganSettingMouseToFalse = true;
+        yield return new WaitForSeconds(1f);
+        usingMouse = false;
+        beganSettingMouseToFalse = false;
+        Debug.Log("not using mouse");
+    }
 
     private GameObject FindClosestEnemy()
     {
@@ -132,6 +167,30 @@ public class Targeter : MonoBehaviour
         }
         return null;
     }
+    private GameObject FindClosestEnemyTestForAOE(Vector2 pointer)
+    {
+        Debug.Log("Auto Selection started");
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Enemy");
+        float distance = _aoe;
+        Vector3 position = pointer;
+        foreach (GameObject go in gos)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
+            {
+                GameObject closest = go;
+                distance = curDistance;
+                Debug.Log(closest + "is the closest");
+                return closest;
+            }
+            else
+                return null;    
+        }
+        return null;
+    }
+
     private void FindAll()
     {
         GameObject[] gos;
@@ -174,14 +233,14 @@ public class Targeter : MonoBehaviour
     }
     public void TargetedOutline(GameObject _obj)
     {
-        if (_obj != null)
+        if (_obj != null && _obj.GetComponent<SpriteRenderer>())
         {
             _obj.GetComponent<SpriteRenderer>().material = targetMat;
         }
     }
     public void SelectableOutline(GameObject _obj)
     {
-        if (_obj != null)
+        if (_obj != null && _obj.GetComponent<SpriteRenderer>())
         {
             _obj.GetComponent<SpriteRenderer>().material = selectMat;
         }
@@ -189,7 +248,7 @@ public class Targeter : MonoBehaviour
     }
     public void ResetMat(GameObject _obj)
     {
-        if (_obj != null)
+        if (_obj != null && _obj.GetComponent<SpriteRenderer>())
         {
             _obj.GetComponent<SpriteRenderer>().material = defaultMat;
         }
