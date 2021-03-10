@@ -26,13 +26,9 @@ public class Movement : MonoBehaviour
         bColl2d = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
     }
-    private void FixedUpdate()
+    private void Update()
     {
         Move(_input.horizontal, _input.vertical);
-
-        
-
-
     }
 
     public void Move(float horizontal, float vertical)
