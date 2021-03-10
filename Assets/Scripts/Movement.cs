@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     private Dash _dash;
     private InputSys _input;
     private BoxCollider2D bColl2d;
+    private Animator animator;
     public bool _permissaoAndar = true;
     public bool lento;
     private float lentidao = 2.5f;
@@ -23,10 +24,14 @@ public class Movement : MonoBehaviour
         _dash = GetComponent<Dash>();
         _input = GetComponent<InputSys>();
         bColl2d = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
     }
     private void FixedUpdate()
     {
         Move(_input.horizontal, _input.vertical);
+
+        
+
 
     }
 
@@ -52,14 +57,52 @@ public class Movement : MonoBehaviour
     }
     private void Virar(float horizontal, float vertical)
     {
-        if (horizontal == -1f)
+        if (horizontal != 0 || vertical != 0)
         {
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            animator.SetBool("Andando", true);
+            if (horizontal == -1f)
+            {
+                spriteRend.flipX = true;
+                animator.SetBool("Esquerda", true);
+
+                animator.SetBool("Direita", false);
+                animator.SetBool("Cima", false);
+                animator.SetBool("Baixo", false);
+
+            }
+            else if (horizontal == +1f)
+            {
+                spriteRend.flipX = false;
+                animator.SetBool("Direita", true);
+
+
+                animator.SetBool("Esquerda", false);
+                animator.SetBool("Cima", false);
+                animator.SetBool("Baixo", false);
+            }
+
+            if (vertical == -1f)
+            {
+                animator.SetBool("Baixo", true);
+
+                animator.SetBool("Direita", false);
+                animator.SetBool("Esquerda", false);
+                animator.SetBool("Cima", false);
+            }
+
+            else if (vertical == +1f)
+            {
+                animator.SetBool("Cima", true);
+
+                animator.SetBool("Direita", false);
+                animator.SetBool("Esquerda", false);
+                animator.SetBool("Baixo", false);
+            }
+            Debug.Log(animator.GetBool("Andando"));
         }
-        else if (horizontal == +1f)
-        {
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-        }
+        else if (horizontal == 0 && vertical == 0)
+            animator.SetBool("Andando", false);
+ 
     }
     public void PermitirMovimento(bool permissao)
     {
