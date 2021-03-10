@@ -17,7 +17,6 @@ public class Escada : MonoBehaviour
         if (collision.tag == "Player" && 
             collision.GetComponent<Movement>().isClimbing == false)
         {
-            Debug.Log("STAY");
             collision.GetComponent<Movement>().isClimbing = true;
             _boxCollider.enabled = false;
 
@@ -27,7 +26,6 @@ public class Escada : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log("EXIT");
             collision.GetComponent<Movement>().isClimbing = false;
             _boxCollider.enabled = true;
         }
