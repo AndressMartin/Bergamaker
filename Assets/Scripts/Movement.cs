@@ -17,6 +17,19 @@ public class Movement : MonoBehaviour
     private float lentidao = 2.5f;
     public bool isClimbing;
 
+    private enum Direcao : int
+    {
+        Baixo,
+        Lado,
+        Cima
+    };
+
+    private enum Animacao
+    {
+        Idle,
+        Andando
+    };
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,6 +69,7 @@ public class Movement : MonoBehaviour
         if (horizontal != 0 || vertical != 0)
         {
             animator.SetBool("Andando", true);
+            animator.SetInteger("Animacao", (int)Animacao.Andando);
             if (horizontal == -1f)
             {
                 spriteRend.flipX = true;
@@ -64,6 +78,8 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Direita", false);
                 animator.SetBool("Cima", false);
                 animator.SetBool("Baixo", false);
+
+                animator.SetInteger("Direcao", (int)Direcao.Lado);
 
             }
             else if (horizontal == +1f)
@@ -75,6 +91,8 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Esquerda", false);
                 animator.SetBool("Cima", false);
                 animator.SetBool("Baixo", false);
+
+                animator.SetInteger("Direcao", (int)Direcao.Lado);
             }
 
             if (vertical == -1f)
@@ -84,6 +102,8 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Direita", false);
                 animator.SetBool("Esquerda", false);
                 animator.SetBool("Cima", false);
+
+                animator.SetInteger("Direcao", (int)Direcao.Baixo);
             }
 
             else if (vertical == +1f)
@@ -93,11 +113,16 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Direita", false);
                 animator.SetBool("Esquerda", false);
                 animator.SetBool("Baixo", false);
+
+                animator.SetInteger("Direcao", (int)Direcao.Cima);
             }
             Debug.Log(animator.GetBool("Andando"));
         }
         else if (horizontal == 0 && vertical == 0)
+        {
             animator.SetBool("Andando", false);
+            animator.SetInteger("Animacao", (int)Animacao.Idle);
+        }
  
     }
     public void PermitirMovimento(bool permissao)
