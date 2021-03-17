@@ -419,3 +419,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineWidth: 0.1
   radius: 2
+<<<<<<< Updated upstream
+=======
+  radiusOnMouse: 0
+  update: 0
+  mousePosition: {x: 0, y: 0, z: 0}
+>>>>>>> Stashed changes
