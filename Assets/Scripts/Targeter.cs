@@ -8,21 +8,24 @@ public class Targeter : MonoBehaviour
 {
     internal bool onSearchMode { get; private set; }
     internal bool usingMouse { get; private set; }
-
     private bool beganSettingMouseToFalse;
-    internal GameObject autoSelected { get; private set; }
-    public string desiredTarget;
+    private string _desiredTarget;
     private int _range;
-    public int _aoe;
+    private int _aoe;
+    internal GameObject autoSelected { get; private set; }
     private Transform _actionMaker;
-    private InputSys _inputSys;
+    //private InputSys _inputSys;
     public GameObject targetUnit = null;
+    public Camera mainCamera;
 
     public Material targetMat;
     public Material selectMat;
     public Material defaultMat;
     private Transform _selectable;
-    public Camera mainCamera;
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
     private void Update()
     {
         if (onSearchMode == true)
@@ -60,56 +63,44 @@ public class Targeter : MonoBehaviour
     {
         onSearchMode = boo;
     }
-    public void StartSearchMode(bool boo, int range, Transform actionMaker)
+    public void StartSearchMode(bool boo, int range, Transform actionMaker, string desiredTarget)
     {
         onSearchMode = boo;
         _range = range;
         _actionMaker = actionMaker;
-        _inputSys = _actionMaker.GetComponent<InputSys>();
-        Debug.LogAssertion(boo + "" + range + "" + actionMaker);
+        _desiredTarget = desiredTarget;
+        //_inputSys = _actionMaker.GetComponent<InputSys>();
     }
-    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe)
+    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe, string desiredTarget)
     {
         onSearchMode = boo;
         _range = range;
         _actionMaker = actionMaker;
+        _desiredTarget = desiredTarget;
         _aoe = aoe;
-        _inputSys = _actionMaker.GetComponent<InputSys>();
-        Debug.LogAssertion(boo + "" + range + "" + actionMaker);
+        //_inputSys = _actionMaker.GetComponent<InputSys>();
     }
 
     private GameObject TargetWithMouse()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (desiredTarget == "Player " || desiredTarget == "Enemy")
+        RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        CameraMoveWithMouse();
+        if (_desiredTarget == "Player " || _desiredTarget == "Enemy")
         {
             if (_selectable != null)
             {
-                if (_selectable.gameObject.tag == desiredTarget)
+                if (_selectable.gameObject.tag == _desiredTarget)
                     ResetMat(_selectable.gameObject);
                 _selectable = null;
             }
-            if (hit.collider != null && hit.transform.gameObject.tag == desiredTarget)
+            if (hit.collider != null && hit.transform.gameObject.tag == _desiredTarget)
             {
                 float distance = Vector2.Distance(_actionMaker.transform.position, hit.collider.transform.position);
-                if (hit.collider.tag == desiredTarget && distance <= _range)
+                if (hit.collider.tag == _desiredTarget && distance <= _range)
                     SelectableOutline(hit.collider.gameObject);
             }
             _selectable = hit.transform;
         }
-        //else if (desiredTarget == "Floor")
-        //{
-        //    if (_selectable != null)
-        //    {
-        //        _selectable = null;
-        //    }
-        //    if (hit.collider != null && hit.transform.gameObject.tag == desiredTarget)
-        //    {
-        //        float distance = Vector2.Distance(_actionMaker.transform.position, hit.collider.transform.position);
-        //        //if (hit.collider.tag == desiredTarget && distance <= _range)
-        //    }
-        //    _selectable = hit.transform;
-        //}
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -118,14 +109,14 @@ public class Targeter : MonoBehaviour
             {
                 if (_aoe <= 0)
                 {
-                    if (hit.collider.tag == desiredTarget)
+                    if (hit.collider.tag == _desiredTarget)
                     {
                         targetUnit = hit.transform.gameObject;
                     }
                 }
                 else
                 {
-                    if (hit.collider.tag == desiredTarget || hit.collider.tag == "Enemy") //NEEDS TO BE FIXED FOR FRIENDLY SKILLS
+                    if (hit.collider.tag == _desiredTarget || hit.collider.tag == "Floor")
                     {
                         targetUnit = FindClosestEnemyTestForAOE(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                     }
@@ -134,6 +125,15 @@ public class Targeter : MonoBehaviour
         }
         return targetUnit;
     }
+
+    private void CameraMoveWithMouse()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        float mouseX = (Input.mousePosition.x / Screen.width);
+        float mouseY = (Input.mousePosition.y / Screen.height);
+        mainCamera.transform.localPosition = (new Vector3(mouseX, mouseY, -10f));
+    }
+
     private IEnumerator SetUsingMouseAsFalse()
     {
         beganSettingMouseToFalse = true;
@@ -147,7 +147,7 @@ public class Targeter : MonoBehaviour
     {
         Debug.Log("Auto Selection started");
         GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag(desiredTarget);
+        gos = GameObject.FindGameObjectsWithTag(_desiredTarget);
         float distance = Mathf.Infinity;
         Vector3 position = _actionMaker.transform.position;
         foreach (GameObject go in gos)
@@ -215,7 +215,7 @@ public class Targeter : MonoBehaviour
     private void FindAll()
     {
         GameObject[] gos;
-        gos = GameObject.FindGameObjectsWithTag(desiredTarget);
+        gos = GameObject.FindGameObjectsWithTag(_desiredTarget);
         float distance = Mathf.Infinity;
         Vector3 position = _actionMaker.transform.position;
         foreach (GameObject go in gos)
@@ -235,16 +235,7 @@ public class Targeter : MonoBehaviour
     {
         SelectableOutline(closestTarget);
         autoSelected = closestTarget;
-        ResetParams(onSearchMode, _range, _actionMaker, autoSelected);
-        Debug.Log("AUTOSELECTED" + autoSelected);
-    }
-
-    public void ResetParams(bool boo, int range, Transform actionMaker, GameObject target)
-    {
-        boo = false;
-        range = 0;
-        actionMaker = null;
-        target = null;
+        ResetParams();
     }
     public void ResetParams()
     {
@@ -252,6 +243,7 @@ public class Targeter : MonoBehaviour
         _range = 0;
         _actionMaker = null;
         _aoe = 0;
+        autoSelected = null;
         targetUnit = null;
     }
 

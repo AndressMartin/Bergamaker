@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player: MonoBehaviour, IActor
 {
-
+    
     [SerializeField] public int PVMax { get; private set; }
     [SerializeField] public int MNMax { get; private set; }
     [SerializeField] public int PAMax { get; private set; }
@@ -35,7 +35,6 @@ public class Player: MonoBehaviour, IActor
         PAMax = PAMaxCalc();
         SetTestStats();
     }
-
     // Update is called once per frame
     void Update()
     {

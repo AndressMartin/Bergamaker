@@ -94,7 +94,7 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Esquerda", false);
                 animator.SetBool("Baixo", false);
             }
-            Debug.Log(animator.GetBool("Andando"));
+            //Debug.Log(animator.GetBool("Andando"));
         }
         else if (horizontal == 0 && vertical == 0)
             animator.SetBool("Andando", false);

@@ -4,32 +4,22 @@ using UnityEngine;
 
 public interface IAction
 {
-    Targeter _targeter { get; }
     int PACost { get; }
     bool isEnemy { get;}
     bool isInstant { get; }
-    bool isArea { get; }
-    int AOE { get; }
-    int range { get; }
     int efeito { get; }
     float chargeTimeMax { get; }
     float chargeTime { get; }
     bool charging { get; }
     float CD { get; }
+    int onButton { get; }
+    bool activated { get; }
+
     Player actionMaker { get; }
     InputSys actionMakerInput { get; }
     Transform actionChild { get; }
-    GameObject mouseAuraHolder { get; }
-    int onButton { get; }
     Transform SkillHolder { get; }
-    bool activated { get; }
     void Activated();
-    void SendTargetRequest();
-    int PassRange();
-    void ActivateRange();
-    void TestDistance();
-    void DeactivateRange();
-    void WaitTarget();
     void ChargeIni();
     void Charge();
     //IEnumerator ChargeEnd();
@@ -38,4 +28,40 @@ public interface IAction
     void MakeEffect();
     void End();
     int FindStoredButton();
+}
+public interface ITarget: IAction
+{
+    int range { get; }
+    Targeter _targeter { get; }
+    GameObject target { get; }
+    void SendTargetRequest();
+    int PassRange();
+    string PassDesiredTarget();
+    void ActivateRange();
+    void TestDistance();
+    void DeactivateRange();
+    void WaitTarget();
+}
+public interface IArea : IAction
+{
+    int AOE { get; }
+    int range { get; }
+    Targeter _targeter { get; }
+    GameObject mouseAuraHolder { get; }
+    void SendTargetRequest();
+    int PassRange();
+    string PassDesiredTarget();
+    void ActivateRange();
+    void TestDistance();
+    void DeactivateRange();
+    void WaitTarget();
+}
+public interface ISkill : IAction
+{
+
+}
+public interface IMagic : IAction
+{
+    int MNCost { get; }
+    void CustarMN();
 }
