@@ -128,7 +128,7 @@ public class Targeter : MonoBehaviour
 
     private void CameraMoveWithMouse()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Confined;
         float mouseX = (Input.mousePosition.x / Screen.width);
         float mouseY = (Input.mousePosition.y / Screen.height);
         mainCamera.transform.localPosition = (new Vector3(mouseX, mouseY, -10f));
