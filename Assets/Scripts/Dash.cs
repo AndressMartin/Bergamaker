@@ -51,19 +51,19 @@ public class Dash : MonoBehaviour
 
             if (_input.horizontal == 1)
             {
-                _rb.AddForce(Vector2.right * _move.velocidade / 5000, ForceMode2D.Impulse);
+                _rb.AddForce(Vector2.right * _move.velocidade / 5300, ForceMode2D.Impulse);
             }
             else if (_input.horizontal == -1)
             {
-                _rb.AddForce(Vector2.left * _move.velocidade / 5000, ForceMode2D.Impulse);
+                _rb.AddForce(Vector2.left * _move.velocidade / 5300, ForceMode2D.Impulse);
             }
             if (_input.vertical == 1)
             {
-                _rb.AddForce(Vector2.up * _move.velocidade / 5000, ForceMode2D.Impulse);
+                _rb.AddForce(Vector2.up * _move.velocidade / 5300, ForceMode2D.Impulse);
             }
             else if (_input.vertical == -1)
             {
-                _rb.AddForce(Vector2.down * _move.velocidade / 5000, ForceMode2D.Impulse);
+                _rb.AddForce(Vector2.down * _move.velocidade / 5300, ForceMode2D.Impulse);
             }
         }
             

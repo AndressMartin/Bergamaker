@@ -12,10 +12,15 @@ public class Movement : MonoBehaviour
     private InputSys _input;
     private BoxCollider2D bColl2d;
     private Animator animator;
-    public bool _permissaoAndar = true;
-    public bool lento;
     private float lentidao = 2.5f;
     public bool isClimbing;
+    public bool _permissaoAndar = true;
+    public bool emBatalha;
+    public bool lento;
+    public bool correndo;
+    private bool podeCorrer;
+    private float forRunTime;
+    private float runTimeMax = 4f;
 
     void Start()
     {
@@ -25,6 +30,8 @@ public class Movement : MonoBehaviour
         _input = GetComponent<InputSys>();
         bColl2d = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+
+        forRunTime = runTimeMax;
     }
     private void Update()
     {
@@ -37,20 +44,45 @@ public class Movement : MonoBehaviour
         {
             if (!_dash.dashing && !isClimbing)
             {
-                if (!lento)
+                if (!lento && !correndo)
                     rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade;
-                else
+                else if (lento)
                     rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade / lentidao;
+                else if (correndo)
+                    rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade*2f;
             }
             if (isClimbing)
             {
                 rb.velocity = new Vector2(0f, vertical).normalized * velocidade / lentidao;
             }
         }
-            
             Virar(horizontal, vertical);
+
+        if (_input.holdingSkill)
+        {
+            emBatalha = true;
+        }
+        else
+        {
+            emBatalha = false;
+        }
+        //Disables countdown if battling, if toggled off or if stopped walking.
+        if ((emBatalha || !podeCorrer) || (rb.velocity.x == 0 && rb.velocity.y == 0))
+        {
+            ToggleRun(false);
+        }
+        //Enables countdown to start outside of battles
+        if (!emBatalha && !podeCorrer && (rb.velocity.x != 0 || rb.velocity.y != 0))
+        {
+            ToggleRun(true);
+        }
         
+        if (podeCorrer)
+        {
+            WaitToRun();
+        }
     }
+
     private void Virar(float horizontal, float vertical)
     {
         if (horizontal != 0 || vertical != 0)
@@ -100,6 +132,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("Andando", false);
  
     }
+
     public void PermitirMovimento(bool permissao)
     {
         _permissaoAndar = permissao;
@@ -109,7 +142,32 @@ public class Movement : MonoBehaviour
     public void Lento(bool condicao)
     {
         lento = condicao;
+        ToggleRun(false);
     }
 
-    
+    public void ToggleRun(bool condicao)
+    {
+        podeCorrer = condicao;
+        forRunTime = runTimeMax;
+        if (condicao == false)
+        {
+            correndo = false;
+        }
+    }
+
+    public void WaitToRun()
+    {
+        Debug.Log("Wait to Run");
+        forRunTime -= Time.deltaTime;
+        if (forRunTime <= 0)
+        {
+            Debug.Log("Runtime over.");
+            Correr(true);
+        }
+    }
+
+    public void Correr(bool condicao)
+    {
+        correndo = condicao;
+    }
 }

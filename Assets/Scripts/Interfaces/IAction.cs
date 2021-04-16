@@ -14,7 +14,6 @@ public interface IAction
     float CD { get; }
     int onButton { get; }
     bool activated { get; }
-
     Player actionMaker { get; }
     InputSys actionMakerInput { get; }
     Transform actionChild { get; }
@@ -34,6 +33,7 @@ public interface ITarget: IAction
     int range { get; }
     Targeter _targeter { get; }
     GameObject target { get; }
+    AuraDrawer auraDrawer { get; }
     void SendTargetRequest();
     int PassRange();
     string PassDesiredTarget();
@@ -48,6 +48,7 @@ public interface IArea : IAction
     int range { get; }
     Targeter _targeter { get; }
     GameObject mouseAuraHolder { get; }
+    AuraDrawer auraDrawer { get; }
     void SendTargetRequest();
     int PassRange();
     string PassDesiredTarget();

@@ -2,7 +2,6 @@
 
 public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
 {
-    
     public virtual int range{get; protected set;}
     public virtual int PACost{get; protected set;}
     public virtual bool isEnemy{get; protected set;}
@@ -17,7 +16,8 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     public Targeter _targeter { get; private set; }
     public Player actionMaker{get; private set;}
     public InputSys actionMakerInput{get; private set;}
-    public Transform actionChild{get; private set;}
+    public AuraDrawer auraDrawer { get; private set; }
+    public Transform actionChild{get; private set; }
     public Transform SkillHolder { get; private set; }
     public GameObject target { get; private set; }
 
@@ -31,6 +31,7 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
         actionMaker = FindObjectOfType<Player>();
         actionMakerInput = actionMaker.GetComponent<InputSys>();
         actionChild = actionMaker.transform.GetChild(0);
+        auraDrawer = actionChild.GetComponent<AuraDrawer>();
     }
     // Update is called once per frame
     void Update()
@@ -94,9 +95,9 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     public void ActivateRange()
     {
         actionChild.GetComponent<LineRenderer>().enabled = true;
-        actionChild.GetComponent<AuraDrawer>().enabled = true;
-        actionChild.GetComponent<AuraDrawer>().update = true;
-        actionChild.GetComponent<AuraDrawer>().radius = range;
+        auraDrawer.enabled = true;
+        auraDrawer.update = true;
+        auraDrawer.radius = range;
 
     }
     public void WaitTarget()
@@ -135,7 +136,7 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     public void DeactivateRange()
     {
         actionChild.GetComponent<LineRenderer>().enabled = false;
-        actionChild.GetComponent<AuraDrawer>().enabled = false;
+        auraDrawer.enabled = false;
     }
     public void ChargeIni()
     {

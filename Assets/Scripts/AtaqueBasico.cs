@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class AtaqueBasico : TargetSkillModel
 {
-    public override int PACost{get { return 10; } protected set { } }
-    public override int range { get { return 2; } protected set { } }
-    public override int efeito { get { return -10; } protected set { } }
-    public override float chargeTimeMax { get { return 1f; } protected set { } }
-    public override float CD { get { return .5f; } protected set { } }
-    public override bool isInstant { get { return false; } protected set { } }
-    public override bool isEnemy { get { return true; } protected set { } }
+    public override int PACost => 10;
+    public override int range => 2;
+    public override int efeito => -10;
+    public override float chargeTimeMax => 1f;
+    public override float CD => .5f;
+    public override bool isInstant => false;
+    public override bool isEnemy => true;
 }
