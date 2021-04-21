@@ -43,21 +43,23 @@ public class BolaDeFogo : MonoBehaviour, IAction, IMagic
     // Update is called once per frame
     void Update()
     {
-        if (actionMaker.PA <= PACost)
-        {
-            Fail();
-        }
-        if (actionMaker.MN <= MNCost)
-        {
-            Fail();
-        }
+        
         if (activated)
         {
             if (_targeter.onSearchMode == true)
                 WaitTarget();
 
             if (charging)
-                Charge();
+                Charge(); 
+            
+            if (actionMaker.PA <= PACost)
+            {
+                Fail();
+            }
+            if (actionMaker.MN <= MNCost)
+            {
+                Fail();
+            }
         }
         if (actionMakerInput.skillNum == onButton
             && actionMakerInput.skillPress)

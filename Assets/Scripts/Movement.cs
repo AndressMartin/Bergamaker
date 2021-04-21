@@ -66,12 +66,10 @@ public class Movement : MonoBehaviour
         {
             emBatalha = false;
         }
-        //Disables countdown if battling, if toggled off or if stopped walking.
         if ((emBatalha || !podeCorrer) || (rb.velocity.x == 0 && rb.velocity.y == 0))
         {
             ToggleRun(false);
         }
-        //Enables countdown to start outside of battles
         if (!emBatalha && !podeCorrer && (rb.velocity.x != 0 || rb.velocity.y != 0))
         {
             ToggleRun(true);
@@ -126,17 +124,19 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Esquerda", false);
                 animator.SetBool("Baixo", false);
             }
-            //Debug.Log(animator.GetBool("Andando"));
         }
         else if (horizontal == 0 && vertical == 0)
             animator.SetBool("Andando", false);
- 
     }
 
     public void PermitirMovimento(bool permissao)
     {
+        Debug.Log("Is permitindo");
         _permissaoAndar = permissao;
-        rb.velocity = new Vector2(0f, 0f);
+        if (permissao == false)
+        {
+            rb.velocity = new Vector2(0f, 0f);
+        }
     }
 
     public void Lento(bool condicao)
