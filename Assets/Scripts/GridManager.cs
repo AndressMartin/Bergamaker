@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Tilemaps;
@@ -28,13 +29,21 @@ public class GridManager : MonoBehaviour
 
     void FindWithMouse()
     {
+        Vector3 previousMousePosition = mousePosition;
         mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f);
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         //Debug.Log(grid.LocalToCell(mousePosition));
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (grid.LocalToCell(mousePosition) != grid.LocalToCell(previousMousePosition))
         {
-            GetArea(2, mousePosition);
+            CleanArea();
+            GetArea(4, mousePosition);
         }
+    }
+
+    private void CleanArea()
+    {
+        tiles.Clear();
+        tileMap.ClearAllTiles();
     }
 
     void GetArea(int range, Vector3 position)
@@ -49,28 +58,33 @@ public class GridManager : MonoBehaviour
             tiles.Add(new Vector3(center.x, center.y + (i + 1), center.z));
             if (i > 0 && i < range)
             {
-                for (int f = i-1; l < f; l++)
+                for (int f = 1; f <= i; f++)
                 {
-                    tiles.Add(new Vector3(center.x + f, center.y - l, center.z));
-                    tiles.Add(new Vector3(center.x + f, center.y + l, center.z));
-                    tiles.Add(new Vector3(center.x - f, center.y - l, center.z));
-                    tiles.Add(new Vector3(center.x - f, center.y + l, center.z));
+                    tiles.Add(new Vector3(center.x + (i + 1) - (f), center.y - (f), center.z));
+                    tiles.Add(new Vector3(center.x + (i + 1) - (f), center.y + (f), center.z));
+                    tiles.Add(new Vector3(center.x - (i + 1) + (f), center.y - (f), center.z));
+                    tiles.Add(new Vector3(center.x - (i + 1) + (f), center.y + (f), center.z));
                 }
             }
         }
-        PrintArea();
+        PaintGrid();
     }
 
-    private void PaintGrid(int range, Vector3 position)
-    {
-        
-    }
+    //private void PaintGrid(int range, Vector3 position)
+    //{
 
-    private void PrintArea()
+    //}
+    private void PaintGrid()
     {
         foreach (Vector3 tile in tiles)
         {
             tileMap.SetTile(Vector3Int.FloorToInt(tile), tileBase);
+        }
+    }
+    private void PrintArea()
+    {
+        foreach (Vector3 tile in tiles)
+        {
             //Debug.Log(tile);
         }
     }
