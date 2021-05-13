@@ -11,33 +11,39 @@ public class GridManager : MonoBehaviour
     public Grid grid;
     public Tilemap tileMap;
     public TileBase tileBase;
-    [SerializeField] Vector3 mousePosition;
     public List<Vector3> tiles = new List<Vector3>();
 
     // Start is called before the first frame update
     void Start()
     {
         grid = GetComponent<Grid>();
+        //caster = FindObjectOfType<Player>().transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        FindWithMouse();
+        //ShowRangeWithMouse();
+        //RangeAroundCaster(/*casterPosition*/);
     }
 
-
-    void FindWithMouse()
+    void ShowRangeWithMouse(Vector3 mousePosition, int area)
     {
         Vector3 previousMousePosition = mousePosition;
         mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f);
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        //Debug.Log(grid.LocalToCell(mousePosition));
         if (grid.LocalToCell(mousePosition) != grid.LocalToCell(previousMousePosition))
         {
             CleanArea();
-            GetArea(4, mousePosition);
+            GetArea(area, mousePosition);
         }
+    }
+
+    void RangeAroundCaster(Vector3 casterPosition, int area)
+    {
+        //Debug.Log(caster.position);
+        CleanArea();
+        GetArea(area, casterPosition);
     }
 
     private void CleanArea()
@@ -81,6 +87,7 @@ public class GridManager : MonoBehaviour
             tileMap.SetTile(Vector3Int.FloorToInt(tile), tileBase);
         }
     }
+
     private void PrintArea()
     {
         foreach (Vector3 tile in tiles)
