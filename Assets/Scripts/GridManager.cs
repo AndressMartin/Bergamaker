@@ -12,38 +12,43 @@ public class GridManager : MonoBehaviour
     public Tilemap tileMap;
     public TileBase tileBase;
     public List<Vector3> tiles = new List<Vector3>();
-
-    // Start is called before the first frame update
+    private Transform caster;
+    [SerializeField] Vector3 mousePosition;
+    
     void Start()
     {
         grid = GetComponent<Grid>();
-        //caster = FindObjectOfType<Player>().transform;
+        caster = FindObjectOfType<Player>().transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ShowRangeWithMouse();
-        //RangeAroundCaster(/*casterPosition*/);
+        ShowRangeWithMouse(4);
+        //RangeAroundCaster(caster, 4);
     }
 
-    void ShowRangeWithMouse(Vector3 mousePosition, int area)
+    void ShowRangeWithMouse(int area)
     {
         Vector3 previousMousePosition = mousePosition;
         mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f);
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         if (grid.LocalToCell(mousePosition) != grid.LocalToCell(previousMousePosition))
         {
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Debug.Log(grid.LocalToCell(mousePosition));
+            }
             CleanArea();
             GetArea(area, mousePosition);
         }
     }
 
-    void RangeAroundCaster(Vector3 casterPosition, int area)
+    void RangeAroundCaster(Transform caster, int area)
     {
-        //Debug.Log(caster.position);
+        Debug.Log(this.caster.position);
         CleanArea();
-        GetArea(area, casterPosition);
+        GetArea(area, caster.position);
     }
 
     private void CleanArea()
@@ -76,10 +81,6 @@ public class GridManager : MonoBehaviour
         PaintGrid();
     }
 
-    //private void PaintGrid(int range, Vector3 position)
-    //{
-
-    //}
     private void PaintGrid()
     {
         foreach (Vector3 tile in tiles)
@@ -88,6 +89,9 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    //                --FOR DEBUGGING--
+    //
+    /*
     private void PrintArea()
     {
         foreach (Vector3 tile in tiles)
@@ -95,4 +99,5 @@ public class GridManager : MonoBehaviour
             //Debug.Log(tile);
         }
     }
+    */
 }
