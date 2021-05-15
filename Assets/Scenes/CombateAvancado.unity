@@ -426,6 +426,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 920154271118347320, guid: 6e2f548aab203a04e86a1b3b40ccdaa9, type: 3}
   m_PrefabInstance: {fileID: 7579926472907925974}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &306120964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306120957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AssetsPPU: 32
+  m_RefResolutionX: 1280
+  m_RefResolutionY: 720
+  m_UpscaleRT: 1
+  m_PixelSnapping: 0
+  m_CropFrameX: 0
+  m_CropFrameY: 0
+  m_StretchFill: 0
 --- !u!114 &423635033 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 423635033, guid: a410f3b4c8d72ce4489094398b4c9278, type: 3}
@@ -6844,8 +6864,20 @@ PrefabInstance:
       value: Main Camera
       objectReference: {fileID: 0}
     - target: {fileID: 920154271118347463, guid: 6e2f548aab203a04e86a1b3b40ccdaa9, type: 3}
+      propertyPath: m_ForceIntoRT
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 920154271118347463, guid: 6e2f548aab203a04e86a1b3b40ccdaa9, type: 3}
       propertyPath: orthographic size
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 920154271118347463, guid: 6e2f548aab203a04e86a1b3b40ccdaa9, type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 920154271118347463, guid: 6e2f548aab203a04e86a1b3b40ccdaa9, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e2f548aab203a04e86a1b3b40ccdaa9, type: 3}
