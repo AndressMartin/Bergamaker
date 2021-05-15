@@ -12,15 +12,23 @@ public class Movement : MonoBehaviour
     private InputSys _input;
     private BoxCollider2D bColl2d;
     private Animator animator;
+    public bool _permissaoAndar = true;
+    public bool lento;
     private float lentidao = 2.5f;
     public bool isClimbing;
-    public bool _permissaoAndar = true;
-    public bool emBatalha;
-    public bool lento;
-    public bool correndo;
-    private bool podeCorrer;
-    private float forRunTime;
-    private float runTimeMax = 4f;
+
+    private enum Direcao : int
+    {
+        Baixo,
+        Lado,
+        Cima
+    };
+
+    private enum Animacao
+    {
+        Idle,
+        Andando
+    };
 
     void Start()
     {
@@ -30,8 +38,6 @@ public class Movement : MonoBehaviour
         _input = GetComponent<InputSys>();
         bColl2d = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-
-        forRunTime = runTimeMax;
     }
     private void Update()
     {
@@ -44,48 +50,26 @@ public class Movement : MonoBehaviour
         {
             if (!_dash.dashing && !isClimbing)
             {
-                if (!lento && !correndo)
+                if (!lento)
                     rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade;
-                else if (lento)
+                else
                     rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade / lentidao;
-                else if (correndo)
-                    rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade*2f;
             }
             if (isClimbing)
             {
                 rb.velocity = new Vector2(0f, vertical).normalized * velocidade / lentidao;
             }
         }
-            Virar(horizontal, vertical);
 
-        if (_input.holdingSkill)
-        {
-            emBatalha = true;
-        }
-        else
-        {
-            emBatalha = false;
-        }
-        if ((emBatalha || !podeCorrer) || (rb.velocity.x == 0 && rb.velocity.y == 0))
-        {
-            ToggleRun(false);
-        }
-        if (!emBatalha && !podeCorrer && (rb.velocity.x != 0 || rb.velocity.y != 0))
-        {
-            ToggleRun(true);
-        }
-        
-        if (podeCorrer)
-        {
-            WaitToRun();
-        }
+        Virar(horizontal, vertical);
+
     }
-
     private void Virar(float horizontal, float vertical)
     {
         if (horizontal != 0 || vertical != 0)
         {
             animator.SetBool("Andando", true);
+            animator.SetInteger("Animacao", (int)Animacao.Andando);
             if (horizontal == -1f)
             {
                 spriteRend.flipX = true;
@@ -94,6 +78,8 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Direita", false);
                 animator.SetBool("Cima", false);
                 animator.SetBool("Baixo", false);
+
+                animator.SetInteger("Direcao", (int)Direcao.Lado);
 
             }
             else if (horizontal == +1f)
@@ -105,6 +91,8 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Esquerda", false);
                 animator.SetBool("Cima", false);
                 animator.SetBool("Baixo", false);
+
+                animator.SetInteger("Direcao", (int)Direcao.Lado);
             }
 
             if (vertical == -1f)
@@ -114,6 +102,8 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Direita", false);
                 animator.SetBool("Esquerda", false);
                 animator.SetBool("Cima", false);
+
+                animator.SetInteger("Direcao", (int)Direcao.Baixo);
             }
 
             else if (vertical == +1f)
@@ -123,51 +113,28 @@ public class Movement : MonoBehaviour
                 animator.SetBool("Direita", false);
                 animator.SetBool("Esquerda", false);
                 animator.SetBool("Baixo", false);
+
+                animator.SetInteger("Direcao", (int)Direcao.Cima);
             }
+            Debug.Log(animator.GetBool("Andando"));
         }
         else if (horizontal == 0 && vertical == 0)
+        {
             animator.SetBool("Andando", false);
-    }
+            animator.SetInteger("Animacao", (int)Animacao.Idle);
+        }
 
+    }
     public void PermitirMovimento(bool permissao)
     {
-        Debug.Log("Is permitindo");
         _permissaoAndar = permissao;
-        if (permissao == false)
-        {
-            rb.velocity = new Vector2(0f, 0f);
-        }
+        rb.velocity = new Vector2(0f, 0f);
     }
 
     public void Lento(bool condicao)
     {
         lento = condicao;
-        ToggleRun(false);
     }
 
-    public void ToggleRun(bool condicao)
-    {
-        podeCorrer = condicao;
-        forRunTime = runTimeMax;
-        if (condicao == false)
-        {
-            correndo = false;
-        }
-    }
 
-    public void WaitToRun()
-    {
-        Debug.Log("Wait to Run");
-        forRunTime -= Time.deltaTime;
-        if (forRunTime <= 0)
-        {
-            Debug.Log("Runtime over.");
-            Correr(true);
-        }
-    }
-
-    public void Correr(bool condicao)
-    {
-        correndo = condicao;
-    }
 }
