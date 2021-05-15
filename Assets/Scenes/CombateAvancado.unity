@@ -4875,9 +4875,9 @@ MonoBehaviour:
   grid: {fileID: 786599418}
   tileMap: {fileID: 2081292051}
   tileBase: {fileID: 11400000, guid: 4945a3198f27522499509439fb04fc1b, type: 2}
-  mousePosition: {x: 0, y: 0, z: 0}
-  caster: {fileID: 0}
+  chao: {fileID: 0}
   tiles: []
+  mousePosition: {x: 0, y: 0, z: 0}
 --- !u!156049354 &786599418 stripped
 Grid:
   m_CorrespondingSourceObject: {fileID: 8974185410767165295, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
@@ -4888,6 +4888,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8974185410767165294, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
   m_PrefabInstance: {fileID: 786599415}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &936376681 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8974185410614079050, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
+  m_PrefabInstance: {fileID: 786599415}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &936376686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936376681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41799b81ec25f0546b335b761de2e2c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1042953255 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1042953255, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
