@@ -11,7 +11,9 @@ public class GridManager : MonoBehaviour
     public Grid grid;
     public Tilemap tileMap;
     public TileBase tileBase;
+    public Tilemap chao;
     public List<Vector3> tiles = new List<Vector3>();
+    public static List<Transform> foundEntities = new List<Transform>();
     private Transform caster;
     [SerializeField] Vector3 mousePosition;
     
@@ -24,8 +26,8 @@ public class GridManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ShowRangeWithMouse(4);
-        //RangeAroundCaster(caster, 4);
+        ShowRangeWithMouse(2);
+        //RangeAroundCaster(caster, 2);
     }
 
     void ShowRangeWithMouse(int area)
@@ -35,12 +37,13 @@ public class GridManager : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         if (grid.LocalToCell(mousePosition) != grid.LocalToCell(previousMousePosition))
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                Debug.Log(grid.LocalToCell(mousePosition));
-            }
             CleanArea();
             GetArea(area, mousePosition);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Debug.Log(grid.LocalToCell(mousePosition));
         }
     }
 
@@ -81,12 +84,36 @@ public class GridManager : MonoBehaviour
         PaintGrid();
     }
 
+    void Foo()
+    {
+        Debug.Log("Foo");
+        foreach(Vector3 tile in tiles)
+        {
+            foreach (Transform entity in foundEntities)
+            {
+                if (grid.LocalToCell(entity.position) == tile)
+                {
+                    Debug.Log(entity.position);
+                }
+            }
+        }
+    }
+   
     private void PaintGrid()
     {
+        GameObject localPlayer = GameObject.FindGameObjectWithTag("Player");
+
         foreach (Vector3 tile in tiles)
         {
             tileMap.SetTile(Vector3Int.FloorToInt(tile), tileBase);
+
+            if (chao.LocalToCell(tile) == chao.LocalToCell(localPlayer.transform.position))
+            {
+                foundEntities.Add(localPlayer.transform);
+            }
         }
+        if (foundEntities != null)
+            Foo();
     }
 
     //                --FOR DEBUGGING--
