@@ -221,6 +221,18 @@ TextureImporter:
   - first:
       213: 2501644465767043380
     second: Personagem_Base_AtaqueBasico_L_5
+  - first:
+      213: -7950432267559195053
+    second: Personagem_Base_SubindoEscadas_0
+  - first:
+      213: -2156708097585601009
+    second: Personagem_Base_SubindoEscadas_1
+  - first:
+      213: 2178196023844484125
+    second: Personagem_Base_SubindoEscadas_2
+  - first:
+      213: -9173572700822169613
+    second: Personagem_Base_SubindoEscadas_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -284,7 +296,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 768
+    maxTextureSize: 864
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -532,8 +544,8 @@ TextureImporter:
       name: Personagem_Base_CastandoMagia_F_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 576
+        x: 768
+        y: 672
         width: 96
         height: 96
       alignment: 0
@@ -553,7 +565,7 @@ TextureImporter:
       name: Personagem_Base_CastandoMagia_F_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 0
         y: 576
         width: 96
         height: 96
@@ -574,7 +586,7 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_F_0
       rect:
         serializedVersion: 2
-        x: 192
+        x: 96
         y: 576
         width: 96
         height: 96
@@ -595,7 +607,7 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_F_1
       rect:
         serializedVersion: 2
-        x: 288
+        x: 192
         y: 576
         width: 96
         height: 96
@@ -616,7 +628,7 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_F_2
       rect:
         serializedVersion: 2
-        x: 384
+        x: 288
         y: 576
         width: 96
         height: 96
@@ -637,7 +649,7 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaLooping_F_0
       rect:
         serializedVersion: 2
-        x: 480
+        x: 384
         y: 576
         width: 96
         height: 96
@@ -658,7 +670,7 @@ TextureImporter:
       name: Personagem_Base_TomandoDano_F_0
       rect:
         serializedVersion: 2
-        x: 576
+        x: 480
         y: 576
         width: 96
         height: 96
@@ -679,7 +691,7 @@ TextureImporter:
       name: Personagem_Base_Morto_0
       rect:
         serializedVersion: 2
-        x: 672
+        x: 576
         y: 576
         width: 96
         height: 96
@@ -700,8 +712,8 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_F_0
       rect:
         serializedVersion: 2
-        x: 96
-        y: 480
+        x: 768
+        y: 576
         width: 96
         height: 96
       alignment: 0
@@ -721,7 +733,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_F_1
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 480
         width: 96
         height: 96
@@ -742,7 +754,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_F_2
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 480
         width: 96
         height: 96
@@ -763,7 +775,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_F_3
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 480
         width: 96
         height: 96
@@ -784,7 +796,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_F_4
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 480
         width: 96
         height: 96
@@ -805,7 +817,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_F_5
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 480
         width: 96
         height: 96
@@ -826,7 +838,7 @@ TextureImporter:
       name: Personagem_Base_Idle_C_0
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 480
         width: 96
         height: 96
@@ -847,8 +859,8 @@ TextureImporter:
       name: Personagem_Base_Idle_C_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 384
+        x: 576
+        y: 480
         width: 96
         height: 96
       alignment: 0
@@ -868,8 +880,8 @@ TextureImporter:
       name: Personagem_Base_Idle_C_2
       rect:
         serializedVersion: 2
-        x: 96
-        y: 384
+        x: 672
+        y: 480
         width: 96
         height: 96
       alignment: 0
@@ -889,8 +901,8 @@ TextureImporter:
       name: Personagem_Base_Andando_C_0
       rect:
         serializedVersion: 2
-        x: 192
-        y: 384
+        x: 768
+        y: 480
         width: 96
         height: 96
       alignment: 0
@@ -910,7 +922,7 @@ TextureImporter:
       name: Personagem_Base_Andando_C_1
       rect:
         serializedVersion: 2
-        x: 288
+        x: 0
         y: 384
         width: 96
         height: 96
@@ -931,7 +943,7 @@ TextureImporter:
       name: Personagem_Base_Andando_C_2
       rect:
         serializedVersion: 2
-        x: 384
+        x: 96
         y: 384
         width: 96
         height: 96
@@ -952,7 +964,7 @@ TextureImporter:
       name: Personagem_Base_Andando_C_3
       rect:
         serializedVersion: 2
-        x: 288
+        x: 0
         y: 384
         width: 96
         height: 96
@@ -973,8 +985,8 @@ TextureImporter:
       name: Personagem_Base_Andando_C_4
       rect:
         serializedVersion: 2
-        x: 192
-        y: 384
+        x: 768
+        y: 480
         width: 96
         height: 96
       alignment: 0
@@ -994,7 +1006,7 @@ TextureImporter:
       name: Personagem_Base_Andando_C_5
       rect:
         serializedVersion: 2
-        x: 480
+        x: 192
         y: 384
         width: 96
         height: 96
@@ -1015,7 +1027,7 @@ TextureImporter:
       name: Personagem_Base_Andando_C_6
       rect:
         serializedVersion: 2
-        x: 576
+        x: 288
         y: 384
         width: 96
         height: 96
@@ -1036,7 +1048,7 @@ TextureImporter:
       name: Personagem_Base_Andando_C_7
       rect:
         serializedVersion: 2
-        x: 480
+        x: 192
         y: 384
         width: 96
         height: 96
@@ -1057,7 +1069,7 @@ TextureImporter:
       name: Personagem_Base_CastandoMagia_C_0
       rect:
         serializedVersion: 2
-        x: 672
+        x: 384
         y: 384
         width: 96
         height: 96
@@ -1078,8 +1090,8 @@ TextureImporter:
       name: Personagem_Base_CastandoMagia_C_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 288
+        x: 480
+        y: 384
         width: 96
         height: 96
       alignment: 0
@@ -1099,8 +1111,8 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_C_0
       rect:
         serializedVersion: 2
-        x: 96
-        y: 288
+        x: 576
+        y: 384
         width: 96
         height: 96
       alignment: 0
@@ -1120,8 +1132,8 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_C_1
       rect:
         serializedVersion: 2
-        x: 192
-        y: 288
+        x: 672
+        y: 384
         width: 96
         height: 96
       alignment: 0
@@ -1141,8 +1153,8 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_C_2
       rect:
         serializedVersion: 2
-        x: 288
-        y: 288
+        x: 768
+        y: 384
         width: 96
         height: 96
       alignment: 0
@@ -1162,7 +1174,7 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaLooping_C_0
       rect:
         serializedVersion: 2
-        x: 384
+        x: 0
         y: 288
         width: 96
         height: 96
@@ -1183,7 +1195,7 @@ TextureImporter:
       name: Personagem_Base_TomandoDano_C_0
       rect:
         serializedVersion: 2
-        x: 480
+        x: 96
         y: 288
         width: 96
         height: 96
@@ -1196,6 +1208,90 @@ TextureImporter:
       bones: []
       spriteID: cda571d6cba9f4510800000000000000
       internalID: 1535616132031404764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Personagem_Base_SubindoEscadas_0
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 288
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35ea451d9f36aa190800000000000000
+      internalID: -7950432267559195053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Personagem_Base_SubindoEscadas_1
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 288
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f06a3377965d112e0800000000000000
+      internalID: -2156708097585601009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Personagem_Base_SubindoEscadas_2
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 288
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d143b6c3eb18a3e10800000000000000
+      internalID: 2178196023844484125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Personagem_Base_SubindoEscadas_3
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 288
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f716467b3ce0b080800000000000000
+      internalID: -9173572700822169613
       vertices: []
       indices: 
       edges: []
@@ -1246,8 +1342,8 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_C_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 768
+        y: 288
         width: 96
         height: 96
       alignment: 0
@@ -1267,7 +1363,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_C_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 0
         y: 192
         width: 96
         height: 96
@@ -1288,7 +1384,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_C_4
       rect:
         serializedVersion: 2
-        x: 192
+        x: 96
         y: 192
         width: 96
         height: 96
@@ -1309,7 +1405,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_C_5
       rect:
         serializedVersion: 2
-        x: 288
+        x: 192
         y: 192
         width: 96
         height: 96
@@ -1330,7 +1426,7 @@ TextureImporter:
       name: Personagem_Base_Idle_L_0
       rect:
         serializedVersion: 2
-        x: 384
+        x: 288
         y: 192
         width: 96
         height: 96
@@ -1351,7 +1447,7 @@ TextureImporter:
       name: Personagem_Base_Idle_L_1
       rect:
         serializedVersion: 2
-        x: 480
+        x: 384
         y: 192
         width: 96
         height: 96
@@ -1372,7 +1468,7 @@ TextureImporter:
       name: Personagem_Base_Idle_L_2
       rect:
         serializedVersion: 2
-        x: 576
+        x: 480
         y: 192
         width: 96
         height: 96
@@ -1393,7 +1489,7 @@ TextureImporter:
       name: Personagem_Base_Andando_L_0
       rect:
         serializedVersion: 2
-        x: 384
+        x: 288
         y: 192
         width: 96
         height: 96
@@ -1414,7 +1510,7 @@ TextureImporter:
       name: Personagem_Base_Andando_L_1
       rect:
         serializedVersion: 2
-        x: 672
+        x: 576
         y: 192
         width: 96
         height: 96
@@ -1435,8 +1531,8 @@ TextureImporter:
       name: Personagem_Base_Andando_L_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
+        x: 672
+        y: 192
         width: 96
         height: 96
       alignment: 0
@@ -1456,7 +1552,7 @@ TextureImporter:
       name: Personagem_Base_Andando_L_3
       rect:
         serializedVersion: 2
-        x: 672
+        x: 576
         y: 192
         width: 96
         height: 96
@@ -1477,7 +1573,7 @@ TextureImporter:
       name: Personagem_Base_Andando_L_4
       rect:
         serializedVersion: 2
-        x: 384
+        x: 288
         y: 192
         width: 96
         height: 96
@@ -1498,8 +1594,8 @@ TextureImporter:
       name: Personagem_Base_Andando_L_5
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
+        x: 768
+        y: 192
         width: 96
         height: 96
       alignment: 0
@@ -1519,7 +1615,7 @@ TextureImporter:
       name: Personagem_Base_Andando_L_6
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 96
         width: 96
         height: 96
@@ -1540,8 +1636,8 @@ TextureImporter:
       name: Personagem_Base_Andando_L_7
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
+        x: 768
+        y: 192
         width: 96
         height: 96
       alignment: 0
@@ -1561,7 +1657,7 @@ TextureImporter:
       name: Personagem_Base_CastandoMagia_L_0
       rect:
         serializedVersion: 2
-        x: 288
+        x: 96
         y: 96
         width: 96
         height: 96
@@ -1582,7 +1678,7 @@ TextureImporter:
       name: Personagem_Base_CastandoMagia_L_1
       rect:
         serializedVersion: 2
-        x: 384
+        x: 192
         y: 96
         width: 96
         height: 96
@@ -1603,7 +1699,7 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_L_0
       rect:
         serializedVersion: 2
-        x: 480
+        x: 288
         y: 96
         width: 96
         height: 96
@@ -1624,7 +1720,7 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_L_1
       rect:
         serializedVersion: 2
-        x: 576
+        x: 384
         y: 96
         width: 96
         height: 96
@@ -1645,7 +1741,7 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaInicio_L_2
       rect:
         serializedVersion: 2
-        x: 672
+        x: 480
         y: 96
         width: 96
         height: 96
@@ -1666,8 +1762,8 @@ TextureImporter:
       name: Personagem_Base_LancandoMagiaLooping_L_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 576
+        y: 96
         width: 96
         height: 96
       alignment: 0
@@ -1687,8 +1783,8 @@ TextureImporter:
       name: Personagem_Base_TomandoDano_L_0
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
+        x: 672
+        y: 96
         width: 96
         height: 96
       alignment: 0
@@ -1708,8 +1804,8 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_L_0
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
+        x: 768
+        y: 96
         width: 96
         height: 96
       alignment: 0
@@ -1729,7 +1825,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_L_1
       rect:
         serializedVersion: 2
-        x: 288
+        x: 0
         y: 0
         width: 96
         height: 96
@@ -1750,7 +1846,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_L_2
       rect:
         serializedVersion: 2
-        x: 384
+        x: 96
         y: 0
         width: 96
         height: 96
@@ -1771,7 +1867,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_L_3
       rect:
         serializedVersion: 2
-        x: 480
+        x: 192
         y: 0
         width: 96
         height: 96
@@ -1792,7 +1888,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_L_4
       rect:
         serializedVersion: 2
-        x: 576
+        x: 288
         y: 0
         width: 96
         height: 96
@@ -1813,7 +1909,7 @@ TextureImporter:
       name: Personagem_Base_AtaqueBasico_L_5
       rect:
         serializedVersion: 2
-        x: 672
+        x: 384
         y: 0
         width: 96
         height: 96

@@ -30,6 +30,7 @@ public class Movement : MonoBehaviour
     {
         Idle,
         Andando,
+        SubindoEscadas,
         CastandoMagia,
         LancandoMagiaInicio,
         LancandoMagiaLooping,
