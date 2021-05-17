@@ -12,8 +12,9 @@ public class GridManager : MonoBehaviour
     public Tilemap tileMap;
     public TileBase tileBase;
     public Tilemap chao;
+    public Tilemap paredes;
     public List<Vector3> tiles = new List<Vector3>();
-    public static List<Transform> foundEntities = new List<Transform>();
+    public List<Transform> foundEntities = new List<Transform>();
     private Transform caster;
     [SerializeField] Vector3 mousePosition;
     
@@ -51,6 +52,7 @@ public class GridManager : MonoBehaviour
     {
         Debug.Log(this.caster.position);
         CleanArea();
+        CleanEntities();
         GetArea(area, caster.position);
     }
 
@@ -58,6 +60,11 @@ public class GridManager : MonoBehaviour
     {
         tiles.Clear();
         tileMap.ClearAllTiles();
+    }
+
+    private void CleanEntities()
+    {
+        foundEntities.Clear();
     }
 
     void GetArea(int range, Vector3 position)
@@ -82,18 +89,41 @@ public class GridManager : MonoBehaviour
             }
         }
         PaintGrid();
+        FindEntities("Player");
+        FindWalls();
     }
 
-    void Foo()
+    private void FindWalls()
     {
-        Debug.Log("Foo");
+        foreach (Vector3 tile in tiles)
+        {
+            Tile.ColliderType tileType = paredes.GetColliderType(Vector3Int.FloorToInt(tile));
+            if (tileType == Tile.ColliderType.None)
+            {
+                Debug.Log("Parede em " + paredes.LocalToCell(tile));
+            }
+        }
+    }
+
+    void FindEntities(string entityTag)
+    {
+        CleanEntities();
+        GameObject localEntity = GameObject.FindGameObjectWithTag(entityTag);
         foreach(Vector3 tile in tiles)
         {
-            foreach (Transform entity in foundEntities)
+            if (chao.LocalToCell(tile) == chao.LocalToCell(localEntity.transform.position))
             {
-                if (grid.LocalToCell(entity.position) == tile)
+                if (foundEntities.Contains(localEntity.transform) == false)
+                    foundEntities.Add(localEntity.transform);
+            }
+            if (foundEntities != null)
+            {
+                foreach (Transform entity in foundEntities)
                 {
-                    Debug.Log(entity.position);
+                    if (grid.LocalToCell(entity.position) == tile)
+                    {
+                        Debug.Log(localEntity.name + " em " + entity.position);
+                    }
                 }
             }
         }
@@ -101,30 +131,9 @@ public class GridManager : MonoBehaviour
    
     private void PaintGrid()
     {
-        GameObject localPlayer = GameObject.FindGameObjectWithTag("Player");
-
         foreach (Vector3 tile in tiles)
         {
             tileMap.SetTile(Vector3Int.FloorToInt(tile), tileBase);
-
-            if (chao.LocalToCell(tile) == chao.LocalToCell(localPlayer.transform.position))
-            {
-                foundEntities.Add(localPlayer.transform);
-            }
-        }
-        if (foundEntities != null)
-            Foo();
-    }
-
-    //                --FOR DEBUGGING--
-    //
-    /*
-    private void PrintArea()
-    {
-        foreach (Vector3 tile in tiles)
-        {
-            //Debug.Log(tile);
         }
     }
-    */
 }
