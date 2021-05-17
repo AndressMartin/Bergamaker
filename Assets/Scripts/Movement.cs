@@ -70,73 +70,8 @@ public class Movement : MonoBehaviour
             }
         }
 
-        Virar(horizontal, vertical);
-
         DefinirAnimacao(horizontal, vertical);
         Animar();
-    }
-
-    private void Virar(float horizontal, float vertical)
-    {
-        if (horizontal != 0 || vertical != 0)
-        {
-            animator.SetBool("Andando", true);
-            animator.SetInteger("Animacao", (int)AnimacaoEnum.Andando);
-            if (horizontal == -1f)
-            {
-                spriteRend.flipX = true;
-                animator.SetBool("Esquerda", true);
-
-                animator.SetBool("Direita", false);
-                animator.SetBool("Cima", false);
-                animator.SetBool("Baixo", false);
-
-                animator.SetInteger("Direcao", (int)Direcao.Lado);
-
-            }
-            else if (horizontal == +1f)
-            {
-                spriteRend.flipX = false;
-                animator.SetBool("Direita", true);
-
-
-                animator.SetBool("Esquerda", false);
-                animator.SetBool("Cima", false);
-                animator.SetBool("Baixo", false);
-
-                animator.SetInteger("Direcao", (int)Direcao.Lado);
-            }
-
-            if (vertical == -1f)
-            {
-                spriteRend.flipX = false;
-                animator.SetBool("Baixo", true);
-
-                animator.SetBool("Direita", false);
-                animator.SetBool("Esquerda", false);
-                animator.SetBool("Cima", false);
-
-                animator.SetInteger("Direcao", (int)Direcao.Baixo);
-            }
-
-            else if (vertical == +1f)
-            {
-                spriteRend.flipX = false;
-                animator.SetBool("Cima", true);
-
-                animator.SetBool("Direita", false);
-                animator.SetBool("Esquerda", false);
-                animator.SetBool("Baixo", false);
-
-                animator.SetInteger("Direcao", (int)Direcao.Cima);
-            }
-            Debug.Log(animator.GetBool("Andando"));
-        }
-        else if (horizontal == 0 && vertical == 0)
-        {
-            animator.SetBool("Andando", false);
-            animator.SetInteger("Animacao", (int)AnimacaoEnum.Idle);
-        }
     }
 
     private void DefinirAnimacao(float horizontal, float vertical)
