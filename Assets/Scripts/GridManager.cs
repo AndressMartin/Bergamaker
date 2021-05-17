@@ -98,7 +98,7 @@ public class GridManager : MonoBehaviour
         foreach (Vector3 tile in tiles)
         {
             Tile.ColliderType tileType = paredes.GetColliderType(Vector3Int.FloorToInt(tile));
-            if (tileType == Tile.ColliderType.None)
+            if (tileType != Tile.ColliderType.None)
             {
                 Debug.Log("Parede em " + paredes.LocalToCell(tile));
             }
