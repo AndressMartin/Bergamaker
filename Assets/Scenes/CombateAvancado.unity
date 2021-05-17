@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 1042953255}
     - target: {fileID: 2386953427124872950, guid: a410f3b4c8d72ce4489094398b4c9278, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2386953427124872950, guid: a410f3b4c8d72ce4489094398b4c9278, type: 3}
       propertyPath: m_LocalPosition.x
@@ -295,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730092736720284904, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7730092736720284904, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6705,10 +6705,18 @@ PrefabInstance:
     - target: {fileID: 1921552517881253584, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: eea8e94a6e4a3da44bd66f6ec0f98aac, type: 2}
+      objectReference: {fileID: 9100000, guid: 8f64fe193e352ba4eb01dc22a8edca33, type: 2}
     - target: {fileID: 1921552518673398226, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_Offset.y
       value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921552518673398226, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921552518673398226, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1921552519460935821, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_Enabled
@@ -6732,7 +6740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5749437480232028140, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5749437480232028140, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6777,7 +6785,7 @@ PrefabInstance:
     - target: {fileID: 5749437480232028142, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 3920793743912419024, guid: 3ddf6dfec4afc41478b77bfb1f52725b, type: 3}
+      objectReference: {fileID: -4534566638065658102, guid: c735301bf3234154781281629f91b619, type: 3}
     - target: {fileID: 8669729896299928030, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_Enabled
       value: 0

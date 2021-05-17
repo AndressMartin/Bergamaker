@@ -17,6 +17,8 @@ public class Movement : MonoBehaviour
     private float lentidao = 2.5f;
     public bool isClimbing;
 
+    private int animacao = 0;
+
     private enum Direcao : int
     {
         Baixo,
@@ -24,10 +26,16 @@ public class Movement : MonoBehaviour
         Cima
     };
 
-    private enum Animacao
+    private enum AnimacaoEnum
     {
         Idle,
-        Andando
+        Andando,
+        CastandoMagia,
+        LancandoMagiaInicio,
+        LancandoMagiaLooping,
+        TomandoDano,
+        Morto,
+        AtaqueBasico
     };
 
     void Start()
@@ -63,13 +71,16 @@ public class Movement : MonoBehaviour
 
         Virar(horizontal, vertical);
 
+        DefinirAnimacao(horizontal, vertical);
+        Animar();
     }
+
     private void Virar(float horizontal, float vertical)
     {
         if (horizontal != 0 || vertical != 0)
         {
             animator.SetBool("Andando", true);
-            animator.SetInteger("Animacao", (int)Animacao.Andando);
+            animator.SetInteger("Animacao", (int)AnimacaoEnum.Andando);
             if (horizontal == -1f)
             {
                 spriteRend.flipX = true;
@@ -97,6 +108,7 @@ public class Movement : MonoBehaviour
 
             if (vertical == -1f)
             {
+                spriteRend.flipX = false;
                 animator.SetBool("Baixo", true);
 
                 animator.SetBool("Direita", false);
@@ -108,6 +120,7 @@ public class Movement : MonoBehaviour
 
             else if (vertical == +1f)
             {
+                spriteRend.flipX = false;
                 animator.SetBool("Cima", true);
 
                 animator.SetBool("Direita", false);
@@ -121,10 +134,58 @@ public class Movement : MonoBehaviour
         else if (horizontal == 0 && vertical == 0)
         {
             animator.SetBool("Andando", false);
-            animator.SetInteger("Animacao", (int)Animacao.Idle);
+            animator.SetInteger("Animacao", (int)AnimacaoEnum.Idle);
         }
-
     }
+
+    private void DefinirAnimacao(float horizontal, float vertical)
+    {
+        if (horizontal != 0 || vertical != 0)
+        {
+            animacao = (int)AnimacaoEnum.Andando;
+
+            if (horizontal == -1f)
+            {
+                spriteRend.flipX = true;
+                animator.SetFloat("Direcao", (float)Direcao.Lado);
+            }
+            else if (horizontal == +1f)
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Lado);
+            }
+
+            if (vertical == -1f)
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Baixo);
+            }
+            else if (vertical == +1f)
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Cima);
+            }
+        }
+        else if (horizontal == 0 && vertical == 0)
+        {
+            animacao = (int)AnimacaoEnum.Idle;
+        }
+    }
+
+    private void Animar()
+    {
+        switch(animacao)
+        {
+            case (int)AnimacaoEnum.Idle:
+                animator.Play("Idle");
+                break;
+
+            case (int)AnimacaoEnum.Andando:
+                animator.Play("Andando");
+                break;
+        }
+    }
+
     public void PermitirMovimento(bool permissao)
     {
         _permissaoAndar = permissao;
@@ -135,6 +196,4 @@ public class Movement : MonoBehaviour
     {
         lento = condicao;
     }
-
-
 }
