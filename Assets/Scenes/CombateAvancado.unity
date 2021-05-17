@@ -4908,7 +4908,9 @@ MonoBehaviour:
   tileMap: {fileID: 2081292051}
   tileBase: {fileID: 11400000, guid: 4945a3198f27522499509439fb04fc1b, type: 2}
   chao: {fileID: 936376685}
+  paredes: {fileID: 0}
   tiles: []
+  foundEntities: []
   mousePosition: {x: 0, y: 0, z: 0}
 --- !u!156049354 &786599418 stripped
 Grid:
