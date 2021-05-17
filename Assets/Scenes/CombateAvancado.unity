@@ -666,6 +666,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99ece2498948caa4a98372bce15ef45b, type: 3}
+--- !u!1839735485 &705826282 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 8974185409087266987, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
+  m_PrefabInstance: {fileID: 786599415}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &721180108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4908,7 +4913,7 @@ MonoBehaviour:
   tileMap: {fileID: 2081292051}
   tileBase: {fileID: 11400000, guid: 4945a3198f27522499509439fb04fc1b, type: 2}
   chao: {fileID: 936376685}
-  paredes: {fileID: 0}
+  paredes: {fileID: 705826282}
   tiles: []
   foundEntities: []
   mousePosition: {x: 0, y: 0, z: 0}
