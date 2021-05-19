@@ -30,7 +30,8 @@ public class GridManager : MonoBehaviour
     private Transform _actionMaker;
     public GameObject targetUnit = null;
     public Camera mainCamera;
-    private Transform _selectable;
+    public Transform _selectable;
+    public Transform _selectableTarget;
     public LayerMask ignorar;
 
     public Material targetMat;
@@ -50,6 +51,13 @@ public class GridManager : MonoBehaviour
         {
             Debug.Log("Entrou no search");
             RangeAroundCaster(_actionMaker, _range);
+            //TRANSFORMAR EM UMA FUNÇÃO SE FUNCIONAR
+            PaintGridForFoundEntities();
+        }
+        else
+        {
+            CleanArea();
+            CleanEntities();
         }
     }
 
@@ -136,21 +144,14 @@ public class GridManager : MonoBehaviour
         {
             for (var l = 0; l < localEntities.Length; l++)
             {
-                if (chao.LocalToCell(tiles[i]) == chao.LocalToCell(localEntities[l].transform.position))
+                BoxCollider2D childCollider = localEntities[l].transform.GetChild(0).GetComponent<BoxCollider2D>();
+                var V2EntityPos = childCollider.ClosestPoint(tiles[i]);
+                if (chao.LocalToCell(tiles[i]) == chao.LocalToCell(V2EntityPos))
                 {
-                    if (foundEntities.Contains(localEntities[l].transform) == false)
+                    //if (foundEntities.Contains(localEntities[l].transform.GetChild(0).transform) == false)
                         foundEntities.Add(localEntities[l].transform);
                 }
-                if (foundEntities != null)
-                {
-                    foreach (Transform entity in foundEntities)
-                    {
-                        if (grid.LocalToCell(entity.position) == tiles[i])
-                        {
-                            //Debug.Log(localEntity.name + " em " + entity.position);
-                        }
-                    }
-                }
+                
             }
         }
     }
@@ -173,6 +174,39 @@ public class GridManager : MonoBehaviour
                 continuePaintingTile = true;
         }
     }
+    private void SetTileColor(bool boo, Color color, Vector3Int position, Tilemap tilemap)
+    {
+        // Flag the tile, inidicating that it can change colour.
+        // By default it's set to "Lock Color".
+        if (boo)
+            tilemap.SetTileFlags(position, TileFlags.None);
+        else
+            tilemap.SetTileFlags(position, TileFlags.LockColor);
+
+        // Set the color.
+        tilemap.SetColor(position, color);
+    }
+
+    private void PaintGridForFoundEntities()
+    {
+        if (foundEntities != null)
+        {
+            for (var i = 0; i < tiles.Count; i++)
+            {
+                foreach (Transform entity in foundEntities)
+                {
+                    BoxCollider2D childCollider = entity.transform.GetChild(0).GetComponent<BoxCollider2D>();
+                    var V2EntityPos = childCollider.ClosestPoint(tiles[i]);
+                    if (grid.LocalToCell(V2EntityPos) == tiles[i] && tileMap.GetTileFlags(Vector3Int.FloorToInt(tiles[i])) == TileFlags.LockColor)
+                    {
+                        SetTileColor(true, Color.yellow, chao.LocalToCell(V2EntityPos), tileMap);
+                        Debug.Log(entity.name + " em " + chao.LocalToCell(V2EntityPos));
+                    }
+                }
+            }
+        }
+    }
+
     //For quick unsearch
     public void SearchMode(bool boo)
     {
@@ -201,56 +235,87 @@ public class GridManager : MonoBehaviour
 
     private GameObject targetOnce()
     {
-        Debug.LogWarning("Is on target");
-        RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, _range, ~ignorar);
+        //Debug.LogWarning("Is on target");
+        Collider2D[] hits = Physics2D.OverlapPointAll(mainCamera.ScreenToWorldPoint(Input.mousePosition), ~ignorar);
         // -- TODO: IMPORTANT TO IMPLEMENT LATER
         //CameraMoveWithMouse();
         if (_selectable != null)
         {
             if (_selectable.gameObject.tag == _desiredTarget)
                 ResetMat(_selectable.gameObject);
+            if (_selectable.gameObject.tag == "Floor")
+                ResetMat(_selectable.gameObject);
             _selectable = null;
         }
-        if (hit.collider != null && hit.transform.gameObject.tag == _desiredTarget)
+        foreach (Collider2D hit in hits) 
         {
-            float distance = Vector2.Distance(_actionMaker.transform.position, hit.collider.transform.position);
-            if (hit.collider.tag == _desiredTarget && foundEntities.Contains(hit.collider.transform))
-                SelectableOutline(hit.collider.gameObject);
+            if (hit != null && hit.transform.gameObject.tag == _desiredTarget)
+            {
+                float distance = Vector2.Distance(_actionMaker.transform.position, hit.transform.position);
+                if (hit.tag == _desiredTarget && foundEntities.Contains(hit.transform))
+                    SelectableOutline(hit.gameObject);
+                _selectableTarget = hit.transform;
+
+            }
+            else if (hit != null && hit.transform.gameObject.tag == "Floor")
+            {
+                Vector2 V2MousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                foreach (Transform entity in foundEntities)
+                {
+                    BoxCollider2D childCollider = entity.transform.GetChild(0).GetComponent<BoxCollider2D>();
+                    var V2EntityPos = childCollider.ClosestPoint(V2MousePos);
+                    if (chao.LocalToCell(V2MousePos) == chao.LocalToCell(V2EntityPos))
+                    {
+                        //Debug.LogWarning("Should be highlighting " + entity.name);
+                        SelectableOutline(entity.gameObject);
+                        _selectableTarget = entity;
+                        SetTileColor(true, Color.red, chao.LocalToCell(V2MousePos), tileMap);
+                    }
+                }
+            }
+            _selectable = _selectableTarget;
         }
-        _selectable = hit.transform;
 
         if (Input.GetMouseButtonDown(0))
         {
-            //-----------PLAY ANIM OF FINDING ENEMY-----------
-            if (hit.collider != null)
+            foreach (Collider2D hit in hits) 
             {
-                Debug.Log("Pressed down on " + hit.transform.gameObject);
-                if (_aoe <= 0)
+                if (hit != null)
                 {
-                    if (hit.collider.tag == _desiredTarget && foundEntities.Contains(hit.collider.transform))
+                    Debug.Log("Pressed down on " + hit.transform.gameObject);
+                    if (_aoe <= 0)
                     {
-                        //Debug.Log("FoundEntities contains " + hit.collider.gameObject);
-                        targetUnit = hit.transform.gameObject;
-                        CleanArea();
-                        CleanEntities();
-                    }
-                    
-                }
-            }
-            else
-            {
-                Debug.Log("Floor: " + hit.point);
-                foreach (Transform entity in foundEntities)
-                {
-                    Debug.Log("Entity: " + chao.LocalToCell(entity.position));
+                        if (hit.tag == _desiredTarget && foundEntities.Contains(hit.transform))
+                        {
+                            //Debug.Log("FoundEntities contains " + hit.collider.gameObject);
+                            targetUnit = hit.gameObject;
+                            CleanArea();
+                            CleanEntities();
+                        }
+                        else if (hit.tag == "Floor")
+                        {
+                            Vector2 V2MousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                            //Debug.Log("Floor: " + chao.LocalToCell(V2MousePos));
+                            foreach (Transform entity in foundEntities)
+                            {
+                                BoxCollider2D childCollider = entity.transform.GetChild(0).GetComponent<BoxCollider2D>();
+                                var V2EntityPos = childCollider.ClosestPoint(V2MousePos);
+                                //Debug.Log("Entity: " + chao.LocalToCell(entity.position));
 
-                    if (chao.LocalToCell(hit.point) == chao.LocalToCell(entity.position))
-                    {
-                        Debug.Log("Floor has " + entity);
-                        targetUnit = entity.gameObject;
+                                if (chao.LocalToCell(V2MousePos) == chao.LocalToCell(V2EntityPos))
+                                {
+                                    //Debug.Log("Floor has " + entity);
+                                    targetUnit = entity.gameObject;
+                                }
+                            }
+                        }
+
                     }
                 }
+                
             }
+                //-----------PLAY ANIM OF FINDING ENEMY-----------
+            
         }
        
         return targetUnit;
