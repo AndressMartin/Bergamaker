@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float velocidade = 4f;
+    public float velocidade = 4f, //Velocidade do personagem
+                 velocidadeM = 1f; //Modificador da velocidade do personagem, para quando ele ficar lento ou subir escadas
+
     private Rigidbody2D rb;
     private SpriteRenderer spriteRend;
     private Dash _dash;
@@ -14,11 +16,11 @@ public class Movement : MonoBehaviour
     private Animator animator;
     public bool _permissaoAndar = true;
     public bool lento;
-    private float lentidao = 2.5f;
     public bool isClimbing;
 
-    private int animacao = 0;
+    private int animacao = 0; //A animacao atual do personagem
 
+    //Enumerador das direcoes do personagem
     private enum Direcao : int
     {
         Baixo,
@@ -26,6 +28,7 @@ public class Movement : MonoBehaviour
         Cima
     };
 
+    //Enumerador das animacoes do personagem
     private enum AnimacaoEnum
     {
         Idle,
@@ -57,54 +60,75 @@ public class Movement : MonoBehaviour
     {
         if (_permissaoAndar)
         {
-            if (!_dash.dashing && !isClimbing)
+            //Altera o valor do modificador da velocidade do personagem
+            if (lento || isClimbing)
             {
-                if (!lento)
-                    rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade;
-                else
-                    rb.velocity = new Vector2(horizontal, vertical).normalized * velocidade / lentidao;
+                if(lento)
+                {
+                    velocidadeM = 0.4f;
+                }
+
+                if(isClimbing)
+                {
+                    velocidadeM = 0.6f;
+                }
             }
-            if (isClimbing)
+            else
             {
-                rb.velocity = new Vector2(0f, vertical).normalized * velocidade / lentidao;
+                velocidadeM = 1;
             }
+
+            //Faz o personagem se mover, utilizando sua velocidade base e o modificador da velocidade
+            rb.velocity = new Vector2(horizontal, vertical).normalized * (velocidade * velocidadeM);
         }
 
+        //Define a animacao
         DefinirAnimacao(horizontal, vertical);
+
+        //Roda a animacao
         Animar();
     }
 
     private void DefinirAnimacao(float horizontal, float vertical)
     {
-        if (horizontal != 0 || vertical != 0)
+        if(isClimbing)
         {
-            animacao = (int)AnimacaoEnum.Andando;
-
-            if (horizontal == -1f)
-            {
-                spriteRend.flipX = true;
-                animator.SetFloat("Direcao", (float)Direcao.Lado);
-            }
-            else if (horizontal == +1f)
-            {
-                spriteRend.flipX = false;
-                animator.SetFloat("Direcao", (float)Direcao.Lado);
-            }
-
-            if (vertical == -1f)
-            {
-                spriteRend.flipX = false;
-                animator.SetFloat("Direcao", (float)Direcao.Baixo);
-            }
-            else if (vertical == +1f)
-            {
-                spriteRend.flipX = false;
-                animator.SetFloat("Direcao", (float)Direcao.Cima);
-            }
+            spriteRend.flipX = false;
+            animator.SetFloat("Direcao", (float)Direcao.Cima);
+            animacao = (int)AnimacaoEnum.SubindoEscadas;
         }
-        else if (horizontal == 0 && vertical == 0)
+        else
         {
-            animacao = (int)AnimacaoEnum.Idle;
+            if (horizontal != 0 || vertical != 0)
+            {
+                animacao = (int)AnimacaoEnum.Andando;
+
+                if (horizontal == -1f)
+                {
+                    spriteRend.flipX = true;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+                else if (horizontal == +1f)
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+
+                if (vertical == -1f)
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Baixo);
+                }
+                else if (vertical == +1f)
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Cima);
+                }
+            }
+            else if (horizontal == 0 && vertical == 0)
+            {
+                animacao = (int)AnimacaoEnum.Idle;
+            }
         }
     }
 
@@ -118,6 +142,10 @@ public class Movement : MonoBehaviour
 
             case (int)AnimacaoEnum.Andando:
                 animator.Play("Andando");
+                break;
+
+            case (int)AnimacaoEnum.SubindoEscadas:
+                animator.Play("Subindo Escadas");
                 break;
         }
     }
