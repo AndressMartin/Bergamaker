@@ -31,7 +31,7 @@ public interface IAction
 public interface ITarget: IAction
 {
     int range { get; }
-    Targeter _targeter { get; }
+    GridManager _targeter { get; }
     GameObject target { get; }
     AuraDrawer auraDrawer { get; }
     void SendTargetRequest();
