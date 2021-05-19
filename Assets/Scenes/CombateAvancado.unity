@@ -5571,7 +5571,7 @@ MonoBehaviour:
   mainCamera: {fileID: 306120962}
   ignorar:
     serializedVersion: 2
-    m_Bits: 759
+    m_Bits: 631
   targetMat: {fileID: 2100000, guid: 159de79a04be15e4bac51562b2cd63e0, type: 2}
   selectMat: {fileID: 2100000, guid: e81b587088db0de44b7785e3615f1e95, type: 2}
   defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
