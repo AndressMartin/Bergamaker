@@ -13,7 +13,7 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     public bool charging{get; private set;}
     public bool activated{get; private set;}
     public int onButton { get; private set; }
-    public Targeter _targeter { get; private set; }
+    public GridManager _targeter { get; private set; }
     public Player actionMaker{get; private set;}
     public InputSys actionMakerInput{get; private set;}
     public AuraDrawer auraDrawer { get; private set; }
@@ -27,11 +27,11 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
         SkillHolder = gameObject.transform.parent;
         onButton = FindStoredButton();
         //actionMakerInput.GetSkillButton(onButton);
-        _targeter = FindObjectOfType<Targeter>();
+        _targeter = FindObjectOfType<GridManager>();
         actionMaker = FindObjectOfType<Player>();
         actionMakerInput = actionMaker.GetComponent<InputSys>();
-        actionChild = actionMaker.transform.GetChild(0);
-        auraDrawer = actionChild.GetComponent<AuraDrawer>();
+        //actionChild = actionMaker.transform.GetChild(0); //Deprecated for GRID
+        //auraDrawer = actionChild.GetComponent<AuraDrawer>(); //Deprecated for GRID
     }
     // Update is called once per frame
     void Update()
@@ -68,7 +68,7 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
         else
         {
             SendTargetRequest();
-            ActivateRange();
+            //ActivateRange();
         }
         actionMaker.GetComponent<ColorSys>().AttackColor();
     }
@@ -94,11 +94,7 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     }
     public void ActivateRange()
     {
-        actionChild.GetComponent<LineRenderer>().enabled = true;
-        auraDrawer.enabled = true;
-        auraDrawer.update = true;
-        auraDrawer.radius = range;
-
+        //_targeter.range
     }
     public void WaitTarget()
     {
@@ -109,7 +105,8 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
             target = _targeter.targetUnit;
             // Debug.LogError($"This is the target: {target}");
             _targeter.targetUnit = null;
-            TestDistance();
+            //TestDistance(); //Deprecated for GRID
+            ChargeIni();
             actionMaker.GetComponent<Movement>().Lento(false);
         }
         else if (Interruption())
@@ -121,26 +118,26 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     }
     public void TestDistance()
     {
+        Debug.Log("testing distance");
         if (Vector2.Distance(actionMaker.transform.position, target.transform.position) <= range)
         {
-            // Debug.Log($"{target} is at a distance of {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
+            Debug.Log($"{target} is at a distance of {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
             ChargeIni();
         }
         else
         {
-            // Debug.LogError($"{target} was super far! Distance: {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
+            Debug.LogError($"{target} was super far! Distance: {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
             Fail();
             ResetTargetParams();
         }
     }
     public void DeactivateRange()
     {
-        actionChild.GetComponent<LineRenderer>().enabled = false;
-        auraDrawer.enabled = false;
+
     }
     public void ChargeIni()
     {
-        DeactivateRange();
+        //DeactivateRange();
         _targeter.TargetedOutline(target);
         actionMaker.GetComponent<ColorSys>().ChargingColor();
         charging = true;
@@ -168,7 +165,7 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     }
     public void ResetTargetParams()
     {
-        DeactivateRange();
+        //DeactivateRange();
         actionMaker.GetComponent<Movement>().Lento(false);
         _targeter.SearchMode(false);
         actionMaker.GetComponent<ColorSys>().DefaultColor();

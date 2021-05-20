@@ -63,12 +63,12 @@ public class Movement : MonoBehaviour
             //Altera o valor do modificador da velocidade do personagem
             if (lento || isClimbing)
             {
-                if(lento)
+                if (lento)
                 {
                     velocidadeM = 0.4f;
                 }
 
-                if(isClimbing)
+                if (isClimbing)
                 {
                     velocidadeM = 0.6f;
                 }
@@ -91,7 +91,7 @@ public class Movement : MonoBehaviour
 
     private void DefinirAnimacao(float horizontal, float vertical)
     {
-        if(isClimbing)
+        if (isClimbing)
         {
             spriteRend.flipX = false;
             animator.SetFloat("Direcao", (float)Direcao.Cima);
@@ -134,7 +134,7 @@ public class Movement : MonoBehaviour
 
     private void Animar()
     {
-        switch(animacao)
+        switch (animacao)
         {
             case (int)AnimacaoEnum.Idle:
                 animator.Play("Idle");
