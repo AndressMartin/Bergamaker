@@ -1,484 +1,259 @@
 fileFormatVersion: 2
-guid: c735301bf3234154781281629f91b619
+guid: f4aa1b3df39b429479153ae666b08211
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4534566638065658102
-    second: Personagem_Base_Idle_F_0
+      213: 9098707965549752121
+    second: Cacau_Idle_F_0
   - first:
-      213: 714639376652073949
-    second: Personagem_Base_Idle_F_1
+      213: -7206220763259026883
+    second: Cacau_Idle_F_1
   - first:
-      213: -5775744076100579114
-    second: Personagem_Base_Idle_F_2
+      213: 4377533865565885708
+    second: Cacau_Idle_F_2
   - first:
-      213: 3393574017541481394
-    second: Personagem_Base_Andando_F_0
+      213: 1123826113621475562
+    second: Cacau_Andando_F_0
   - first:
-      213: -7699084670088421937
-    second: Personagem_Base_Andando_F_1
+      213: 5990108881796487048
+    second: Cacau_Andando_F_1
   - first:
-      213: 3101541567023618931
-    second: Personagem_Base_Andando_F_2
+      213: 8636929011908519039
+    second: Cacau_Andando_F_2
   - first:
-      213: -213735878651538367
-    second: Personagem_Base_Andando_F_3
+      213: 486787481349571791
+    second: Cacau_Andando_F_3
   - first:
-      213: -2474945625767452318
-    second: Personagem_Base_Andando_F_4
+      213: 599465329045485587
+    second: Cacau_Andando_F_4
   - first:
-      213: -7592982319686251325
-    second: Personagem_Base_Andando_F_5
+      213: -2615264412396601546
+    second: Cacau_Andando_F_5
   - first:
-      213: 8432978734434906691
-    second: Personagem_Base_Andando_F_6
+      213: 3395977278814795980
+    second: Cacau_Andando_F_6
   - first:
-      213: 5027953466028150636
-    second: Personagem_Base_Andando_F_7
+      213: -7307531433319104645
+    second: Cacau_Andando_F_7
   - first:
-      213: 3120423159828220271
-    second: Personagem_Base_CastandoMagia_F_0
+      213: -8606203614020775078
+    second: Cacau_CastandoMagia_F_0
   - first:
-      213: -359740584949166085
-    second: Personagem_Base_CastandoMagia_F_1
+      213: -5323811663695319314
+    second: Cacau_CastandoMagia_F_1
   - first:
-      213: -9076882916016752080
-    second: Personagem_Base_LancandoMagiaInicio_F_0
+      213: 8406476222211172341
+    second: Cacau_LancandoMagiaInicio_F_0
   - first:
-      213: -1230916272075952441
-    second: Personagem_Base_LancandoMagiaInicio_F_1
+      213: -8032640758670870883
+    second: Cacau_LancandoMagiaInicio_F_1
   - first:
-      213: 6836032116208092073
-    second: Personagem_Base_LancandoMagiaInicio_F_2
+      213: 4253689728731501646
+    second: Cacau_LancandoMagiaInicio_F_2
   - first:
-      213: -916343353554523419
-    second: Personagem_Base_LancandoMagiaLooping_F_0
+      213: -4459189351514107178
+    second: Cacau_LancandoMagiaLooping_F_0
   - first:
-      213: -230405555099561012
-    second: Personagem_Base_TomandoDano_F_0
+      213: 2940732676142195293
+    second: Cacau_LancandoMagiaLooping_F_1
   - first:
-      213: -6901640888387314123
-    second: Personagem_Base_Morto_0
+      213: 6204629872411052976
+    second: Cacau_TomandoDano_F_0
   - first:
-      213: 5580190225683311312
-    second: Personagem_Base_AtaqueBasico_F_0
+      213: -8029542714097607416
+    second: Cacau_Morto_0
   - first:
-      213: -2666628365699457155
-    second: Personagem_Base_AtaqueBasico_F_1
+      213: 433221107504295278
+    second: Cacau_Morto_1
   - first:
-      213: -6045522634622662408
-    second: Personagem_Base_AtaqueBasico_F_2
+      213: -5941113963737413487
+    second: Cacau_Morto_2
   - first:
-      213: 3198215603834708956
-    second: Personagem_Base_AtaqueBasico_F_3
+      213: 5432903064267867506
+    second: Cacau_Morto_3
   - first:
-      213: 561781080373399495
-    second: Personagem_Base_AtaqueBasico_F_4
+      213: -5846128127552988500
+    second: Cacau_Morto_4
   - first:
-      213: -5870852305491934508
-    second: Personagem_Base_AtaqueBasico_F_5
+      213: -8176699535015821691
+    second: Cacau_AtaqueBasico_F_0
   - first:
-      213: -5305028204234475438
-    second: Personagem_Base_Idle_C_0
+      213: -2774946601308544454
+    second: Cacau_AtaqueBasico_F_1
   - first:
-      213: 6166770019618706589
-    second: Personagem_Base_Idle_C_1
+      213: -5618841768810687086
+    second: Cacau_AtaqueBasico_F_2
   - first:
-      213: -8547334623220380091
-    second: Personagem_Base_Idle_C_2
+      213: -4905372505170516720
+    second: Cacau_AtaqueBasico_F_3
   - first:
-      213: 173480849415926563
-    second: Personagem_Base_Andando_C_0
+      213: 4210803526275574403
+    second: Cacau_AtaqueBasico_F_4
   - first:
-      213: 227518582309384215
-    second: Personagem_Base_Andando_C_1
+      213: 4860438251463807495
+    second: Cacau_AtaqueBasico_F_5
   - first:
-      213: -8785349138484480441
-    second: Personagem_Base_Andando_C_2
+      213: -8218519844743822580
+    second: Cacau_Idle_C_0
   - first:
-      213: 3127881390698502699
-    second: Personagem_Base_Andando_C_3
+      213: -2775213752490699320
+    second: Cacau_Idle_C_1
   - first:
-      213: -1647978603239869455
-    second: Personagem_Base_Andando_C_4
+      213: 8636233754909025405
+    second: Cacau_Idle_C_2
   - first:
-      213: -538437904967105421
-    second: Personagem_Base_Andando_C_5
+      213: -3240555734773694341
+    second: Cacau_Andando_C_0
   - first:
-      213: -3028383891907735692
-    second: Personagem_Base_Andando_C_6
+      213: 3958466710977516948
+    second: Cacau_Andando_C_1
   - first:
-      213: 2330591395176966753
-    second: Personagem_Base_Andando_C_7
+      213: -9193293996543985289
+    second: Cacau_Andando_C_2
   - first:
-      213: 5085757419261739735
-    second: Personagem_Base_CastandoMagia_C_0
+      213: -215965827848054399
+    second: Cacau_Andando_C_3
   - first:
-      213: 6902614233191929863
-    second: Personagem_Base_CastandoMagia_C_1
+      213: -367503830773699675
+    second: Cacau_Andando_C_4
   - first:
-      213: 216965114857779634
-    second: Personagem_Base_LancandoMagiaInicio_C_0
+      213: -656877836031620253
+    second: Cacau_Andando_C_5
   - first:
-      213: 6758339890277002034
-    second: Personagem_Base_LancandoMagiaInicio_C_1
+      213: 8618249693345494212
+    second: Cacau_Andando_C_6
   - first:
-      213: 6384602265794446471
-    second: Personagem_Base_LancandoMagiaInicio_C_2
+      213: -4308534443115543380
+    second: Cacau_Andando_C_7
   - first:
-      213: -1226304354387287823
-    second: Personagem_Base_LancandoMagiaLooping_C_0
+      213: 1702083838524662134
+    second: Cacau_CastandoMagia_C_0
   - first:
-      213: 1535616132031404764
-    second: Personagem_Base_TomandoDano_C_0
+      213: -4657339564657247717
+    second: Cacau_CastandoMagia_C_1
   - first:
-      213: -5909887284499422094
-    second: Personagem_Base_AtaqueBasico_C_0
+      213: -5661837047224251020
+    second: Cacau_LancandoMagiaInicio_C_0
   - first:
-      213: 5357988920233108561
-    second: Personagem_Base_AtaqueBasico_C_1
+      213: 6597535177084641297
+    second: Cacau_LancandoMagiaInicio_C_1
   - first:
-      213: 3479457604952729726
-    second: Personagem_Base_AtaqueBasico_C_2
+      213: 685200801703181186
+    second: Cacau_LancandoMagiaInicio_C_2
   - first:
-      213: -4238376884765755498
-    second: Personagem_Base_AtaqueBasico_C_3
+      213: 8288766183200070755
+    second: Cacau_LancandoMagiaLooping_C_0
   - first:
-      213: 7453545608582360482
-    second: Personagem_Base_AtaqueBasico_C_4
+      213: 7989959170120485947
+    second: Cacau_LancandoMagiaLooping_C_1
   - first:
-      213: 8181163365192417033
-    second: Personagem_Base_AtaqueBasico_C_5
+      213: 1426091909136193387
+    second: Cacau_TomandoDano_C_0
   - first:
-      213: 8331339174201129470
-    second: Personagem_Base_Idle_L_0
+      213: -541027551698285426
+    second: Cacau_SubindoEscadas_0
   - first:
-      213: -2202542331585920879
-    second: Personagem_Base_Idle_L_1
+      213: 92142653588936372
+    second: Cacau_SubindoEscadas_1
   - first:
-      213: 8508656401161817690
-    second: Personagem_Base_Idle_L_2
+      213: 3002149544013722890
+    second: Cacau_SubindoEscadas_2
   - first:
-      213: 365774817108661735
-    second: Personagem_Base_Andando_L_0
+      213: -2635441042254445229
+    second: Cacau_SubindoEscadas_3
   - first:
-      213: 5844994195692213404
-    second: Personagem_Base_Andando_L_1
+      213: 5280730680234676448
+    second: Cacau_AtaqueBasico_C_0
   - first:
-      213: 4289886320734199723
-    second: Personagem_Base_Andando_L_2
+      213: 5757373134661345969
+    second: Cacau_AtaqueBasico_C_1
   - first:
-      213: -3516939569677680882
-    second: Personagem_Base_Andando_L_3
+      213: -284779612753809067
+    second: Cacau_AtaqueBasico_C_2
   - first:
-      213: -7804206549016810671
-    second: Personagem_Base_Andando_L_4
+      213: -212557588647385534
+    second: Cacau_AtaqueBasico_C_3
   - first:
-      213: 6886004013751629669
-    second: Personagem_Base_Andando_L_5
+      213: 4442075911534710242
+    second: Cacau_AtaqueBasico_C_4
   - first:
-      213: 341315418151076351
-    second: Personagem_Base_Andando_L_6
+      213: -7321011875009317198
+    second: Cacau_AtaqueBasico_C_5
   - first:
-      213: 7391426811337876941
-    second: Personagem_Base_Andando_L_7
+      213: -2165842102091826589
+    second: Cacau_Idle_L_0
   - first:
-      213: -3992034148291319326
-    second: Personagem_Base_CastandoMagia_L_0
+      213: -3725277729243031988
+    second: Cacau_Idle_L_1
   - first:
-      213: 5659847002805730872
-    second: Personagem_Base_CastandoMagia_L_1
+      213: 2253822293535653561
+    second: Cacau_Idle_L_2
   - first:
-      213: 1764046100817388173
-    second: Personagem_Base_LancandoMagiaInicio_L_0
+      213: 9103387936496828531
+    second: Cacau_Andando_L_0
   - first:
-      213: 1053638350739751124
-    second: Personagem_Base_LancandoMagiaInicio_L_1
+      213: 3121994259400092999
+    second: Cacau_Andando_L_1
   - first:
-      213: -1040745448892363067
-    second: Personagem_Base_LancandoMagiaInicio_L_2
+      213: -7373121167917946612
+    second: Cacau_Andando_L_2
   - first:
-      213: -2613829333573808365
-    second: Personagem_Base_LancandoMagiaLooping_L_0
+      213: 2169505094681315206
+    second: Cacau_Andando_L_3
   - first:
-      213: -4413118318464596314
-    second: Personagem_Base_TomandoDano_L_0
+      213: -7192589557792951039
+    second: Cacau_Andando_L_4
   - first:
-      213: 8998734480589812559
-    second: Personagem_Base_AtaqueBasico_L_0
+      213: -4427787852779043239
+    second: Cacau_Andando_L_5
   - first:
-      213: -3388094000332172392
-    second: Personagem_Base_AtaqueBasico_L_1
+      213: 5477215833609446856
+    second: Cacau_Andando_L_6
   - first:
-      213: 8781087950988361784
-    second: Personagem_Base_AtaqueBasico_L_2
+      213: -5351640273474362274
+    second: Cacau_Andando_L_7
   - first:
-      213: 3096202089981829300
-    second: Personagem_Base_AtaqueBasico_L_3
+      213: 8335667090018281788
+    second: Cacau_CastandoMagia_L_0
   - first:
-      213: 7326847042267516942
-    second: Personagem_Base_AtaqueBasico_L_4
+      213: -5057050385230849521
+    second: Cacau_CastandoMagia_L_1
   - first:
-      213: 2501644465767043380
-    second: Personagem_Base_AtaqueBasico_L_5
+      213: -2960915066117508931
+    second: Cacau_LancandoMagiaInicio_L_0
   - first:
-      213: -7950432267559195053
-    second: Personagem_Base_SubindoEscadas_0
+      213: 4009406962128001365
+    second: Cacau_LancandoMagiaInicio_L_1
   - first:
-      213: -2156708097585601009
-    second: Personagem_Base_SubindoEscadas_1
+      213: -4638480431591297983
+    second: Cacau_LancandoMagiaInicio_L_2
   - first:
-      213: 2178196023844484125
-    second: Personagem_Base_SubindoEscadas_2
+      213: -5595441391785804438
+    second: Cacau_LancandoMagiaLooping_L_0
   - first:
-      213: -9173572700822169613
-    second: Personagem_Base_SubindoEscadas_3
+      213: 4165411028212755479
+    second: Cacau_LancandoMagiaLooping_L_1
   - first:
-      213: 7995418049380490663
-    second: Personagem_Base 0
+      213: -6508158043460016295
+    second: Cacau_TomandoDano_L_0
   - first:
-      213: -7776204008561863888
-    second: Personagem_Base 1
+      213: -912050173875137773
+    second: Cacau_AtaqueBasico_L_0
   - first:
-      213: -4052226854464904677
-    second: Personagem_Base 2
+      213: 3440200997598222733
+    second: Cacau_AtaqueBasico_L_1
   - first:
-      213: -1430610285842111112
-    second: Personagem_Base 3
+      213: 8851169918485745842
+    second: Cacau_AtaqueBasico_L_2
   - first:
-      213: -7831648818795148452
-    second: Personagem_Base 4
+      213: -6583959818961922883
+    second: Cacau_AtaqueBasico_L_3
   - first:
-      213: -8385745516666636542
-    second: Personagem_Base 5
+      213: 8346561825093215403
+    second: Cacau_AtaqueBasico_L_4
   - first:
-      213: -6325459124487177567
-    second: Personagem_Base 6
-  - first:
-      213: 7078383100980619805
-    second: Personagem_Base 7
-  - first:
-      213: 5046174761789582312
-    second: Personagem_Base 8
-  - first:
-      213: 333636845631791478
-    second: Personagem_Base 9
-  - first:
-      213: -4896933584846232482
-    second: Personagem_Base 10
-  - first:
-      213: 193898209440388880
-    second: Personagem_Base 11
-  - first:
-      213: 7720655359157590329
-    second: Personagem_Base 12
-  - first:
-      213: -7961974944819728875
-    second: Personagem_Base 13
-  - first:
-      213: 3753404552282577219
-    second: Personagem_Base 14
-  - first:
-      213: 3594631803257012546
-    second: Personagem_Base 15
-  - first:
-      213: 3859336946327566794
-    second: Personagem_Base 16
-  - first:
-      213: 1973332979146256098
-    second: Personagem_Base 17
-  - first:
-      213: -3338700327504984945
-    second: Personagem_Base 18
-  - first:
-      213: 8817633684451631468
-    second: Personagem_Base 19
-  - first:
-      213: 2921726935464326102
-    second: Personagem_Base 20
-  - first:
-      213: -8242391905081424322
-    second: Personagem_Base 21
-  - first:
-      213: 7495092579253708656
-    second: Personagem_Base 22
-  - first:
-      213: -1002392579582024905
-    second: Personagem_Base 23
-  - first:
-      213: -2101772052824715583
-    second: Personagem_Base 24
-  - first:
-      213: 1831337665684280154
-    second: Personagem_Base 25
-  - first:
-      213: -9170183075786319611
-    second: Personagem_Base 26
-  - first:
-      213: 5297757923145422232
-    second: Personagem_Base 27
-  - first:
-      213: 3507914405786923006
-    second: Personagem_Base 28
-  - first:
-      213: 583005552451886584
-    second: Personagem_Base 29
-  - first:
-      213: -3541712193394624406
-    second: Personagem_Base 30
-  - first:
-      213: 5174222305439796795
-    second: Personagem_Base 31
-  - first:
-      213: -8450042518171244896
-    second: Personagem_Base 32
-  - first:
-      213: 9096724170835178096
-    second: Personagem_Base 33
-  - first:
-      213: -7837116000295798835
-    second: Personagem_Base 34
-  - first:
-      213: -7292639445230415031
-    second: Personagem_Base 35
-  - first:
-      213: 429030213536016090
-    second: Personagem_Base 36
-  - first:
-      213: 4539693284877778719
-    second: Personagem_Base 37
-  - first:
-      213: 1757441364356653373
-    second: Personagem_Base 38
-  - first:
-      213: 1617310195548302571
-    second: Personagem_Base 39
-  - first:
-      213: 4208081650773727145
-    second: Personagem_Base 40
-  - first:
-      213: 3115821265796470358
-    second: Personagem_Base 41
-  - first:
-      213: 4721036713743412376
-    second: Personagem_Base 42
-  - first:
-      213: -612323231921280590
-    second: Personagem_Base 43
-  - first:
-      213: 5076464796744758485
-    second: Personagem_Base 44
-  - first:
-      213: 5569888367740329315
-    second: Personagem_Base 45
-  - first:
-      213: -7250490424132174964
-    second: Personagem_Base 46
-  - first:
-      213: -8156118460575772444
-    second: Personagem_Base 47
-  - first:
-      213: 984069149579754627
-    second: Personagem_Base 48
-  - first:
-      213: 7560401089500098486
-    second: Personagem_Base 49
-  - first:
-      213: -2644369095462088898
-    second: Personagem_Base 50
-  - first:
-      213: -4732784307023748231
-    second: Personagem_Base 51
-  - first:
-      213: -5129288750336811632
-    second: Personagem_Base 52
-  - first:
-      213: -7037391254273035643
-    second: Personagem_Base 53
-  - first:
-      213: 1867237542566465901
-    second: Personagem_Base 54
-  - first:
-      213: -5525172649770402197
-    second: Personagem_Base 55
-  - first:
-      213: -2131702957496127314
-    second: Personagem_Base 56
-  - first:
-      213: -5104937778557968769
-    second: Personagem_Base 57
-  - first:
-      213: -7023125899611383909
-    second: Personagem_Base 58
-  - first:
-      213: 7989859252070152292
-    second: Personagem_Base 59
-  - first:
-      213: -164594883126408155
-    second: Personagem_Base 60
-  - first:
-      213: 7966196227017737958
-    second: Personagem_Base 61
-  - first:
-      213: 6963381406208289634
-    second: Personagem_Base 62
-  - first:
-      213: 6408622574176026162
-    second: Personagem_Base 63
-  - first:
-      213: -5369716032043383993
-    second: Personagem_Base 64
-  - first:
-      213: 5649250138989528175
-    second: Personagem_Base 65
-  - first:
-      213: 8336593277344657209
-    second: Personagem_Base 66
-  - first:
-      213: 4479961258232778418
-    second: Personagem_Base 67
-  - first:
-      213: -396645686922680310
-    second: Personagem_Base 68
-  - first:
-      213: -6777864703666897353
-    second: Personagem_Base 69
-  - first:
-      213: 3305564980846338338
-    second: Personagem_Base 70
-  - first:
-      213: 1585848860936237634
-    second: Personagem_Base 71
-  - first:
-      213: -7599574498476465027
-    second: Personagem_Base 72
-  - first:
-      213: 8523363135201796067
-    second: Personagem_Base 73
-  - first:
-      213: -3289003327991342383
-    second: Personagem_Base 74
-  - first:
-      213: 2774304941971216096
-    second: Personagem_Base 75
-  - first:
-      213: -6353327940493284304
-    second: Personagem_Base 76
-  - first:
-      213: -8497705833579257603
-    second: Personagem_Base 77
-  - first:
-      213: 3571918140391931284
-    second: Personagem_Base 78
-  - first:
-      213: 4273692648636137649
-    second: Personagem_Base 79
-  - first:
-      213: 5608109237298173629
-    second: Personagem_Base 80
-  - first:
-      213: -9116311280489835743
-    second: Personagem_Base 81
+      213: 1321805594023631013
+    second: Cacau_AtaqueBasico_L_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -556,7 +331,217 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Personagem_Base_Idle_F_0
+      name: Cacau_Idle_F_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f2c9900ba154e70800000000000000
+      internalID: 9098707965549752121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Idle_F_1
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d32c6e0656c5efb90800000000000000
+      internalID: -7206220763259026883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Idle_F_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c051c498bdf10cc30800000000000000
+      internalID: 4377533865565885708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_F_0
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae047b365e1a89f00800000000000000
+      internalID: 1123826113621475562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_F_1
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88754618a44212350800000000000000
+      internalID: 5990108881796487048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_F_2
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f74a2190d298cd770800000000000000
+      internalID: 8636929011908519039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_F_3
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc4c2fa92aa61c600800000000000000
+      internalID: 486787481349571791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_F_4
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3183be86a8ab15800800000000000000
+      internalID: 599465329045485587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_F_5
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f31698fd6b4bbd0800000000000000
+      internalID: -2615264412396601546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_F_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc8bd09a75fe02f20800000000000000
+      internalID: 3395977278814795980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_F_7
       rect:
         serializedVersion: 2
         x: 0
@@ -564,20 +549,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a0752c7faabf111c0800000000000000
-      internalID: -4534566638065658102
+      spriteID: b7f730cd0ee669a90800000000000000
+      internalID: -7307531433319104645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Idle_F_1
+      name: Cacau_CastandoMagia_F_0
       rect:
         serializedVersion: 2
         x: 96
@@ -585,20 +570,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ddb7adb0ab8eae900800000000000000
-      internalID: 714639376652073949
+      spriteID: a53db91296f909880800000000000000
+      internalID: -8606203614020775078
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Idle_F_2
+      name: Cacau_CastandoMagia_F_1
       rect:
         serializedVersion: 2
         x: 192
@@ -606,20 +591,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6d0557e2d5f68dfa0800000000000000
-      internalID: -5775744076100579114
+      spriteID: eeeeb56af750e16b0800000000000000
+      internalID: -5323811663695319314
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_F_0
+      name: Cacau_LancandoMagiaInicio_F_0
       rect:
         serializedVersion: 2
         x: 288
@@ -627,20 +612,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b32e8ac695681f20800000000000000
-      internalID: 3393574017541481394
+      spriteID: 5f72aada59dc9a470800000000000000
+      internalID: 8406476222211172341
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_F_1
+      name: Cacau_LancandoMagiaInicio_F_1
       rect:
         serializedVersion: 2
         x: 384
@@ -648,20 +633,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fcd59b7b84b572590800000000000000
-      internalID: -7699084670088421937
+      spriteID: d96391be9c3568090800000000000000
+      internalID: -8032640758670870883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_F_2
+      name: Cacau_LancandoMagiaInicio_F_2
       rect:
         serializedVersion: 2
         x: 480
@@ -669,62 +654,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 37b1d8e5f93ea0b20800000000000000
-      internalID: 3101541567023618931
+      spriteID: e44d4c17544280b30800000000000000
+      internalID: 4253689728731501646
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_F_3
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 672
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 144183dc958a80df0800000000000000
-      internalID: -213735878651538367
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_Andando_F_4
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 672
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 26169b1f01a37add0800000000000000
-      internalID: -2474945625767452318
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_Andando_F_5
+      name: Cacau_LancandoMagiaLooping_F_0
       rect:
         serializedVersion: 2
         x: 576
@@ -732,20 +675,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3cc87414fce40a690800000000000000
-      internalID: -7592982319686251325
+      spriteID: 6d21ccc19e6cd12c0800000000000000
+      internalID: -4459189351514107178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_F_6
+      name: Cacau_LancandoMagiaLooping_F_1
       rect:
         serializedVersion: 2
         x: 672
@@ -753,41 +696,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3427a68aa75f70570800000000000000
-      internalID: 8432978734434906691
+      spriteID: d52e6dcc9c49fc820800000000000000
+      internalID: 2940732676142195293
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_F_7
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 672
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c6f4dc1c901e6c540800000000000000
-      internalID: 5027953466028150636
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_CastandoMagia_F_0
+      name: Cacau_TomandoDano_F_0
       rect:
         serializedVersion: 2
         x: 768
@@ -795,20 +717,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f698676c458fd4b20800000000000000
-      internalID: 3120423159828220271
+      spriteID: 0bb86d3def54b1650800000000000000
+      internalID: 6204629872411052976
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_CastandoMagia_F_1
+      name: Cacau_Morto_0
       rect:
         serializedVersion: 2
         x: 0
@@ -816,20 +738,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bff40de08d1f10bf0800000000000000
-      internalID: -359740584949166085
+      spriteID: 80dd261a175519090800000000000000
+      internalID: -8029542714097607416
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_F_0
+      name: Cacau_Morto_1
       rect:
         serializedVersion: 2
         x: 96
@@ -837,20 +759,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 03a720b441f680280800000000000000
-      internalID: -9076882916016752080
+      spriteID: e6daefd4d4c130600800000000000000
+      internalID: 433221107504295278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_F_1
+      name: Cacau_Morto_2
       rect:
         serializedVersion: 2
         x: 192
@@ -858,20 +780,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7ce2aa61c28eaeee0800000000000000
-      internalID: -1230916272075952441
+      spriteID: 198815dc35cec8da0800000000000000
+      internalID: -5941113963737413487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_F_2
+      name: Cacau_Morto_3
       rect:
         serializedVersion: 2
         x: 288
@@ -879,20 +801,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a3ceb7adf67ede50800000000000000
-      internalID: 6836032116208092073
+      spriteID: 27541dc5d8c856b40800000000000000
+      internalID: 5432903064267867506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaLooping_F_0
+      name: Cacau_Morto_4
       rect:
         serializedVersion: 2
         x: 384
@@ -900,41 +822,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5eaa71f239e7843f0800000000000000
-      internalID: -916343353554523419
+      spriteID: caad8cd21716edea0800000000000000
+      internalID: -5846128127552988500
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_TomandoDano_F_0
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 576
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cc3930e4e5f6dccf0800000000000000
-      internalID: -230405555099561012
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_Morto_0
+      name: Cacau_AtaqueBasico_F_0
       rect:
         serializedVersion: 2
         x: 576
@@ -942,20 +843,41 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 53edc50bd227830a0800000000000000
-      internalID: -6901640888387314123
+      spriteID: 58eb74c4817868e80800000000000000
+      internalID: -8176699535015821691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_F_0
+      name: Cacau_AtaqueBasico_F_1
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 576
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a32a356b4c86d79d0800000000000000
+      internalID: -2774946601308544454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_AtaqueBasico_F_2
       rect:
         serializedVersion: 2
         x: 768
@@ -963,20 +885,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0dae5f4f171d07d40800000000000000
-      internalID: 5580190225683311312
+      spriteID: 29559e06e2dd502b0800000000000000
+      internalID: -5618841768810687086
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_F_1
+      name: Cacau_AtaqueBasico_F_3
       rect:
         serializedVersion: 2
         x: 0
@@ -984,20 +906,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d7fd08a31ab3efad0800000000000000
-      internalID: -2666628365699457155
+      spriteID: 015e75242bd9cebb0800000000000000
+      internalID: -4905372505170516720
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_F_2
+      name: Cacau_AtaqueBasico_F_4
       rect:
         serializedVersion: 2
         x: 96
@@ -1005,20 +927,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8f88bb1c13df91ca0800000000000000
-      internalID: -6045522634622662408
+      spriteID: 38a2e925f77cf6a30800000000000000
+      internalID: 4210803526275574403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_F_3
+      name: Cacau_AtaqueBasico_F_5
       rect:
         serializedVersion: 2
         x: 192
@@ -1026,20 +948,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cd3eda59528526c20800000000000000
-      internalID: 3198215603834708956
+      spriteID: 702983786deb37340800000000000000
+      internalID: 4860438251463807495
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_F_4
+      name: Cacau_Idle_C_0
       rect:
         serializedVersion: 2
         x: 288
@@ -1047,20 +969,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7cf01398ae8dbc700800000000000000
-      internalID: 561781080373399495
+      spriteID: c03cb8aaeb3f1fd80800000000000000
+      internalID: -8218519844743822580
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_F_5
+      name: Cacau_Idle_C_1
       rect:
         serializedVersion: 2
         x: 384
@@ -1068,20 +990,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4d2ce5aeeea868ea0800000000000000
-      internalID: -5870852305491934508
+      spriteID: 8c5530bbbc57c79d0800000000000000
+      internalID: -2775213752490699320
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Idle_C_0
+      name: Cacau_Idle_C_2
       rect:
         serializedVersion: 2
         x: 480
@@ -1089,20 +1011,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 258fc2b94f0c066b0800000000000000
-      internalID: -5305028204234475438
+      spriteID: d742796e7d01ad770800000000000000
+      internalID: 8636233754909025405
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Idle_C_1
+      name: Cacau_Andando_C_0
       rect:
         serializedVersion: 2
         x: 576
@@ -1110,20 +1032,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d94d6eee8a4c49550800000000000000
-      internalID: 6166770019618706589
+      spriteID: b7085f97abb3703d0800000000000000
+      internalID: -3240555734773694341
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Idle_C_2
+      name: Cacau_Andando_C_1
       rect:
         serializedVersion: 2
         x: 672
@@ -1131,20 +1053,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 54e4d862274c16980800000000000000
-      internalID: -8547334623220380091
+      spriteID: 4951603308c4fe630800000000000000
+      internalID: 3958466710977516948
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_C_0
+      name: Cacau_Andando_C_2
       rect:
         serializedVersion: 2
         x: 768
@@ -1152,20 +1074,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 323f4c4d9e3586200800000000000000
-      internalID: 173480849415926563
+      spriteID: 779b34c71dbda6080800000000000000
+      internalID: -9193293996543985289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_C_1
+      name: Cacau_Andando_C_3
       rect:
         serializedVersion: 2
         x: 0
@@ -1173,83 +1095,62 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 710f956f1fe482300800000000000000
-      internalID: 227518582309384215
+      spriteID: 1895e7b493cb00df0800000000000000
+      internalID: -215965827848054399
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_C_2
+      name: Cacau_Andando_C_4
       rect:
         serializedVersion: 2
-        x: 96
-        y: 384
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 74639dc518b241680800000000000000
-      internalID: -8785349138484480441
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_Andando_C_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 384
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b2a93287d87786b20800000000000000
-      internalID: 3127881390698502699
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_Andando_C_4
-      rect:
-        serializedVersion: 2
-        x: 768
+        x: 576
         y: 480
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f3717411343129e0800000000000000
-      internalID: -1647978603239869455
+      spriteID: 5ab6329863d56eaf0800000000000000
+      internalID: -367503830773699675
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_C_5
+      name: Cacau_Andando_C_5
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 384
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36b0282a61d42e6f0800000000000000
+      internalID: -656877836031620253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_C_6
       rect:
         serializedVersion: 2
         x: 192
@@ -1257,20 +1158,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 37484d404951788f0800000000000000
-      internalID: -538437904967105421
+      spriteID: 4c43a754f6c2a9770800000000000000
+      internalID: 8618249693345494212
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_C_6
+      name: Cacau_Andando_C_7
       rect:
         serializedVersion: 2
         x: 288
@@ -1278,41 +1179,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 47f035735e409f5d0800000000000000
-      internalID: -3028383891907735692
+      spriteID: ca4009760c20534c0800000000000000
+      internalID: -4308534443115543380
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_C_7
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 384
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 16aea12a68ce75020800000000000000
-      internalID: 2330591395176966753
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_CastandoMagia_C_0
+      name: Cacau_CastandoMagia_C_0
       rect:
         serializedVersion: 2
         x: 384
@@ -1320,20 +1200,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7d247e46d6d349640800000000000000
-      internalID: 5085757419261739735
+      spriteID: 671223dab340f9710800000000000000
+      internalID: 1702083838524662134
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_CastandoMagia_C_1
+      name: Cacau_CastandoMagia_C_1
       rect:
         serializedVersion: 2
         x: 480
@@ -1341,20 +1221,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 708d5fec2130bcf50800000000000000
-      internalID: 6902614233191929863
+      spriteID: b1a7b32775ecd5fb0800000000000000
+      internalID: -4657339564657247717
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_C_0
+      name: Cacau_LancandoMagiaInicio_C_0
       rect:
         serializedVersion: 2
         x: 576
@@ -1362,20 +1242,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b1ffb75f90d20300800000000000000
-      internalID: 216965114857779634
+      spriteID: 47d4d08043d1d61b0800000000000000
+      internalID: -5661837047224251020
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_C_1
+      name: Cacau_LancandoMagiaInicio_C_1
       rect:
         serializedVersion: 2
         x: 672
@@ -1383,20 +1263,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 23b205fa2527acd50800000000000000
-      internalID: 6758339890277002034
+      spriteID: 110264fc9472f8b50800000000000000
+      internalID: 6597535177084641297
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_C_2
+      name: Cacau_LancandoMagiaInicio_C_2
       rect:
         serializedVersion: 2
         x: 768
@@ -1404,20 +1284,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 78405d40fe9aa9850800000000000000
-      internalID: 6384602265794446471
+      spriteID: 28bb451bf72528900800000000000000
+      internalID: 685200801703181186
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaLooping_C_0
+      name: Cacau_LancandoMagiaLooping_C_0
       rect:
         serializedVersion: 2
         x: 0
@@ -1425,20 +1305,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f02b3adfaa4bfee0800000000000000
-      internalID: -1226304354387287823
+      spriteID: 36c19e78dec970370800000000000000
+      internalID: 8288766183200070755
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_TomandoDano_C_0
+      name: Cacau_LancandoMagiaLooping_C_1
       rect:
         serializedVersion: 2
         x: 96
@@ -1446,20 +1326,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cda571d6cba9f4510800000000000000
-      internalID: 1535616132031404764
+      spriteID: b3c08e8588902ee60800000000000000
+      internalID: 7989959170120485947
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_SubindoEscadas_0
+      name: Cacau_TomandoDano_C_0
       rect:
         serializedVersion: 2
         x: 192
@@ -1467,20 +1347,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 35ea451d9f36aa190800000000000000
-      internalID: -7950432267559195053
+      spriteID: b671f1d190f7ac310800000000000000
+      internalID: 1426091909136193387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_SubindoEscadas_1
+      name: Cacau_SubindoEscadas_0
       rect:
         serializedVersion: 2
         x: 288
@@ -1488,20 +1368,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f06a3377965d112e0800000000000000
-      internalID: -2156708097585601009
+      spriteID: e8c0357ee42ed78f0800000000000000
+      internalID: -541027551698285426
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_SubindoEscadas_2
+      name: Cacau_SubindoEscadas_1
       rect:
         serializedVersion: 2
         x: 384
@@ -1509,20 +1389,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d143b6c3eb18a3e10800000000000000
-      internalID: 2178196023844484125
+      spriteID: 4b694d7514b574100800000000000000
+      internalID: 92142653588936372
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_SubindoEscadas_3
+      name: Cacau_SubindoEscadas_2
       rect:
         serializedVersion: 2
         x: 480
@@ -1530,20 +1410,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f716467b3ce0b080800000000000000
-      internalID: -9173572700822169613
+      spriteID: a05f98daa17c9a920800000000000000
+      internalID: 3002149544013722890
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_C_0
+      name: Cacau_SubindoEscadas_3
       rect:
         serializedVersion: 2
         x: 576
@@ -1551,20 +1431,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 27460d0a3dcdbfda0800000000000000
-      internalID: -5909887284499422094
+      spriteID: 35540f1d5580d6bd0800000000000000
+      internalID: -2635441042254445229
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_C_1
+      name: Cacau_AtaqueBasico_C_0
       rect:
         serializedVersion: 2
         x: 672
@@ -1572,20 +1452,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 15429fcf8866b5a40800000000000000
-      internalID: 5357988920233108561
+      spriteID: 0e015ed339ce84940800000000000000
+      internalID: 5280730680234676448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_C_2
+      name: Cacau_AtaqueBasico_C_1
       rect:
         serializedVersion: 2
         x: 768
@@ -1593,20 +1473,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e782d3ab144894030800000000000000
-      internalID: 3479457604952729726
+      spriteID: 1b2edd2bc5c46ef40800000000000000
+      internalID: 5757373134661345969
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_C_3
+      name: Cacau_AtaqueBasico_C_2
       rect:
         serializedVersion: 2
         x: 0
@@ -1614,20 +1494,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6977f4fdda24e25c0800000000000000
-      internalID: -4238376884765755498
+      spriteID: 551398673724c0cf0800000000000000
+      internalID: -284779612753809067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_C_4
+      name: Cacau_AtaqueBasico_C_3
       rect:
         serializedVersion: 2
         x: 96
@@ -1635,20 +1515,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2ad69bc8d30507760800000000000000
-      internalID: 7453545608582360482
+      spriteID: 246eb52dff7dc0df0800000000000000
+      internalID: -212557588647385534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_C_5
+      name: Cacau_AtaqueBasico_C_4
       rect:
         serializedVersion: 2
         x: 192
@@ -1656,20 +1536,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 90fbbb72cb4598170800000000000000
-      internalID: 8181163365192417033
+      spriteID: 2ed8854a18c65ad30800000000000000
+      internalID: 4442075911534710242
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Idle_L_0
+      name: Cacau_AtaqueBasico_C_5
       rect:
         serializedVersion: 2
         x: 288
@@ -1677,20 +1557,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef9fd8d66dcde9370800000000000000
-      internalID: 8331339174201129470
+      spriteID: 2b637a1fc7a866a90800000000000000
+      internalID: -7321011875009317198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Idle_L_1
+      name: Cacau_Idle_L_0
       rect:
         serializedVersion: 2
         x: 384
@@ -1698,20 +1578,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1908f034b6ffe61e0800000000000000
-      internalID: -2202542331585920879
+      spriteID: 36a3b31551261f1e0800000000000000
+      internalID: -2165842102091826589
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Idle_L_2
+      name: Cacau_Idle_L_1
       rect:
         serializedVersion: 2
         x: 480
@@ -1719,41 +1599,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5e8a138ae1d41670800000000000000
-      internalID: 8508656401161817690
+      spriteID: c469bc284a72d4cc0800000000000000
+      internalID: -3725277729243031988
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_L_0
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 192
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7e59b89124e731500800000000000000
-      internalID: 365774817108661735
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_Andando_L_1
+      name: Cacau_Idle_L_2
       rect:
         serializedVersion: 2
         x: 576
@@ -1761,20 +1620,41 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c94547cb0479d1150800000000000000
-      internalID: 5844994195692213404
+      spriteID: 9be7c094f6f274f10800000000000000
+      internalID: 2253822293535653561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_L_2
+      name: Cacau_Andando_L_0
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 370487fa81bb55e70800000000000000
+      internalID: 9103387936496828531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_Andando_L_1
       rect:
         serializedVersion: 2
         x: 672
@@ -1782,62 +1662,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: baf5b2241ecb88b30800000000000000
-      internalID: 4289886320734199723
+      spriteID: 74de956ec3d835b20800000000000000
+      internalID: 3121994259400092999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_L_3
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 192
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e0fb8dc4812513fc0800000000000000
-      internalID: -3516939569677680882
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_Andando_L_4
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 192
-        width: 96
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 15b631cfd73e1b390800000000000000
-      internalID: -7804206549016810671
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Personagem_Base_Andando_L_5
+      name: Cacau_Andando_L_2
       rect:
         serializedVersion: 2
         x: 768
@@ -1845,20 +1683,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5677499ba20009f50800000000000000
-      internalID: 6886004013751629669
+      spriteID: c09665cbc596da990800000000000000
+      internalID: -7373121167917946612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_L_6
+      name: Cacau_Andando_L_3
       rect:
         serializedVersion: 2
         x: 0
@@ -1866,41 +1704,41 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ff1424f70989cb400800000000000000
-      internalID: 341315418151076351
+      spriteID: 68741ea9361ab1e10800000000000000
+      internalID: 2169505094681315206
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_Andando_L_7
+      name: Cacau_Andando_L_4
       rect:
         serializedVersion: 2
-        x: 768
+        x: 384
         y: 192
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dc5a711068f939660800000000000000
-      internalID: 7391426811337876941
+      spriteID: 1053198b7e9ce2c90800000000000000
+      internalID: -7192589557792951039
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_CastandoMagia_L_0
+      name: Cacau_Andando_L_5
       rect:
         serializedVersion: 2
         x: 96
@@ -1908,20 +1746,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2e9edd3c7127998c0800000000000000
-      internalID: -3992034148291319326
+      spriteID: 956c05648665d82c0800000000000000
+      internalID: -4427787852779043239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_CastandoMagia_L_1
+      name: Cacau_Andando_L_6
       rect:
         serializedVersion: 2
         x: 192
@@ -1929,20 +1767,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 83e7b45acd0db8e40800000000000000
-      internalID: 5659847002805730872
+      spriteID: 8c5af68f7caf20c40800000000000000
+      internalID: 5477215833609446856
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_L_0
+      name: Cacau_Andando_L_7
       rect:
         serializedVersion: 2
         x: 288
@@ -1950,20 +1788,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d8222a615962b7810800000000000000
-      internalID: 1764046100817388173
+      spriteID: e54e2e586872bb5b0800000000000000
+      internalID: -5351640273474362274
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_L_1
+      name: Cacau_CastandoMagia_L_0
       rect:
         serializedVersion: 2
         x: 384
@@ -1971,20 +1809,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4d042916f764f9e00800000000000000
-      internalID: 1053638350739751124
+      spriteID: c39247add0d3ea370800000000000000
+      internalID: 8335667090018281788
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaInicio_L_2
+      name: Cacau_CastandoMagia_L_1
       rect:
         serializedVersion: 2
         x: 480
@@ -1992,20 +1830,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5ce8a2147878e81f0800000000000000
-      internalID: -1040745448892363067
+      spriteID: f0a1011d77fb1d9b0800000000000000
+      internalID: -5057050385230849521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_LancandoMagiaLooping_L_0
+      name: Cacau_LancandoMagiaInicio_L_0
       rect:
         serializedVersion: 2
         x: 576
@@ -2013,20 +1851,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 31f46dcd110d9bbd0800000000000000
-      internalID: -2613829333573808365
+      spriteID: db0b6f95f67b8e6d0800000000000000
+      internalID: -2960915066117508931
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_TomandoDano_L_0
+      name: Cacau_LancandoMagiaInicio_L_1
       rect:
         serializedVersion: 2
         x: 672
@@ -2034,20 +1872,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a60624654471c2c0800000000000000
-      internalID: -4413118318464596314
+      spriteID: 5591e99a36644a730800000000000000
+      internalID: 4009406962128001365
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_L_0
+      name: Cacau_LancandoMagiaInicio_L_2
       rect:
         serializedVersion: 2
         x: 768
@@ -2055,20 +1893,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f437d9f255de1ec70800000000000000
-      internalID: 8998734480589812559
+      spriteID: 14c66698f9ec0afb0800000000000000
+      internalID: -4638480431591297983
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_L_1
+      name: Cacau_LancandoMagiaLooping_L_0
       rect:
         serializedVersion: 2
         x: 0
@@ -2076,20 +1914,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 893919425721bf0d0800000000000000
-      internalID: -3388094000332172392
+      spriteID: a6df61933bff852b0800000000000000
+      internalID: -5595441391785804438
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_L_2
+      name: Cacau_LancandoMagiaLooping_L_1
       rect:
         serializedVersion: 2
         x: 96
@@ -2097,20 +1935,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 830cf1c97f0bcd970800000000000000
-      internalID: 8781087950988361784
+      spriteID: 71cad18c2438ec930800000000000000
+      internalID: 4165411028212755479
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_L_3
+      name: Cacau_TomandoDano_L_0
       rect:
         serializedVersion: 2
         x: 192
@@ -2118,20 +1956,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4b0603e756be7fa20800000000000000
-      internalID: 3096202089981829300
+      spriteID: 957e67dbdb06ea5a0800000000000000
+      internalID: -6508158043460016295
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_L_4
+      name: Cacau_AtaqueBasico_L_0
       rect:
         serializedVersion: 2
         x: 288
@@ -2139,20 +1977,20 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e001afdc0903ea560800000000000000
-      internalID: 7326847042267516942
+      spriteID: 313d6d8f23fb753f0800000000000000
+      internalID: -912050173875137773
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Personagem_Base_AtaqueBasico_L_5
+      name: Cacau_AtaqueBasico_L_1
       rect:
         serializedVersion: 2
         x: 384
@@ -2160,14 +1998,98 @@ TextureImporter:
         width: 96
         height: 96
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 431dd582360a7b220800000000000000
-      internalID: 2501644465767043380
+      spriteID: d8959c1949c0ebf20800000000000000
+      internalID: 3440200997598222733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_AtaqueBasico_L_2
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b057f5352ca5da70800000000000000
+      internalID: 8851169918485745842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_AtaqueBasico_L_3
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db4545f8d6311a4a0800000000000000
+      internalID: -6583959818961922883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_AtaqueBasico_L_4
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba4648802c1f4d370800000000000000
+      internalID: 8346561825093215403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cacau_AtaqueBasico_L_5
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a817ed3f2ff75210800000000000000
+      internalID: 1321805594023631013
       vertices: []
       indices: 
       edges: []
