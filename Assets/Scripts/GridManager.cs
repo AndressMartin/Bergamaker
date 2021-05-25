@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -9,7 +10,7 @@ public class GridManager : MonoBehaviour
 {
 
     //            -----GRID MANAGEMENT
-    
+
     public Grid grid;
     public Tilemap tileMap;
     public TileBase tintTile;
@@ -24,7 +25,7 @@ public class GridManager : MonoBehaviour
     //            -----TARGETING
     public bool onSearchMode { get; private set; }
     public bool auto = false; //For self targeting
-    private List<string> _desiredTargets = new List<string>();
+    public List<string> _desiredTargets = new List<string>();
     private int _range;
     private int _aoe;
 
@@ -34,7 +35,7 @@ public class GridManager : MonoBehaviour
     //For Actions with multiple possible targets
     public GameObject[] targetUnits = null;
     public Camera mainCamera;
-    public Transform _selectable;
+    public List<Transform> _selectable = new List<Transform>();
     public Transform _selectableTarget;
     public LayerMask ignorar;
 
@@ -140,40 +141,44 @@ public class GridManager : MonoBehaviour
 
     void FindEntities(List<string> entityTags)
     {
-        GameObject[] localEntities = null;
+        GameObject[] arr = null; //Temporary array 
+        List<GameObject> localEntities = new List<GameObject>();
         CleanEntities();
         foreach (string tag in entityTags)
         {
-            localEntities = GameObject.FindGameObjectsWithTag(tag);
+            arr = GameObject.FindGameObjectsWithTag(tag);
+            foreach(var element in arr)
+                localEntities.Add(element);
         }
+        Array.Clear(arr, 0, arr.Length);
         for (var i = 0; i < tiles.Count; i++)
         {
-            for (var l = 0; l < localEntities.Length; l++)
+            for (var l = 0; l < localEntities.Count; l++)
             {
                 BoxCollider2D childCollider = localEntities[l].transform.GetChild(0).GetComponent<BoxCollider2D>();
                 var V2EntityPos = childCollider.ClosestPoint(tiles[i]);
                 if (chao.LocalToCell(tiles[i]) == chao.LocalToCell(V2EntityPos) && foundEntities.Contains(localEntities[l].transform) == false)
                 {
                     //if (foundEntities.Contains(localEntities[l].transform.GetChild(0).transform) == false)
-                        foundEntities.Add(localEntities[l].transform);
+                    foundEntities.Add(localEntities[l].transform);
                 }
             }
         }
     }
-   
+
     private void PaintGrid()
     {
         bool continuePaintingTile = true;
-        for (var i = 0; i < tiles.Count; i++) 
+        for (var i = 0; i < tiles.Count; i++)
         {
-            foreach(Vector3 tile in tilesIgnore)
+            foreach (Vector3 tile in tilesIgnore)
             {
                 if (tiles[i] == tile && continuePaintingTile == true)
                 {
                     continuePaintingTile = false;
                 }
             }
-            if (continuePaintingTile)   
+            if (continuePaintingTile)
                 tileMap.SetTile(Vector3Int.FloorToInt(tiles[i]), tintTile);
             else
                 continuePaintingTile = true;
@@ -244,22 +249,23 @@ public class GridManager : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapPointAll(mainCamera.ScreenToWorldPoint(Input.mousePosition), ~ignorar);
         // -- TODO: IMPORTANT TO IMPLEMENT LATER
         //CameraMoveWithMouse();
-        if (_selectable != null)
+        if (_selectable != null) //Check if list has stuff (was previously != null)
         {
-            if (_desiredTargets.Contains(_selectable.gameObject.tag))
-                ResetMat(_selectable.gameObject);
-            if (_selectable.gameObject.tag == "Floor")
-                ResetMat(_selectable.gameObject);
-            _selectable = null;
+            foreach (Transform entity in foundEntities)
+            {
+                Debug.Log(entity);
+                if (foundEntities.Contains(entity))
+                    ResetMat(entity.gameObject);
+                if (entity.gameObject.tag == "Floor")
+                    ResetMat(entity.gameObject);
+            }
+            _selectable.Clear();
         }
-        foreach (Collider2D hit in hits) 
+        foreach (Collider2D hit in hits)
         {
             if (hit != null && foundEntities.Contains(hit.transform))
             {
-                //SAME IF TWICE
-                float distance = Vector2.Distance(_actionMaker.transform.position, hit.transform.position);
-                if (foundEntities.Contains(hit.transform))
-                    SelectableOutline(hit.gameObject);
+                SelectableOutline(hit.gameObject);
                 _selectableTarget = hit.transform;
 
             }
@@ -272,26 +278,33 @@ public class GridManager : MonoBehaviour
                     var V2EntityPos = childCollider.ClosestPoint(V2MousePos);
                     if (chao.LocalToCell(V2MousePos) == chao.LocalToCell(V2EntityPos))
                     {
+                        if (_selectableTarget != null)
+                        {
+                            if (Vector2.Distance(V2MousePos, V2EntityPos) < Vector2.Distance(V2MousePos, _selectableTarget.position))
+                            {
+                                _selectableTarget = entity;
+                            }
+                            SelectableOutline(_selectableTarget.gameObject);
+                            SetTileColor(true, Color.red, chao.LocalToCell(V2MousePos), tileMap);
+                        }
                         //Debug.LogWarning("Should be highlighting " + entity.name);
-                        SelectableOutline(entity.gameObject);
-                        _selectableTarget = entity;
-                        SetTileColor(true, Color.red, chao.LocalToCell(V2MousePos), tileMap);
                     }
                 }
             }
-            _selectable = _selectableTarget;
+            if (_selectableTarget != null && _selectable.Contains(_selectableTarget) == false) 
+                _selectable.Add(_selectableTarget);
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            foreach (Collider2D hit in hits) 
+            foreach (Collider2D hit in hits)
             {
                 if (hit != null)
                 {
                     Debug.Log("Pressed down on " + hit.transform.gameObject);
                     if (_aoe <= 0)
                     {
-                        if (_desiredTargets.Contains(hit.tag) && foundEntities.Contains(hit.transform))
+                        if (foundEntities.Contains(hit.transform))
                         {
                             //Debug.Log("FoundEntities contains " + hit.collider.gameObject);
                             targetUnit = hit.gameObject;
@@ -318,10 +331,10 @@ public class GridManager : MonoBehaviour
 
                     }
                 }
-                
+
             }
         }
-       
+
         return targetUnit;
     }
     public void ResetParams()

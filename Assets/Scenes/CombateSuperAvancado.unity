@@ -624,11 +624,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.88
+      value: 1.043
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.06
+      value: 0.852
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5621,10 +5621,11 @@ MonoBehaviour:
   foundEntities: []
   mousePosition: {x: 0, y: 0, z: 0}
   auto: 0
+  _desiredTargets: []
   targetUnit: {fileID: 0}
   targetUnits: []
   mainCamera: {fileID: 306120962}
-  _selectable: {fileID: 0}
+  _selectable: []
   _selectableTarget: {fileID: 0}
   ignorar:
     serializedVersion: 2
@@ -6496,11 +6497,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.64
+      value: -2.344
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.59
+      value: 1.816
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8237,7 +8238,7 @@ PrefabInstance:
     - target: {fileID: 1921552517881253584, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 8f64fe193e352ba4eb01dc22a8edca33, type: 2}
+      objectReference: {fileID: 22100000, guid: 6e9546af20a29f746ab9e98357948839, type: 2}
     - target: {fileID: 1921552518673398226, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -8345,7 +8346,7 @@ PrefabInstance:
     - target: {fileID: 5749437480232028142, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -4534566638065658102, guid: c735301bf3234154781281629f91b619, type: 3}
+      objectReference: {fileID: 9098707965549752121, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
     - target: {fileID: 5749437480232028142, guid: 739bb6f1c038e3448ba6986cc8c1d988, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1

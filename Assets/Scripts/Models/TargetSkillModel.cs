@@ -83,7 +83,12 @@ public class TargetSkillModel : MonoBehaviour, IDirect, ISkill
             desiredTargets.Add("Ally");
             desiredTargets.Add("Player");
         }
-        //else if ()
+        else if (targetType == PossibleTargets.Any)
+        {
+            desiredTargets.Add("Enemy");
+            desiredTargets.Add("Ally");
+            desiredTargets.Add("Player");
+        }
         return desiredTargets;
     }
     public int PassRange()
@@ -167,7 +172,7 @@ public class TargetSkillModel : MonoBehaviour, IDirect, ISkill
     public void MakeEffect()
     {
         // Debug.Log($"Causou {efeito} de dano em {target}");
-        target.GetComponent<Creature>().AlterarPV(efeito);
+        target.GetComponent<EntityModel>().AlterarPV(efeito);
         End();
     }
     public void Fail()
