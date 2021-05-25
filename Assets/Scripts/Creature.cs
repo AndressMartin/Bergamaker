@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Creature : MonoBehaviour, IActor
+public class Creature : EntityModel
 {
-    public int PV { get; private set; } = 100;
+    public override int PV { get; protected set; } = 100;
 
-    public int MN { get; private set; } 
+    public override int MN { get; protected set; } 
 
-    public int PA { get; private set; }
+    public override int PA { get; protected set; }
 
-    public int PVMax { get; private set; } = 100;
+    public override int PVMax { get; protected set; } = 100;
 
-    public int MNMax { get; private set; } = 0;
+    public override int MNMax { get; protected set; } = 0;
 
-    public int PAMax { get; private set; } = 0;
+    public override int PAMax { get; protected set; } = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -28,17 +28,17 @@ public class Creature : MonoBehaviour, IActor
         
     }
 
-    public int AlterarMN(int alteracao)
+    public override int AlterarMN(int alteracao)
     {
         throw new System.NotImplementedException();
     }
 
-    public int AlterarPA(int alteracao)
+    public override int AlterarPA(int alteracao)
     {
         throw new System.NotImplementedException();
     }
 
-    public int AlterarPV(int alteracao)
+    public override int AlterarPV(int alteracao)
     {
         PV += alteracao;
         return PV;

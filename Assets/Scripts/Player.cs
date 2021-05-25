@@ -1,15 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player: MonoBehaviour, IActor
+public class Player: EntityModel
 {
     
-    [SerializeField] public int PVMax { get; private set; }
-    [SerializeField] public int MNMax { get; private set; }
-    [SerializeField] public int PAMax { get; private set; }
-    [SerializeField] public int PV { get; private set; }
-    [SerializeField] public int MN { get; private set; }
-    [SerializeField] public int PA { get; private set; }
+    [SerializeField] public override int PVMax { get; protected set; }
+    [SerializeField] public override int MNMax { get; protected set; }
+    [SerializeField] public override int PAMax { get; protected set; }
+    [SerializeField] public override int PV { get; protected set; }
+    [SerializeField] public override int MN { get; protected set; }
+    [SerializeField] public override int PA { get; protected set; }
 
     private bool pvRegen, paRegen, mnRegen;
     private float pvRegenRate = 1.0f;
@@ -47,12 +47,12 @@ public class Player: MonoBehaviour, IActor
     }
 
     //IActor Methods
-    public int AlterarPA(int alteracao)
+    public override int AlterarPA(int alteracao)
     {
         PA += alteracao;
         return PA;
     }
-    public int AlterarPV(int alteracao)
+    public override int AlterarPV(int alteracao)
     {
         if (!invinciFrames)
         {
@@ -63,7 +63,7 @@ public class Player: MonoBehaviour, IActor
         }
         return PV;
     }
-    public int AlterarMN(int alteracao)
+    public override int AlterarMN(int alteracao)
     {
         MN += alteracao;
         return MN;
