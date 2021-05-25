@@ -1,24 +1,27 @@
-﻿using UnityEngine;
-
-public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class AreaSkillModel : MonoBehaviour, IArea, ISkill
 {
-    public virtual int range{get; protected set;}
-    public virtual int PACost{get; protected set;}
-    public virtual bool isEnemy{get; protected set;}
-    public virtual bool isInstant{get; protected set;}
-    public virtual int efeito{get; protected set;}
-    public virtual float chargeTimeMax{get; protected set;}
-    public virtual float CD{get; protected set;}
-    public float chargeTime{get; private set;}
-    public bool charging{get; private set;}
-    public bool activated{get; private set;}
+    public virtual int AOE { get; protected set; }
+    public virtual int range { get; protected set; }
+    public virtual int PACost { get; protected set; }
+    public virtual PossibleTargets targetType { get; protected set; }
+    public virtual bool isInstant { get; protected set; }
+    public virtual int efeito { get; protected set; }
+    public virtual float chargeTimeMax { get; protected set; }
+    public virtual float CD { get; protected set; }
+    public float chargeTime { get; private set; }
+    public bool charging { get; private set; }
+    public bool activated { get; private set; }
     public int onButton { get; private set; }
     public GridManager _targeter { get; private set; }
-    public Player actionMaker{get; private set;}
-    public InputSys actionMakerInput{get; private set;}
-    public AuraDrawer auraDrawer { get; private set; }
-    public Transform actionChild{get; private set; }
+    public Player actionMaker { get; private set; }
+    public InputSys actionMakerInput { get; private set; }
+    public Transform actionChild { get; private set; }
     public Transform SkillHolder { get; private set; }
+
     public GameObject target { get; private set; }
 
     // Start is called before the first frame update
@@ -30,8 +33,6 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
         _targeter = FindObjectOfType<GridManager>();
         actionMaker = FindObjectOfType<Player>();
         actionMakerInput = actionMaker.GetComponent<InputSys>();
-        //actionChild = actionMaker.transform.GetChild(0); //Deprecated for GRID
-        //auraDrawer = actionChild.GetComponent<AuraDrawer>(); //Deprecated for GRID
     }
     // Update is called once per frame
     void Update()
@@ -54,10 +55,6 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
             Activated();
             actionMakerInput.skillPress = false;
         }
-        //else if (actionMakerInput.skillNum != onButton)
-        //{
-        //    Fail();
-        //}
     }
     public void Activated()
     {
@@ -68,21 +65,27 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
         else
         {
             SendTargetRequest();
-            //ActivateRange();
         }
         actionMaker.GetComponent<ColorSys>().AttackColor();
     }
     public void SendTargetRequest()
     {
-        _targeter.StartSearchMode(true, PassRange(), PassActionMaker(), PassDesiredTarget());
-        //Debug.LogAssertion($"Sent Target Request with range {range} and desired target {PassDesiredTarget()}");
+        _targeter.StartSearchMode(true, PassRange(), PassActionMaker(), PassDesiredTargets());
     }
-    public string PassDesiredTarget()
+    public List<string> PassDesiredTargets()
     {
-        string desiredTarget;
-        if (isEnemy) desiredTarget = "Enemy";
-        else desiredTarget = "Ally";
-        return desiredTarget;
+        List<string> desiredTargets = null;
+        if (targetType == PossibleTargets.Enemy)
+            desiredTargets.Add("Enemy");
+        else if (targetType == PossibleTargets.Ally)
+            desiredTargets.Add("Ally");
+        else if (targetType == PossibleTargets.SelfAndAlly)
+        {
+            desiredTargets.Add("Ally");
+            desiredTargets.Add("Player");
+        }
+        //else if ()
+        return desiredTargets;
     }
     public int PassRange()
     {
@@ -92,10 +95,6 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     {
         return actionMaker.transform;
     }
-    public void ActivateRange()
-    {
-        //_targeter.range
-    }
     public void WaitTarget()
     {
         actionMaker.GetComponent<Movement>().Lento(true);
@@ -103,9 +102,7 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
         {
             _targeter.SearchMode(false);
             target = _targeter.targetUnit;
-            // Debug.LogError($"This is the target: {target}");
             _targeter.targetUnit = null;
-            //TestDistance(); //Deprecated for GRID
             ChargeIni();
             actionMaker.GetComponent<Movement>().Lento(false);
         }
@@ -116,28 +113,8 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
             Fail();
         }
     }
-    public void TestDistance()
-    {
-        Debug.Log("testing distance");
-        if (Vector2.Distance(actionMaker.transform.position, target.transform.position) <= range)
-        {
-            Debug.Log($"{target} is at a distance of {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
-            ChargeIni();
-        }
-        else
-        {
-            Debug.LogError($"{target} was super far! Distance: {Vector2.Distance(actionMaker.transform.position, target.transform.position)}");
-            Fail();
-            ResetTargetParams();
-        }
-    }
-    public void DeactivateRange()
-    {
-
-    }
     public void ChargeIni()
     {
-        //DeactivateRange();
         _targeter.TargetedOutline(target);
         actionMaker.GetComponent<ColorSys>().ChargingColor();
         charging = true;
@@ -165,7 +142,6 @@ public class TargetSkillModel : MonoBehaviour, ITarget, ISkill
     }
     public void ResetTargetParams()
     {
-        //DeactivateRange();
         actionMaker.GetComponent<Movement>().Lento(false);
         _targeter.SearchMode(false);
         actionMaker.GetComponent<ColorSys>().DefaultColor();

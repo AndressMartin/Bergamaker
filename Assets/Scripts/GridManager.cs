@@ -23,12 +23,16 @@ public class GridManager : MonoBehaviour
 
     //            -----TARGETING
     public bool onSearchMode { get; private set; }
-    private string _desiredTarget;
+    public bool auto = false; //For self targeting
+    private List<string> _desiredTargets = new List<string>();
     private int _range;
     private int _aoe;
 
     private Transform _actionMaker;
+    //For Direct Actions
     public GameObject targetUnit = null;
+    //For Actions with multiple possible targets
+    public GameObject[] targetUnits = null;
     public Camera mainCamera;
     public Transform _selectable;
     public Transform _selectableTarget;
@@ -51,7 +55,6 @@ public class GridManager : MonoBehaviour
         {
             Debug.Log("Entrou no search");
             RangeAroundCaster(_actionMaker, _range);
-            //TRANSFORMAR EM UMA FUNÇÃO SE FUNCIONAR
             PaintGridForFoundEntities();
         }
         else
@@ -60,7 +63,6 @@ public class GridManager : MonoBehaviour
             CleanEntities();
         }
     }
-
     void ShowRangeWithMouse(int area)
     {
         Vector3 previousMousePosition = mousePosition;
@@ -119,7 +121,7 @@ public class GridManager : MonoBehaviour
             }
         }
         FindWalls();
-        FindEntities(_desiredTarget);
+        FindEntities(_desiredTargets);
         PaintGrid();
         targetOnce();
     }
@@ -136,22 +138,25 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    void FindEntities(string entityTag)
+    void FindEntities(List<string> entityTags)
     {
+        GameObject[] localEntities = null;
         CleanEntities();
-        GameObject[] localEntities = GameObject.FindGameObjectsWithTag(entityTag);
+        foreach (string tag in entityTags)
+        {
+            localEntities = GameObject.FindGameObjectsWithTag(tag);
+        }
         for (var i = 0; i < tiles.Count; i++)
         {
             for (var l = 0; l < localEntities.Length; l++)
             {
                 BoxCollider2D childCollider = localEntities[l].transform.GetChild(0).GetComponent<BoxCollider2D>();
                 var V2EntityPos = childCollider.ClosestPoint(tiles[i]);
-                if (chao.LocalToCell(tiles[i]) == chao.LocalToCell(V2EntityPos))
+                if (chao.LocalToCell(tiles[i]) == chao.LocalToCell(V2EntityPos) && foundEntities.Contains(localEntities[l].transform) == false)
                 {
                     //if (foundEntities.Contains(localEntities[l].transform.GetChild(0).transform) == false)
                         foundEntities.Add(localEntities[l].transform);
                 }
-                
             }
         }
     }
@@ -214,20 +219,20 @@ public class GridManager : MonoBehaviour
     }
 
     //Single Search
-    public void StartSearchMode(bool boo, int range, Transform actionMaker, string desiredTarget)
+    public void StartSearchMode(bool boo, int range, Transform actionMaker, List<string> desiredTargets)
     {
         onSearchMode = boo;
         _range = range;
         _actionMaker = actionMaker;
-        _desiredTarget = desiredTarget;
+        _desiredTargets = desiredTargets;
     }
     //AOE Search
-    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe, string desiredTarget)
+    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe, List<string> desiredTargets)
     {
         onSearchMode = boo;
         _range = range;
         _actionMaker = actionMaker;
-        _desiredTarget = desiredTarget;
+        _desiredTargets = desiredTargets;
         _aoe = aoe;
     }
     //Multiple Targets??
@@ -241,7 +246,7 @@ public class GridManager : MonoBehaviour
         //CameraMoveWithMouse();
         if (_selectable != null)
         {
-            if (_selectable.gameObject.tag == _desiredTarget)
+            if (_desiredTargets.Contains(_selectable.gameObject.tag))
                 ResetMat(_selectable.gameObject);
             if (_selectable.gameObject.tag == "Floor")
                 ResetMat(_selectable.gameObject);
@@ -249,10 +254,11 @@ public class GridManager : MonoBehaviour
         }
         foreach (Collider2D hit in hits) 
         {
-            if (hit != null && hit.transform.gameObject.tag == _desiredTarget)
+            if (hit != null && foundEntities.Contains(hit.transform))
             {
+                //SAME IF TWICE
                 float distance = Vector2.Distance(_actionMaker.transform.position, hit.transform.position);
-                if (hit.tag == _desiredTarget && foundEntities.Contains(hit.transform))
+                if (foundEntities.Contains(hit.transform))
                     SelectableOutline(hit.gameObject);
                 _selectableTarget = hit.transform;
 
@@ -285,7 +291,7 @@ public class GridManager : MonoBehaviour
                     Debug.Log("Pressed down on " + hit.transform.gameObject);
                     if (_aoe <= 0)
                     {
-                        if (hit.tag == _desiredTarget && foundEntities.Contains(hit.transform))
+                        if (_desiredTargets.Contains(hit.tag) && foundEntities.Contains(hit.transform))
                         {
                             //Debug.Log("FoundEntities contains " + hit.collider.gameObject);
                             targetUnit = hit.gameObject;
@@ -314,8 +320,6 @@ public class GridManager : MonoBehaviour
                 }
                 
             }
-                //-----------PLAY ANIM OF FINDING ENEMY-----------
-            
         }
        
         return targetUnit;

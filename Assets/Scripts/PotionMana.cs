@@ -9,7 +9,7 @@ public class PotionMana : MonoBehaviour, IAction
 
     public int PACost { get; private set; } = 0;
 
-    public bool isEnemy { get; private set; } = false;
+    public virtual PossibleTargets targetType { get; protected set; }
 
     public bool isInstant { get; private set; } = true;
 

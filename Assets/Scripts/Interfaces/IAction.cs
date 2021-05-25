@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public interface IAction
 {
     int PACost { get; }
-    bool isEnemy { get;}
+    PossibleTargets targetType { get;}
     bool isInstant { get; }
     int efeito { get; }
     float chargeTimeMax { get; }
@@ -32,30 +33,18 @@ public interface ITarget: IAction
 {
     int range { get; }
     GridManager _targeter { get; }
-    GameObject target { get; }
-    AuraDrawer auraDrawer { get; }
     void SendTargetRequest();
     int PassRange();
-    string PassDesiredTarget();
-    void ActivateRange();
-    void TestDistance();
-    void DeactivateRange();
+    List<string> PassDesiredTargets();
     void WaitTarget();
 }
-public interface IArea : IAction
+public interface IDirect : ITarget
+{
+    GameObject target { get; }
+}
+public interface IArea : ITarget
 {
     int AOE { get; }
-    int range { get; }
-    Targeter _targeter { get; }
-    GameObject mouseAuraHolder { get; }
-    AuraDrawer auraDrawer { get; }
-    void SendTargetRequest();
-    int PassRange();
-    string PassDesiredTarget();
-    void ActivateRange();
-    void TestDistance();
-    void DeactivateRange();
-    void WaitTarget();
 }
 public interface ISkill : IAction
 {

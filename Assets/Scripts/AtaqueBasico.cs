@@ -10,5 +10,5 @@ public class AtaqueBasico : TargetSkillModel
     public override float chargeTimeMax => 1f;
     public override float CD => .5f;
     public override bool isInstant => false;
-    public override bool isEnemy => true;
+    public override PossibleTargets targetType => PossibleTargets.Enemy;
 }
