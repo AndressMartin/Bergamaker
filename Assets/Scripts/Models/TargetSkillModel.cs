@@ -132,6 +132,7 @@ public class TargetSkillModel : MonoBehaviour, IDirect, ISkill
         if (chargeTime <= 0)
         {
             ResetChargeParams();
+            ResetTargetParams();
             CustarAP();
             MakeEffect();
         }
