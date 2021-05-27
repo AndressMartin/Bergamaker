@@ -3,6 +3,7 @@
 public class ColorSys : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
+    public bool debug;
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -10,20 +11,20 @@ public class ColorSys : MonoBehaviour
 
     public void ChargingColor()
     {
-        spriteRenderer.color = Color.yellow;
+        if (debug) spriteRenderer.color = Color.yellow;
     }
 
     public void DefaultColor()
     {
-        spriteRenderer.color = Color.green;
+        if (debug) spriteRenderer.color = Color.white;
     }
     public void AttackColor()
     {
-        spriteRenderer.color = Color.red;
+        if (debug) spriteRenderer.color = Color.red;
     }
 
     public void DashingColor()
     {
-        spriteRenderer.color = Color.blue;
+        if (debug) spriteRenderer.color = Color.blue;
     }
 }
