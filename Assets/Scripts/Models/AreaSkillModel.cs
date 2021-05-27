@@ -37,12 +37,13 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     // Update is called once per frame
     void Update()
     {
-        if (actionMaker.PA <= PACost)
-        {
-            Fail();
-        }
+        
         if (activated)
         {
+            if (actionMaker.PA <= PACost)
+            {
+                Fail();
+            }
             if (_GridManager.onSearchMode == true)
                 WaitTarget();
 
