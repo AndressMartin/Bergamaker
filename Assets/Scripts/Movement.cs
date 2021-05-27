@@ -153,7 +153,7 @@ public class Movement : MonoBehaviour
     public void PermitirMovimento(bool permissao)
     {
         _permissaoAndar = permissao;
-        rb.velocity = new Vector2(0f, 0f);
+        if (permissao == false) rb.velocity = new Vector2(0f, 0f);
     }
 
     public void Lento(bool condicao)
