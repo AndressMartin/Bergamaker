@@ -6,7 +6,12 @@ using CodeMonkey.Utils;
 
 public class ItemWorld : MonoBehaviour
 {
-   
+    private void Start()
+    {
+        
+    }
+    
+
     public static ItemWorld SpawItemWorld(Vector3 position, Item item)
     {
         Transform transform = Instantiate(ItemAssets.Instance.pfItemWorld, position, Quaternion.identity);
