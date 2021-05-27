@@ -26,6 +26,9 @@ public class Player: EntityModel
     protected float ResAgu, ResTer, ResAr, ResFog, ResLuz, ResSom;
     private bool invinciFrames;
 
+    [SerializeField] private UI_Inventory uiInventory;
+    private Inventory inventory;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +37,54 @@ public class Player: EntityModel
         MNMax = MNMaxCalc();
         PAMax = PAMaxCalc();
         SetTestStats();
+
+        inventory = new Inventory(UseItem);
+        uiInventory.SetPlayer(this);
+        uiInventory.SetInventory(inventory);
+        
     }
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Item")
+        {
+            ItemWorld itemWolrd = collision.gameObject.GetComponent<ItemWorld>();
+            Debug.Log(itemWolrd);
+            if (itemWolrd != null)
+            {
+                inventory.AddItem(itemWolrd.GetItem());
+                itemWolrd.DestroySelf();
+            }
+        }
+    }
+
+    private void UseItem(Item item)
+    {
+        switch (item.itemType)
+        {
+            case Item.ItemType.HealthPotion:
+                Debug.Log("cura");
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+                break;
+
+            case Item.ItemType.ManaPotion:
+                Debug.Log("mana");
+                inventory.RemoveItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
+                break;
+
+        }
+    }
+
+
     // Update is called once per frame
     void Update()
     {

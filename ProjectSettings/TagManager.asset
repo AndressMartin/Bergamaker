@@ -9,6 +9,7 @@ TagManager:
   - MouseHolder
   - Ally
   - NPC
+  - Item
   layers:
   - Default
   - TransparentFX
