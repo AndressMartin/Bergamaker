@@ -153,7 +153,10 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     {
         actionMaker.GetComponent<Movement>().Lento(false);
         _GridManager.SearchMode(false);
-        if (targets.Any())_GridManager.ResetMat(targets);
+        if (targets != null)
+        {
+            if (targets.Any())_GridManager.ResetMat(targets);
+        }
         actionMaker.GetComponent<Movement>().PermitirMovimento(true);
     }
     public bool Interruption()

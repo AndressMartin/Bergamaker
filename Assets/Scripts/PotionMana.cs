@@ -128,13 +128,12 @@ public class PotionMana : MonoBehaviour, IAction
     {
         charging = false;
         chargeTime = 0;
-        actionMaker.GetComponent<ColorSys>().DefaultColor();
+        if (actionMaker != null) actionMaker.GetComponent<ColorSys>().DefaultColor();
         actionMaker.GetComponent<Movement>().PermitirMovimento(true);
     }
     public void ResetTargetParams()
     {
         actionMaker.GetComponent<Movement>().Lento(false);
-        actionMaker.GetComponent<ColorSys>().DefaultColor();
         actionMaker.GetComponent<Movement>().PermitirMovimento(true);
     }
     public bool Interruption()
