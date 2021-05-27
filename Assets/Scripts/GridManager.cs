@@ -29,7 +29,7 @@ public class GridManager : MonoBehaviour
     public bool auto = false; //For self targeting
     public List<string> _desiredTargets = new List<string>();
     private int _range;
-    private int _aoe;
+    public int _aoe;
 
     private Transform _actionMaker;
     //For Direct Actions
