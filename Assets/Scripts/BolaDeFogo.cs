@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 public class BolaDeFogo : AreaSkillModel
 {
-    public override int PACost => 10;
-    public override int range => 2;
-    public override int efeito => -10;
-    public override float chargeTimeMax => 1f;
+    public override int PACost => 60;
+    public override int range => 4;
+    public override int efeito => -30;
+    public override float chargeTimeMax => 3f;
     public override float CD => .5f;
     public override bool isInstant => false;
+    public override int AOE => 2;
     public override PossibleTargets targetType => PossibleTargets.Any;
 }

@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - MouseHolder
   - Ally
+  - NPC
   layers:
   - Default
   - TransparentFX

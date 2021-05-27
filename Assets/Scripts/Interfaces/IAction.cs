@@ -32,7 +32,7 @@ public interface IAction
 public interface ITarget: IAction
 {
     int range { get; }
-    GridManager _targeter { get; }
+    GridManager _GridManager { get; }
     void SendTargetRequest();
     int PassRange();
     List<string> PassDesiredTargets();
@@ -45,6 +45,7 @@ public interface IDirect : ITarget
 public interface IArea : ITarget
 {
     int AOE { get; }
+    List<GameObject> targets { get; }
 }
 public interface ISkill : IAction
 {

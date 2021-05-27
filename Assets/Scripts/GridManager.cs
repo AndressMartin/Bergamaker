@@ -12,14 +12,16 @@ public class GridManager : MonoBehaviour
     //            -----GRID MANAGEMENT
 
     public Grid grid;
-    public Tilemap tileMap;
+    public Tilemap tileMapRange;
+    public Tilemap tileMapAoe;
     public TileBase tintTile;
     public Tilemap chao;
     public Tilemap paredes;
-    public List<Vector3> tiles = new List<Vector3>();
+    public List<Vector3> tilesRange = new List<Vector3>();
+    public List<Vector3> tilesAoe = new List<Vector3>();
+    public List<Vector3> tilesFull = new List<Vector3>();
     public List<Vector3> tilesIgnore = new List<Vector3>();
     public List<Transform> foundEntities = new List<Transform>();
-    private Transform caster;
     [SerializeField] Vector3 mousePosition;
 
     //            -----TARGETING
@@ -33,7 +35,7 @@ public class GridManager : MonoBehaviour
     //For Direct Actions
     public GameObject targetUnit = null;
     //For Actions with multiple possible targets
-    public GameObject[] targetUnits = null;
+    public List<GameObject> targetUnits = new List<GameObject>();
     public Camera mainCamera;
     public List<Transform> _selectable = new List<Transform>();
     public Transform _selectableTarget;
@@ -46,7 +48,6 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         grid = GetComponent<Grid>();
-        caster = FindObjectOfType<Player>().transform;
     }
 
     // Update is called once per frame
@@ -55,81 +56,134 @@ public class GridManager : MonoBehaviour
         if (onSearchMode)
         {
             Debug.Log("Entrou no search");
-            RangeAroundCaster(_actionMaker, _range);
+            CleanEntities();
+            CasterRange(_actionMaker, _range, tilesRange);
+            FindWalls(tilesRange);
+            FillGrid(tilesRange, tileMapRange);
+            if (_aoe > 0)
+            {
+                MouseRange(_aoe, tilesAoe);
+                FindWalls(tilesAoe);
+                FillGrid(tilesAoe, tileMapAoe);
+                PaintGridForAOE();
+            }
+            FindEntities(_desiredTargets);
             PaintGridForFoundEntities();
+            //Handle selection
+            Collider2D[] selection = StartSelection();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (_aoe > 0)
+                {
+                    if (selection != null)
+                    {
+                        targetAoe(selection);
+                    }
+                }
+                else
+                        targetOnce(selection);
+            }
         }
         else
         {
-            CleanArea();
+            CleanAllAreas();
             CleanEntities();
+            CleanSelection(selectMat);
         }
     }
-    void ShowRangeWithMouse(int area)
+
+    void CasterRange(Transform caster, int range, List<Vector3> _tiles)
+    {
+        CleanArea(tilesFull, tileMapRange);
+        CleanArea(_tiles, tileMapRange);
+        GetArea(range, caster.GetChild(0).position, _tiles);
+    }
+    void MouseRange(int area, List<Vector3> _tiles)
     {
         Vector3 previousMousePosition = mousePosition;
         mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f);
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
         if (grid.LocalToCell(mousePosition) != grid.LocalToCell(previousMousePosition))
         {
-            CleanArea();
-            GetArea(area, mousePosition);
+            if (tilesRange.Contains(grid.LocalToCell(mousePosition)))
+            {
+                CleanArea(_tiles, tileMapAoe);
+                GetArea(area, mousePosition, _tiles);
+            }
         }
-
-        //if (Input.GetKeyDown(KeyCode.LeftShift))
-        //{
-        //    Debug.Log(grid.LocalToCell(mousePosition));
-        //}
     }
 
-    void RangeAroundCaster(Transform caster, int range)
+    internal bool Any()
     {
-        //Debug.Log(this.caster.position);
-        CleanArea();
-        CleanEntities();
-        GetArea(range, caster.GetChild(0).position); //Child for GridPoint
+        throw new NotImplementedException();
     }
 
-    private void CleanArea()
+    private void CleanArea(List<Vector3> _tiles, Tilemap _tilemap)
     {
-        tiles.Clear();
+        _tiles.Clear();
         tilesIgnore.Clear();
-        tileMap.ClearAllTiles();
+        _tilemap.ClearAllTiles();
+    }
+    private void CleanAllAreas()
+    {
+        tilesRange.Clear();
+        tilesAoe.Clear();
+        tilesFull.Clear();
+        tilesIgnore.Clear();
+        tileMapRange.ClearAllTiles();
+        tileMapAoe.ClearAllTiles();
     }
     private void CleanEntities()
     {
         foundEntities.Clear();
     }
 
-    void GetArea(int range, Vector3 position)
+    Vector3 Coordinates(int iteration, int i, Vector3 center)
+    {
+        if (iteration == 1) return new Vector3(center.x - (i + 1), center.y, center.z);
+        if (iteration == 2) return new Vector3(center.x + (i + 1), center.y, center.z);
+        if (iteration == 3) return new Vector3(center.x, center.y - (i + 1), center.z);
+        if (iteration == 4) return new Vector3(center.x, center.y + (i + 1), center.z);
+        else return new Vector3(0, 0, 0);
+    }
+    Vector3 Coordinates(int iteration, int i, int f, Vector3 center)
+    {
+        if (iteration == 1) return new Vector3(center.x + (i + 1) - (f), center.y - (f), center.z);
+        if (iteration == 2) return new Vector3(center.x + (i + 1) - (f), center.y + (f), center.z);
+        if (iteration == 3) return new Vector3(center.x - (i + 1) + (f), center.y - (f), center.z);
+        if (iteration == 4) return new Vector3(center.x - (i + 1) + (f), center.y + (f), center.z);
+        else return new Vector3(0, 0, 0);
+    }
+    void GetArea(int range, Vector3 position, List<Vector3> _tiles)
     {
         Vector3 center = grid.LocalToCell(position);
-        tiles.Add(center);
+        _tiles.Add(center);
         for (int i = 0; i < range; i++)
         {
-            tiles.Add(new Vector3(center.x - (i + 1), center.y, center.z));
-            tiles.Add(new Vector3(center.x + (i + 1), center.y, center.z));
-            tiles.Add(new Vector3(center.x, center.y - (i + 1), center.z));
-            tiles.Add(new Vector3(center.x, center.y + (i + 1), center.z));
+            for (int iteration = 1; iteration < 5; iteration++)
+            {
+                if (!tilesFull.Contains(Coordinates(iteration, i, center)))
+                    _tiles.Add(Coordinates(iteration, i, center));
+            }
             if (i > 0 && i < range)
             {
                 for (int f = 1; f <= i; f++)
                 {
-                    tiles.Add(new Vector3(center.x + (i + 1) - (f), center.y - (f), center.z));
-                    tiles.Add(new Vector3(center.x + (i + 1) - (f), center.y + (f), center.z));
-                    tiles.Add(new Vector3(center.x - (i + 1) + (f), center.y - (f), center.z));
-                    tiles.Add(new Vector3(center.x - (i + 1) + (f), center.y + (f), center.z));
+                    for (int iteration = 1; iteration < 5; iteration++)
+                    {
+                        if (!tilesFull.Contains(Coordinates(iteration, i, f, center)))
+                            _tiles.Add(Coordinates(iteration, i, f, center));
+                    }
                 }
             }
         }
-        FindWalls();
-        FindEntities(_desiredTargets);
-        PaintGrid();
-        targetOnce();
     }
 
-    private void FindWalls()
+    private void FindWalls(List<Vector3> _tiles)
     {
-        foreach (Vector3 tile in tiles)
+        foreach (Vector3 tile in _tiles)
         {
             Tile.ColliderType tileType = paredes.GetColliderType(Vector3Int.FloorToInt(tile));
             if (tileType != Tile.ColliderType.None)
@@ -141,45 +195,45 @@ public class GridManager : MonoBehaviour
 
     void FindEntities(List<string> entityTags)
     {
+        tilesFull.AddRange(tilesRange);
+        tilesFull.AddRange(tilesAoe);
         GameObject[] arr = null; //Temporary array 
         List<GameObject> localEntities = new List<GameObject>();
         CleanEntities();
         foreach (string tag in entityTags)
         {
             arr = GameObject.FindGameObjectsWithTag(tag);
-            foreach(var element in arr)
-                localEntities.Add(element);
+            foreach(var element in arr) localEntities.Add(element);
         }
         Array.Clear(arr, 0, arr.Length);
-        for (var i = 0; i < tiles.Count; i++)
+        for (var i = 0; i < tilesFull.Count; i++)
         {
             for (var l = 0; l < localEntities.Count; l++)
             {
                 BoxCollider2D childCollider = localEntities[l].transform.GetChild(0).GetComponent<BoxCollider2D>();
-                var V2EntityPos = childCollider.ClosestPoint(tiles[i]);
-                if (chao.LocalToCell(tiles[i]) == chao.LocalToCell(V2EntityPos) && foundEntities.Contains(localEntities[l].transform) == false)
+                var V2EntityPos = childCollider.ClosestPoint(tilesFull[i]);
+                if (chao.LocalToCell(tilesFull[i]) == chao.LocalToCell(V2EntityPos) && foundEntities.Contains(localEntities[l].transform) == false)
                 {
-                    //if (foundEntities.Contains(localEntities[l].transform.GetChild(0).transform) == false)
                     foundEntities.Add(localEntities[l].transform);
                 }
             }
         }
     }
 
-    private void PaintGrid()
+    private void FillGrid(List<Vector3> _tiles, Tilemap _tilemap)
     {
         bool continuePaintingTile = true;
-        for (var i = 0; i < tiles.Count; i++)
+        for (var i = 0; i < _tiles.Count; i++)
         {
             foreach (Vector3 tile in tilesIgnore)
             {
-                if (tiles[i] == tile && continuePaintingTile == true)
+                if (_tiles[i] == tile && continuePaintingTile == true)
                 {
                     continuePaintingTile = false;
                 }
             }
             if (continuePaintingTile)
-                tileMap.SetTile(Vector3Int.FloorToInt(tiles[i]), tintTile);
+                _tilemap.SetTile(Vector3Int.FloorToInt(_tiles[i]), tintTile);
             else
                 continuePaintingTile = true;
         }
@@ -201,19 +255,26 @@ public class GridManager : MonoBehaviour
     {
         if (foundEntities != null)
         {
-            for (var i = 0; i < tiles.Count; i++)
+            for (var i = 0; i < tilesFull.Count; i++)
             {
                 foreach (Transform entity in foundEntities)
                 {
                     BoxCollider2D childCollider = entity.transform.GetChild(0).GetComponent<BoxCollider2D>();
-                    var V2EntityPos = childCollider.ClosestPoint(tiles[i]);
-                    if (grid.LocalToCell(V2EntityPos) == tiles[i] && tileMap.GetTileFlags(Vector3Int.FloorToInt(tiles[i])) == TileFlags.LockColor)
+                    var V2EntityPos = childCollider.ClosestPoint(tilesFull[i]);
+                    if (grid.LocalToCell(V2EntityPos) == tilesFull[i] && tileMapRange.GetTileFlags(Vector3Int.FloorToInt(tilesFull[i])) == TileFlags.LockColor)
                     {
-                        SetTileColor(true, Color.yellow, chao.LocalToCell(V2EntityPos), tileMap);
-                        Debug.Log(entity.name + " em " + chao.LocalToCell(V2EntityPos));
+                        SetTileColor(true, Color.yellow, chao.LocalToCell(V2EntityPos), tileMapRange);
                     }
                 }
             }
+        }
+    }
+
+    private void PaintGridForAOE()
+    {
+        foreach(Vector3 tile in tilesAoe)
+        {
+            SetTileColor(true, Color.red, Vector3Int.FloorToInt(tile), tileMapAoe);
         }
     }
 
@@ -242,30 +303,22 @@ public class GridManager : MonoBehaviour
     }
     //Multiple Targets??
     //TODO: Not implemented
-
-    private GameObject targetOnce()
+    private Collider2D[] StartSelection()
     {
         //Debug.LogWarning("Is on target");
         Collider2D[] hits = Physics2D.OverlapPointAll(mainCamera.ScreenToWorldPoint(Input.mousePosition), ~ignorar);
-        // -- TODO: IMPORTANT TO IMPLEMENT LATER
-        //CameraMoveWithMouse();
-        if (_selectable != null) //Check if list has stuff (was previously != null)
-        {
-            foreach (Transform entity in foundEntities)
-            {
-                Debug.Log(entity);
-                if (foundEntities.Contains(entity))
-                    ResetMat(entity.gameObject);
-                if (entity.gameObject.tag == "Floor")
-                    ResetMat(entity.gameObject);
-            }
-            _selectable.Clear();
-        }
+        CleanSelection(selectMat);
+        if (_aoe > 0) return SelectInsideAoe();
+        else SelectTarget(hits);
+        return hits;
+    }
+
+    private void SelectTarget(Collider2D[] hits)
+    {
         foreach (Collider2D hit in hits)
         {
             if (hit != null && foundEntities.Contains(hit.transform))
             {
-                SelectableOutline(hit.gameObject);
                 _selectableTarget = hit.transform;
 
             }
@@ -284,59 +337,93 @@ public class GridManager : MonoBehaviour
                             {
                                 _selectableTarget = entity;
                             }
-                            SelectableOutline(_selectableTarget.gameObject);
-                            SetTileColor(true, Color.red, chao.LocalToCell(V2MousePos), tileMap);
                         }
-                        //Debug.LogWarning("Should be highlighting " + entity.name);
+                        else
+                        {
+                            _selectableTarget = entity;
+                        }
+                        SetTileColor(true, Color.red, chao.LocalToCell(V2MousePos), tileMapRange);
                     }
                 }
             }
-            if (_selectableTarget != null && _selectable.Contains(_selectableTarget) == false) 
-                _selectable.Add(_selectableTarget);
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            foreach (Collider2D hit in hits)
+            if (_selectableTarget != null && _selectable.Contains(_selectableTarget) == false)
             {
-                if (hit != null)
-                {
-                    Debug.Log("Pressed down on " + hit.transform.gameObject);
-                    if (_aoe <= 0)
-                    {
-                        if (foundEntities.Contains(hit.transform))
-                        {
-                            //Debug.Log("FoundEntities contains " + hit.collider.gameObject);
-                            targetUnit = hit.gameObject;
-                            CleanArea();
-                            CleanEntities();
-                        }
-                        else if (hit.tag == "Floor")
-                        {
-                            Vector2 V2MousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                            //Debug.Log("Floor: " + chao.LocalToCell(V2MousePos));
-                            foreach (Transform entity in foundEntities)
-                            {
-                                BoxCollider2D childCollider = entity.transform.GetChild(0).GetComponent<BoxCollider2D>();
-                                var V2EntityPos = childCollider.ClosestPoint(V2MousePos);
-                                //Debug.Log("Entity: " + chao.LocalToCell(entity.position));
-
-                                if (chao.LocalToCell(V2MousePos) == chao.LocalToCell(V2EntityPos))
-                                {
-                                    //Debug.Log("Floor has " + entity);
-                                    targetUnit = entity.gameObject;
-                                }
-                            }
-                        }
-
-                    }
-                }
-
+                SelectableOutline(_selectableTarget.gameObject);
+                _selectable.Add(_selectableTarget);
             }
         }
+    }
 
+    private Collider2D[] SelectInsideAoe()
+    {
+        Collider2D[] hits = null;
+        for (var i = 0; i < tilesAoe.Count; i++)
+        {
+            foreach (Transform entity in foundEntities)
+            {
+                BoxCollider2D childCollider = entity.transform.GetChild(0).GetComponent<BoxCollider2D>();
+                var V2EntityPos = childCollider.ClosestPoint(tilesAoe[i]);
+                if (tilesAoe.Contains(grid.LocalToCell(V2EntityPos)) && _selectable.Contains(entity) != true)
+                {
+                    _selectable.Add(entity);
+                }
+            }
+        }
+        List<Collider2D> tempList = new List<Collider2D>();
+        for (int i = 0; i < _selectable.Count; i++)
+        {
+            SelectableOutline(_selectable[i].gameObject);
+            tempList.Add(_selectable[i].gameObject.GetComponent<Collider2D>());
+            //Debug.LogWarning($"_SELECTABLE IS {0} AND ITS COLLIDER IS {1}" + i + _selectable[i].gameObject.GetComponent<Collider2D>());
+        }
+        hits = tempList.ToArray();
+        return hits;
+    }
+
+
+    private GameObject targetOnce(Collider2D[] hits)
+    {
+        foreach (Collider2D hit in hits)
+        {
+            if (hit != null)
+            {
+                if (foundEntities.Contains(hit.transform))
+                {
+                    targetUnit = hit.gameObject;
+                    CleanAllAreas();
+                    CleanEntities();
+                }
+                else if (hit.tag == "Floor")
+                {
+                    Vector2 V2MousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+                    foreach (Transform entity in foundEntities)
+                    { 
+                        BoxCollider2D childCollider = entity.transform.GetChild(0).GetComponent<BoxCollider2D>();
+                        var V2EntityPos = childCollider.ClosestPoint(V2MousePos);
+
+                        if (chao.LocalToCell(V2MousePos) == chao.LocalToCell(V2EntityPos))
+                        {
+                            targetUnit = entity.gameObject;
+                        }
+                    }
+                }
+            }
+        }
         return targetUnit;
     }
+
+    private List<GameObject> targetAoe(Collider2D[] hits)
+    {
+        foreach (Collider2D hit in hits)
+        {
+            Debug.Log(hit.gameObject);
+            var hitObject = hit.gameObject;
+            targetUnits.Add(hitObject);
+            //targetUnits.Add(hit.GetComponentInParent<Transform>().gameObject);
+        }
+        return targetUnits;
+    }
+
     public void ResetParams()
     {
         onSearchMode = false;
@@ -345,6 +432,20 @@ public class GridManager : MonoBehaviour
         _aoe = 0;
         targetUnit = null;
     }
+    private void CleanSelection(Material materialToRemove)
+    {
+        if (_selectable != null)
+        {
+            foreach (Transform entity in _selectable)
+            {
+                if (entity.gameObject.GetComponent<SpriteRenderer>().sharedMaterial == materialToRemove)
+                    ResetMat(entity.gameObject);
+            }
+            _selectable.Clear();
+            _selectableTarget = null;
+        }
+    }
+
     GameObject RemovePreviousAutoSelection(GameObject previousSelection)
     {
         ResetMat(previousSelection);
@@ -357,11 +458,32 @@ public class GridManager : MonoBehaviour
             _obj.GetComponent<SpriteRenderer>().material = targetMat;
         }
     }
+    public void TargetedOutline(List<GameObject> _objs)
+    {
+        foreach(GameObject _obj in _objs)
+        {
+            if (_obj != null && _obj.GetComponent<SpriteRenderer>())
+            {
+                _obj.GetComponent<SpriteRenderer>().material = targetMat;
+            }
+        }
+    }
     public void SelectableOutline(GameObject _obj)
     {
         if (_obj != null && _obj.GetComponent<SpriteRenderer>())
         {
             _obj.GetComponent<SpriteRenderer>().material = selectMat;
+        }
+
+    }
+    public void SelectableOutline(List<GameObject> _objs)
+    {
+        foreach (GameObject _obj in _objs)
+        {
+            if (_obj != null && _obj.GetComponent<SpriteRenderer>())
+            {
+                _obj.GetComponent<SpriteRenderer>().material = selectMat;
+            }
         }
 
     }
@@ -372,8 +494,16 @@ public class GridManager : MonoBehaviour
             _obj.GetComponent<SpriteRenderer>().material = defaultMat;
         }
     }
-
-
+    public void ResetMat(List<GameObject> _objs)
+    {
+        foreach (GameObject _obj in _objs)
+        {
+            if (_obj != null && _obj.GetComponent<SpriteRenderer>())
+            {
+                _obj.GetComponent<SpriteRenderer>().material = defaultMat;
+            }
+        }
+    }
 }
 
 

@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 public class AreaSkillModel : MonoBehaviour, IArea, ISkill
 {
@@ -16,23 +16,23 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     public bool charging { get; private set; }
     public bool activated { get; private set; }
     public int onButton { get; private set; }
-    public GridManager _targeter { get; private set; }
+    public GridManager _GridManager { get; private set; }
     public Player actionMaker { get; private set; }
     public InputSys actionMakerInput { get; private set; }
     public Transform actionChild { get; private set; }
     public Transform SkillHolder { get; private set; }
+    public List<GameObject> targets { get; private set; }
 
-    public GameObject target { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        actionMaker = FindObjectOfType<Player>();
+        actionMakerInput = actionMaker.GetComponent<InputSys>();
         SkillHolder = gameObject.transform.parent;
         onButton = FindStoredButton();
         //actionMakerInput.GetSkillButton(onButton);
-        _targeter = FindObjectOfType<GridManager>();
-        actionMaker = FindObjectOfType<Player>();
-        actionMakerInput = actionMaker.GetComponent<InputSys>();
+        _GridManager = FindObjectOfType<GridManager>();
     }
     // Update is called once per frame
     void Update()
@@ -43,7 +43,7 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
         }
         if (activated)
         {
-            if (_targeter.onSearchMode == true)
+            if (_GridManager.onSearchMode == true)
                 WaitTarget();
 
             if (charging)
@@ -70,11 +70,11 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     }
     public void SendTargetRequest()
     {
-        _targeter.StartSearchMode(true, PassRange(), PassActionMaker(), PassDesiredTargets());
+        _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, PassDesiredTargets());
     }
     public List<string> PassDesiredTargets()
     {
-        List<string> desiredTargets = null;
+        List<string> desiredTargets = new List<string>();
         if (targetType == PossibleTargets.Enemy)
             desiredTargets.Add("Enemy");
         else if (targetType == PossibleTargets.Ally)
@@ -84,7 +84,12 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
             desiredTargets.Add("Ally");
             desiredTargets.Add("Player");
         }
-        //else if ()
+        else if (targetType == PossibleTargets.Any)
+        {
+            desiredTargets.Add("Enemy");
+            desiredTargets.Add("Ally");
+            desiredTargets.Add("Player");
+        }
         return desiredTargets;
     }
     public int PassRange()
@@ -98,11 +103,11 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     public void WaitTarget()
     {
         actionMaker.GetComponent<Movement>().Lento(true);
-        if (_targeter.targetUnit != null)
+        if (_GridManager.targetUnits != null && _GridManager.targetUnits.Any())
         {
-            _targeter.SearchMode(false);
-            target = _targeter.targetUnit;
-            _targeter.targetUnit = null;
+            _GridManager.SearchMode(false);
+            targets = _GridManager.targetUnits.ToList();
+            _GridManager.targetUnits.Clear();
             ChargeIni();
             actionMaker.GetComponent<Movement>().Lento(false);
         }
@@ -115,7 +120,12 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     }
     public void ChargeIni()
     {
-        _targeter.TargetedOutline(target);
+        Debug.Log(targets);
+        foreach (GameObject target in targets)
+        {
+            Debug.LogWarning(target.name);
+        }
+        _GridManager.TargetedOutline(targets);
         actionMaker.GetComponent<ColorSys>().ChargingColor();
         charging = true;
         chargeTime = chargeTimeMax;
@@ -136,16 +146,14 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     {
         charging = false;
         chargeTime = 0;
-        actionMaker.GetComponent<ColorSys>().DefaultColor();
-        _targeter.ResetMat(target);
+        if (actionMaker != null) actionMaker.GetComponent<ColorSys>().DefaultColor();
         actionMaker.GetComponent<Movement>().PermitirMovimento(true);
     }
     public void ResetTargetParams()
     {
         actionMaker.GetComponent<Movement>().Lento(false);
-        _targeter.SearchMode(false);
-        actionMaker.GetComponent<ColorSys>().DefaultColor();
-        _targeter.ResetMat(target);
+        _GridManager.SearchMode(false);
+        if (targets.Any())_GridManager.ResetMat(targets);
         actionMaker.GetComponent<Movement>().PermitirMovimento(true);
     }
     public bool Interruption()
@@ -167,8 +175,11 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     }
     public void MakeEffect()
     {
-        // Debug.Log($"Causou {efeito} de dano em {target}");
-        target.GetComponent<Creature>().AlterarPV(efeito);
+        foreach (GameObject target in targets) 
+        {
+            //Debug.Log($"Causou {efeito} de dano em {target}");
+            target.GetComponent<EntityModel>().AlterarPV(efeito);
+        }
         End();
     }
     public void Fail()
@@ -180,7 +191,7 @@ public class AreaSkillModel : MonoBehaviour, IArea, ISkill
     public void End()
     {
         activated = false;
-        _targeter.ResetParams();
+        _GridManager.ResetParams();
         actionMakerInput.holdingSkill = false;
     }
     public int FindStoredButton()

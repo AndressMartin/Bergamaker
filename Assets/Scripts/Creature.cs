@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Creature : EntityModel
 {
-    public override int PV { get; protected set; } = 100;
+    public override int PV { get; protected set; } = 32;
 
     public override int MN { get; protected set; } 
 
     public override int PA { get; protected set; }
 
-    public override int PVMax { get; protected set; } = 100;
+    public override int PVMax { get; protected set; } = 40;
 
     public override int MNMax { get; protected set; } = 0;
 
@@ -25,7 +25,10 @@ public class Creature : EntityModel
     // Update is called once per frame
     void Update()
     {
-        
+        if (PV <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public override int AlterarMN(int alteracao)
