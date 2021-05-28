@@ -8656,6 +8656,7 @@ GameObject:
   - component: {fileID: 1592957713}
   - component: {fileID: 1592957715}
   - component: {fileID: 1592957714}
+  - component: {fileID: 1592957716}
   m_Layer: 8
   m_Name: GridPoint
   m_TagString: PlayerCollisionChild
@@ -8754,6 +8755,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1592957716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592957712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b8e2477672d1243a6b0fe9b8dc7a1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1730177307
 GameObject:
   m_ObjectHideFlags: 0

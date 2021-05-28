@@ -27,7 +27,8 @@ public class Player: EntityModel
     private bool invinciFrames;
 
     [SerializeField] private UI_Inventory uiInventory;
-    private Inventory inventory;
+    public Inventory inventory;
+    private GameObject child;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +42,9 @@ public class Player: EntityModel
         inventory = new Inventory(UseItem);
         uiInventory.SetPlayer(this);
         uiInventory.SetInventory(inventory);
-        
+        child = transform.GetChild(0).gameObject;
+
+        child.GetComponent<ItemCollision>().inventory = inventory;
     }
     public Vector3 GetPosition()
     {
@@ -52,20 +55,12 @@ public class Player: EntityModel
     {
         return inventory;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    public Inventory SendInventoryChild()
     {
-        if (collision.gameObject.tag == "Item")
-        {
-            ItemWorld itemWolrd = collision.gameObject.GetComponent<ItemWorld>();
-            Debug.Log(itemWolrd);
-            if (itemWolrd != null)
-            {
-                inventory.AddItem(itemWolrd.GetItem());
-                itemWolrd.DestroySelf();
-            }
-        }
+        return inventory;
     }
+
+   
 
     private void UseItem(Item item)
     {
@@ -73,6 +68,7 @@ public class Player: EntityModel
         {
             case Item.ItemType.HealthPotion:
                 Debug.Log("cura");
+
                 inventory.RemoveItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
                 break;
 
