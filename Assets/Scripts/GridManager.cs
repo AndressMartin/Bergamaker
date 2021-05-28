@@ -28,8 +28,11 @@ public class GridManager : MonoBehaviour
     public bool onSearchMode { get; private set; }
     public bool auto = false; //For self targeting
     public List<string> _desiredTargets = new List<string>();
-    private int _range;
+    public int _range;
     public int _aoe;
+    public int _targetsNum;
+    public int timesTargetWasSent;
+    public bool _multiTargetsOnly;
 
     private Transform _actionMaker;
     //For Direct Actions
@@ -69,20 +72,23 @@ public class GridManager : MonoBehaviour
             }
             FindEntities(_desiredTargets);
             PaintGridForFoundEntities();
+            RemoveAndDeselectTargetsOutOfRange();
             //Handle selection
             Collider2D[] selection = StartSelection();
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (_aoe > 0)
+                if (selection != null)
                 {
-                    if (selection != null)
+                    if (_aoe > 0)
                     {
                         targetAoe(selection);
                     }
-                }
-                else
+                    else
+                    {
                         targetOnce(selection);
+                    }
+                }
             }
         }
         else
@@ -92,6 +98,7 @@ public class GridManager : MonoBehaviour
             CleanSelection(selectMat);
         }
     }
+
 
     void CasterRange(Transform caster, int range, List<Vector3> _tiles)
     {
@@ -292,6 +299,14 @@ public class GridManager : MonoBehaviour
         _actionMaker = actionMaker;
         _desiredTargets = desiredTargets;
     }
+    public void StartSearchMode(bool boo, int range, Transform actionMaker, bool multiTargetsOnly, List<string> desiredTargets)
+    {
+        onSearchMode = boo;
+        _range = range;
+        _actionMaker = actionMaker;
+        _desiredTargets = desiredTargets;
+        _multiTargetsOnly = multiTargetsOnly;
+    }
     //AOE Search
     public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe, List<string> desiredTargets)
     {
@@ -348,8 +363,19 @@ public class GridManager : MonoBehaviour
             }
             if (_selectableTarget != null && _selectable.Contains(_selectableTarget) == false)
             {
-                SelectableOutline(_selectableTarget.gameObject);
-                _selectable.Add(_selectableTarget);
+                if (_multiTargetsOnly) //If the same target cannot be selected many times
+                {
+                    if (targetUnits.Contains(_selectableTarget.gameObject) == false)
+                    {
+                        SelectableOutline(_selectableTarget.gameObject);
+                        _selectable.Add(_selectableTarget);
+                    }
+                }
+                else
+                {
+                    SelectableOutline(_selectableTarget.gameObject);
+                    _selectable.Add(_selectableTarget);
+                }
             }
         }
     }
@@ -381,7 +407,7 @@ public class GridManager : MonoBehaviour
     }
 
 
-    private GameObject targetOnce(Collider2D[] hits)
+    private List<GameObject> targetOnce(Collider2D[] hits)
     {
         foreach (Collider2D hit in hits)
         {
@@ -409,7 +435,23 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        return targetUnit;
+        if (_multiTargetsOnly) //If the same target cannot be selected many times
+        {
+            if (targetUnits.Contains(targetUnit) != true)
+            {
+                targetUnits.Add(targetUnit);
+                TargetedOutline(targetUnit);
+                timesTargetWasSent++;
+            }
+        }
+        else
+        {
+            targetUnits.Add(targetUnit);
+            TargetedOutline(targetUnit);
+            timesTargetWasSent++;
+        }
+
+        return targetUnits;
     }
 
     private List<GameObject> targetAoe(Collider2D[] hits)
@@ -424,6 +466,19 @@ public class GridManager : MonoBehaviour
         return targetUnits;
     }
 
+    private void RemoveAndDeselectTargetsOutOfRange()
+    {
+        foreach(GameObject unit in targetUnits)
+        {
+            if (foundEntities.Contains(unit.transform) != true)
+            {
+                targetUnits.Remove(unit);
+                timesTargetWasSent--;
+                ResetMat(unit);
+            }
+        }
+    }
+
     public void ResetParams()
     {
         onSearchMode = false;
@@ -431,7 +486,10 @@ public class GridManager : MonoBehaviour
         _actionMaker = null;
         _aoe = 0;
         targetUnit = null;
+        targetUnits.Clear();
+        timesTargetWasSent = 0;
     }
+
     private void CleanSelection(Material materialToRemove)
     {
         if (_selectable != null)

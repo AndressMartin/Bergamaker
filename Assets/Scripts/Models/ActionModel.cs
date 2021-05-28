@@ -8,9 +8,13 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public virtual int PACost { get; protected set; }
     public virtual PossibleTargets targetType { get; protected set; }
     public virtual bool isInstant { get; protected set; }
+    public virtual bool multiTargetsOnly { get; protected set; }
     public virtual int efeito { get; protected set; }
     public virtual float chargeTimeMax { get; protected set; }
     public virtual float CD { get; protected set; }
+    public virtual int AOE { get; protected set; }
+    public virtual int targetsNum { get; protected set; }
+    public List<GameObject> targets { get; protected set; }
     public float chargeTime { get; private set; }
     public bool charging { get; private set; }
     public bool activated { get; private set; }
@@ -20,11 +24,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public InputSys actionMakerInput { get; private set; }
     public Transform actionChild { get; private set; }
     public Transform SkillHolder { get; private set; }
-    public GameObject target { get; private set; }
-    public virtual int AOE { get; protected set; }
-    public virtual List<GameObject> targets { get; protected set; }
 
-    // Start is called before the first frame update
+
     void Start()
     {
         actionMaker = FindObjectOfType<Player>();
@@ -34,7 +35,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
         //actionMakerInput.GetSkillButton(onButton);
         _GridManager = FindObjectOfType<GridManager>();
     }
-    // Update is called once per frame
+
     void Update()
     {
 
@@ -71,7 +72,10 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     }
     public virtual void SendTargetRequest()
     {
-        _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), PassDesiredTargets());
+        if (AOE <= 0)
+            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), multiTargetsOnly, PassDesiredTargets());
+        else if (AOE > 0)
+            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, PassDesiredTargets());
     }
     public List<string> PassDesiredTargets()
     {
@@ -104,11 +108,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public virtual void WaitTarget()
     {
         actionMaker.GetComponent<Movement>().Lento(true);
-        if (_GridManager.targetUnit != null)
+        if (_GridManager.timesTargetWasSent >= targetsNum && _GridManager.targetUnits.Any())
         {
             _GridManager.SearchMode(false);
-            target = _GridManager.targetUnit;
-            _GridManager.targetUnit = null;
+            targets = _GridManager.targetUnits.ToList();
+            _GridManager.targetUnits.Clear();
             ChargeIni();
             actionMaker.GetComponent<Movement>().Lento(false);
         }
@@ -121,7 +125,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     }
     public void ChargeIni()
     {
-        _GridManager.TargetedOutline(target);
+        //_GridManager.TargetedOutline(targets);
         actionMaker.GetComponent<ColorSys>().ChargingColor();
         charging = true;
         chargeTime = chargeTimeMax;
@@ -150,13 +154,9 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     {
         actionMaker.GetComponent<Movement>().Lento(false);
         _GridManager.SearchMode(false);
-        if (target != null) _GridManager.ResetMat(target);
-        if (AOE > 0)
+        if (targets != null)
         {
-            if (targets != null)
-            {
-                if (targets.Any()) _GridManager.ResetMat(targets);
-            }
+            if (targets.Any()) _GridManager.ResetMat(targets);
         }
         actionMaker.GetComponent<Movement>().PermitirMovimento(true);
     }
@@ -179,13 +179,9 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     }
     public void MakeEffect()
     {
-        target.GetComponent<EntityModel>().AlterarPV(efeito);
-        if (AOE > 0)
+        foreach (GameObject target in targets)
         {
-            foreach (GameObject target in targets)
-            {
-                target.GetComponent<EntityModel>().AlterarPV(efeito);
-            }
+            target.GetComponent<EntityModel>().AlterarPV(efeito);
         }
         End();
     }

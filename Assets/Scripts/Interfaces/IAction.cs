@@ -40,12 +40,13 @@ public interface ITarget: IAction
 }
 public interface IDirect : ITarget
 {
-    GameObject target { get; }
+    List<GameObject> targets { get; }
+    int targetsNum { get; }
+    bool multiTargetsOnly { get; }
 }
 public interface IArea : ITarget
 {
     int AOE { get; }
-    List<GameObject> targets { get; }
 }
 public interface ISkill : IAction
 {
