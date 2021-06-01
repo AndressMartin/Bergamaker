@@ -11,7 +11,6 @@ public class ItemCollision : MonoBehaviour
         if (tag == "PlayerCollisionChild")
         {
             ItemWorld itemWolrd = collision.gameObject.GetComponent<ItemWorld>();
-            Debug.Log(inventory);
             if (itemWolrd != null)
             {
                 inventory.AddItem(itemWolrd.GetItem());
