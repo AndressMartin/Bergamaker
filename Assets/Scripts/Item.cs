@@ -29,6 +29,18 @@ public class Item {
             case ItemType.Medkit:        return ItemAssets.Instance.medkitSprite;
         }
     }
+    public string GetItemtype()
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.Sword: return "Sword";
+            case ItemType.HealthPotion: return "HealthPotion";
+            case ItemType.ManaPotion: return "ManaPotion";
+            case ItemType.Coin: return "Coin";
+            case ItemType.Medkit: return "Medkit";
+        }
+    }
 
     public bool IsStackble()
     {

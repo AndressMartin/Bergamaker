@@ -19,6 +19,7 @@ public class Inventory
 
     public void AddItem(Item item)
     {
+        
         if (item.IsStackble())
         {
             bool itemAlreadyInInventory = false;

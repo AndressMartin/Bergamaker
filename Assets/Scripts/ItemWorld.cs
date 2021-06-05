@@ -6,10 +6,7 @@ using CodeMonkey.Utils;
 
 public class ItemWorld : MonoBehaviour
 {
-    private void Start()
-    {
-        
-    }
+  
     
 
     public static ItemWorld SpawItemWorld(Vector3 position, Item item)
@@ -29,8 +26,7 @@ public class ItemWorld : MonoBehaviour
         return itemWorld;
     }
 
-
-    private Item item;
+    public Item item;
     private SpriteRenderer SpriteRenderer;
     private TextMeshPro TextMeshPro;
 
@@ -39,6 +35,7 @@ public class ItemWorld : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TextMeshPro = transform.Find("Text").GetComponent<TextMeshPro>();
     }
+
 
     public void SetItem(Item item)
     {
