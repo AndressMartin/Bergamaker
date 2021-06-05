@@ -174,4 +174,9 @@ public class PotionVida : MonoBehaviour,IAction
     {
         throw new System.NotImplementedException();
     }
+
+    public void SpecificEffect()
+    {
+        throw new System.NotImplementedException();
+    }
 }

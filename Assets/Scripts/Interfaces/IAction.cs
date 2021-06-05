@@ -26,6 +26,7 @@ public interface IAction
     void Fail();
     void CustarAP();
     void MakeEffect();
+    void SpecificEffect();
     void End();
     int FindStoredButton();
 }

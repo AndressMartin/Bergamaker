@@ -182,6 +182,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
         foreach (GameObject target in targets)
         {
             target.GetComponent<EntityModel>().AlterarPV(efeito);
+            SpecificEffect();
         }
         End();
     }
@@ -214,4 +215,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
         return _index;
     }
 
+    public virtual void SpecificEffect()
+    {
+        throw new NotImplementedException();
+    }
 }

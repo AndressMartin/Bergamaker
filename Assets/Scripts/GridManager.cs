@@ -22,6 +22,8 @@ public class GridManager : MonoBehaviour
     public List<Vector3> tilesFull = new List<Vector3>();
     public List<Vector3> tilesIgnore = new List<Vector3>();
     public List<Transform> foundEntities = new List<Transform>();
+    public List<Transform> foundObjects = new List<Transform>();
+    public List<Transform> foundTerrain = new List<Transform>();
     [SerializeField] Vector3 mousePosition;
 
     //            -----TARGETING
@@ -71,6 +73,8 @@ public class GridManager : MonoBehaviour
                 PaintGridForAOE();
             }
             FindEntities(_desiredTargets);
+            FindObjects();
+            FindTerrain();
             PaintGridForFoundEntities();
             RemoveAndDeselectTargetsOutOfRange();
             //Handle selection
@@ -98,6 +102,7 @@ public class GridManager : MonoBehaviour
             CleanSelection(selectMat);
         }
     }
+
 
 
     void CasterRange(Transform caster, int range, List<Vector3> _tiles)
@@ -225,6 +230,15 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void FindObjects()
+    {
+        throw new NotImplementedException();
+    }
+    private void FindTerrain()
+    {
+        throw new NotImplementedException();
     }
 
     private void FillGrid(List<Vector3> _tiles, Tilemap _tilemap)
