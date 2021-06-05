@@ -1882,10 +1882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9ea209b4321524182f2a7d62d73cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    name: 
-    sentences: []
-    textAsset: {fileID: 0}
+  textAsset: {fileID: 0}
 --- !u!114 &110802635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9245,9 +9242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 1868388153}
   dialogueText: {fileID: 1108140808}
-  dialogueTrigger: {fileID: 0}
   animator: {fileID: 1833029868}
-  textAsset: {fileID: 0}
 --- !u!4 &1611944479
 Transform:
   m_ObjectHideFlags: 0
@@ -10100,11 +10095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9ea209b4321524182f2a7d62d73cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-    name: asd
-    sentences:
-    - 1asd
-    textAsset: {fileID: 4900000, guid: 5daf2ae73141a31408a08c05286a8793, type: 3}
+  textAsset: {fileID: 4900000, guid: 5daf2ae73141a31408a08c05286a8793, type: 3}
 --- !u!4 &2028902217 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}

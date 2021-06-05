@@ -25,7 +25,7 @@ public class DialogueManager : MonoBehaviour
 
     void ReadCsv()
     {
-        string[] data = textAsset.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+        string[] data = textAsset.text.Split(new string[] { ";", "\n" }, StringSplitOptions.None);
         int tablesize = data.Length / 1 - 1;
         nameText.text = data[0];
         for (int i = 0; i < tablesize-1 ; i ++)
