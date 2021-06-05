@@ -27,9 +27,10 @@ public  class ItemSounds : MonoBehaviour
    
     public void main(Item item)
     {
-        nomeitem = "";
+        /*nomeitem = "";
         nomeitem = item.GetItemtype();
-        PlaySound(SelectSound(nomeitem));
+        PlaySound(SelectSound(nomeitem));*/
+        PlaySound(SelectSound(item.GetItemtype()));
    
 
     }
@@ -45,9 +46,8 @@ public  class ItemSounds : MonoBehaviour
             case "Medkit": return Medkit;
         }
     }
-    private  void PlaySound(AudioSource som)
+    private void PlaySound(AudioSource som)
     {
-        Debug.Log(som);
         som.Play();
     }
 

@@ -1883,11 +1883,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Mario Diogo
-    sentences:
-    - "Ent\xE3o \xE9 isso Linel deixe o lobo pegar a filha da casada.\n"
-    - "Como assim voc\xEA n\xE3o disse que o lobo estava atr\xE1s dela?"
-    - Guardas parem ele.
+    name: 
+    sentences: []
+    textAsset: {fileID: 0}
 --- !u!114 &110802635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9215,6 +9213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b8e2477672d1243a6b0fe9b8dc7a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemSounds: {fileID: 0}
 --- !u!1 &1611944477
 GameObject:
   m_ObjectHideFlags: 0
@@ -9246,7 +9245,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 1868388153}
   dialogueText: {fileID: 1108140808}
+  dialogueTrigger: {fileID: 0}
   animator: {fileID: 1833029868}
+  textAsset: {fileID: 0}
 --- !u!4 &1611944479
 Transform:
   m_ObjectHideFlags: 0
@@ -10100,11 +10101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: "Carlos o vendedor de A\xE7ai"
+    name: asd
     sentences:
-    - Seja bem vindo a minha loja
-    - Aqui eu vendo Carros
-    - "O melhor de todos \xE9 o Corsa"
+    - 1asd
+    textAsset: {fileID: 4900000, guid: 5daf2ae73141a31408a08c05286a8793, type: 3}
 --- !u!4 &2028902217 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}

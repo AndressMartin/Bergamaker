@@ -16,13 +16,18 @@ public class ItemCollision : MonoBehaviour
     {
         if (tag == "PlayerCollisionChild")
         {
-            ItemWorld itemWolrd = collision.gameObject.GetComponent<ItemWorld>();
-            if (itemWolrd != null)
-            {
-                itemSounds.main(itemWolrd.item);
-                inventory.AddItem(itemWolrd.GetItem());
-                itemWolrd.DestroySelf();
-            }
+            //Debug.Log("por cima do item aperte espaço");
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+                ItemWorld itemWolrd = collision.gameObject.GetComponent<ItemWorld>();
+                if (itemWolrd != null)
+                {
+                    itemSounds.main(itemWolrd.item);
+                    inventory.AddItem(itemWolrd.GetItem());
+                    itemWolrd.DestroySelf();
+                }
+            //}
+
         }
     }
 

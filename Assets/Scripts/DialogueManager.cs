@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class DialogueManager : MonoBehaviour
 
@@ -9,29 +10,37 @@ public class DialogueManager : MonoBehaviour
 {
     public Text nameText;
     public Text dialogueText;
-
     public Animator animator;
 
     private Queue<string> sentences;
-
+    private DialogueTrigger dialogueTrigger;
+    private TextAsset textAsset;
     // Start is called before the first frame update
     void Start()
     {
-        sentences = new Queue<string>();   
+        sentences = new Queue<string>();
+        dialogueTrigger = GameObject.FindObjectOfType<DialogueTrigger>();
+        textAsset = dialogueTrigger.textAsset;
     }
+
+    void ReadCsv()
+    {
+        string[] data = textAsset.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+        int tablesize = data.Length / 1 - 1;
+        nameText.text = data[0];
+        for (int i = 0; i < tablesize-1 ; i ++)
+        {
+            sentences.Enqueue(data[1 + i]);
+        }
+    }
+
 
     public void StartDialogue (Dialogue dialogue)
     {
         animator.SetBool("IsOpen", true);
-
-        nameText.text = dialogue.name;
-
         sentences.Clear();
+        ReadCsv();
 
-        foreach (string sentence in dialogue.sentences)
-        {
-            sentences.Enqueue(sentence);
-        }
         DisplayNextSentence();
     }
     public void DisplayNextSentence()
