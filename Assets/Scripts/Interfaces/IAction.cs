@@ -18,7 +18,8 @@ public interface IAction
     Player actionMaker { get; }
     InputSys actionMakerInput { get; }
     Transform actionChild { get; }
-    Transform SkillHolder { get; }
+    Transform skillHolder { get; }
+    Sprite sprite { get; }
     void Activated();
     void ChargeIni();
     void Charge();
@@ -29,6 +30,7 @@ public interface IAction
     void SpecificEffect();
     void End();
     int FindStoredButton();
+    Sprite GetSkillSprite();
 }
 public interface ITarget: IAction
 {
@@ -48,6 +50,7 @@ public interface IDirect : ITarget
 public interface IArea : ITarget
 {
     int AOE { get; }
+    Shapes shapeType { get; }
 }
 public interface ISkill : IAction
 {

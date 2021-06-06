@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 public class ActionModel: MonoBehaviour, IDirect, IArea
 {
     public virtual int range { get; protected set; }
@@ -13,6 +14,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public virtual float chargeTimeMax { get; protected set; }
     public virtual float CD { get; protected set; }
     public virtual int AOE { get; protected set; }
+    public virtual Shapes shapeType { get; private set; }
     public virtual int targetsNum { get; protected set; }
     public List<GameObject> targets { get; protected set; }
     public float chargeTime { get; private set; }
@@ -23,15 +25,16 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public Player actionMaker { get; private set; }
     public InputSys actionMakerInput { get; private set; }
     public Transform actionChild { get; private set; }
-    public Transform SkillHolder { get; private set; }
-
+    public Transform skillHolder { get; private set; }
+    public Sprite sprite { get; private set; }
 
     void Start()
     {
         actionMaker = FindObjectOfType<Player>();
         actionMakerInput = actionMaker.GetComponent<InputSys>();
-        SkillHolder = gameObject.transform.parent;
+        skillHolder = gameObject.transform.parent;
         onButton = FindStoredButton();
+        sprite = GetSkillSprite();
         //actionMakerInput.GetSkillButton(onButton);
         _GridManager = FindObjectOfType<GridManager>();
     }
@@ -75,7 +78,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
         if (AOE <= 0)
             _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), multiTargetsOnly, PassDesiredTargets());
         else if (AOE > 0)
-            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, PassDesiredTargets());
+            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, shapeType, PassDesiredTargets());
     }
     public List<string> PassDesiredTargets()
     {
@@ -208,9 +211,9 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public int FindStoredButton()
     {
         var _index = -1;
-        for (int i = 0; i < SkillHolder.childCount; i++)
+        for (int i = 0; i < skillHolder.childCount; i++)
         {
-            if (SkillHolder.GetChild(i) == gameObject.transform)
+            if (skillHolder.GetChild(i) == gameObject.transform)
             {
                 if (i != 10)
                     _index = i + 1;
@@ -225,5 +228,10 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public virtual void SpecificEffect()
     {
         return;
+    }
+
+    public Sprite GetSkillSprite()
+    {
+        return Resources.Load<Sprite>("Sprites/" + this.GetType().Name);
     }
 }

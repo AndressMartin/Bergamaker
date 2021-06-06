@@ -40,11 +40,13 @@ public class PotionVida : MonoBehaviour,IAction
     public int onButton => throw new System.NotImplementedException();
     public Button button;
 
-    public Transform SkillHolder { get; private set; }
+    public Transform skillHolder { get; private set; }
 
     public bool activated { get; private set; } = false;
 
     public GameObject target { get; private set; }
+
+    public Sprite sprite => throw new System.NotImplementedException();
 
     void Update()
     {
@@ -59,7 +61,7 @@ public class PotionVida : MonoBehaviour,IAction
     void Start()
     {
         mouseAuraHolder = GameObject.FindGameObjectWithTag("MouseHolder");
-        SkillHolder = gameObject.transform.parent;
+        skillHolder = gameObject.transform.parent;
         target = FindObjectOfType<Player>().gameObject;
         //actionMakerInput.GetSkillButton(onButton);
         actionMaker = FindObjectOfType<Player>();
@@ -176,6 +178,11 @@ public class PotionVida : MonoBehaviour,IAction
     }
 
     public void SpecificEffect()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public Sprite GetSkillSprite()
     {
         throw new System.NotImplementedException();
     }

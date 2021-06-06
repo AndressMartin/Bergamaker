@@ -37,6 +37,21 @@ public class InputSys : MonoBehaviour
                 skillPress = Input.GetButtonDown("Skill2");
                 skillNum = 2;
             }
+            else if (Input.GetButtonDown("Skill3"))
+            {
+                skillPress = Input.GetButtonDown("Skill3");
+                skillNum = 3;
+            }
+            else if (Input.GetButtonDown("Skill4"))
+            {
+                skillPress = Input.GetButtonDown("Skill4");
+                skillNum = 4;
+            }
+            else if (Input.GetButtonDown("Skill5"))
+            {
+                skillPress = Input.GetButtonDown("Skill5");
+                skillNum = 5;
+            }
         }
         GetSelectPress(Input.GetButtonDown("Select"));
 

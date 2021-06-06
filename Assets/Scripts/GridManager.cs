@@ -32,6 +32,7 @@ public class GridManager : MonoBehaviour
     public List<string> _desiredTargets = new List<string>();
     public int _range;
     public int _aoe;
+    public Shapes _shapeType;
     public int _targetsNum;
     public int timesTargetWasSent;
     public bool _multiTargetsOnly;
@@ -52,7 +53,9 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(_shapeType);
         grid = GetComponent<Grid>();
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -73,8 +76,8 @@ public class GridManager : MonoBehaviour
                 PaintGridForAOE();
             }
             FindEntities(_desiredTargets);
-            FindObjects();
-            FindTerrain();
+            //FindObjects();
+            //FindTerrain();
             PaintGridForFoundEntities();
             RemoveAndDeselectTargetsOutOfRange();
             //Handle selection
@@ -109,7 +112,7 @@ public class GridManager : MonoBehaviour
     {
         CleanArea(tilesFull, tileMapRange);
         CleanArea(_tiles, tileMapRange);
-        GetArea(range, caster.GetChild(0).position, _tiles);
+        GetArea(range, caster.GetChild(0).position, _tiles, _shapeType);
     }
     void MouseRange(int area, List<Vector3> _tiles)
     {
@@ -122,7 +125,7 @@ public class GridManager : MonoBehaviour
             if (tilesRange.Contains(grid.LocalToCell(mousePosition)))
             {
                 CleanArea(_tiles, tileMapAoe);
-                GetArea(area, mousePosition, _tiles);
+                GetArea(area, mousePosition, _tiles, _shapeType);
             }
         }
     }
@@ -168,28 +171,39 @@ public class GridManager : MonoBehaviour
         if (iteration == 4) return new Vector3(center.x - (i + 1) + (f), center.y + (f), center.z);
         else return new Vector3(0, 0, 0);
     }
-    void GetArea(int range, Vector3 position, List<Vector3> _tiles)
+    void GetArea(int range, Vector3 position, List<Vector3> _tiles, Shapes shapeType)
     {
         Vector3 center = grid.LocalToCell(position);
         _tiles.Add(center);
-        for (int i = 0; i < range; i++)
+        if (shapeType == Shapes.Area)
         {
-            for (int iteration = 1; iteration < 5; iteration++)
+            for (int i = 0; i < range; i++)
             {
-                if (!tilesFull.Contains(Coordinates(iteration, i, center)))
-                    _tiles.Add(Coordinates(iteration, i, center));
-            }
-            if (i > 0 && i < range)
-            {
-                for (int f = 1; f <= i; f++)
+                for (int iteration = 1; iteration < 5; iteration++)
                 {
-                    for (int iteration = 1; iteration < 5; iteration++)
+                    if (!tilesFull.Contains(Coordinates(iteration, i, center)))
+                        _tiles.Add(Coordinates(iteration, i, center));
+                }
+                if (i > 0 && i < range)
+                {
+                    for (int f = 1; f <= i; f++)
                     {
-                        if (!tilesFull.Contains(Coordinates(iteration, i, f, center)))
-                            _tiles.Add(Coordinates(iteration, i, f, center));
+                        for (int iteration = 1; iteration < 5; iteration++)
+                        {
+                            if (!tilesFull.Contains(Coordinates(iteration, i, f, center)))
+                                _tiles.Add(Coordinates(iteration, i, f, center));
+                        }
                     }
                 }
             }
+        }
+        if (shapeType == Shapes.Cone)
+        {
+            Debug.Log("Cry");
+        }
+        if (shapeType == Shapes.Line)
+        {
+            Debug.Log("Cry less");
         }
     }
 
@@ -322,13 +336,14 @@ public class GridManager : MonoBehaviour
         _multiTargetsOnly = multiTargetsOnly;
     }
     //AOE Search
-    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe, List<string> desiredTargets)
+    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe, Shapes shapeType, List<string> desiredTargets)
     {
         onSearchMode = boo;
         _range = range;
         _actionMaker = actionMaker;
         _desiredTargets = desiredTargets;
         _aoe = aoe;
+        _shapeType = shapeType;
     }
     //Multiple Targets??
     //TODO: Not implemented

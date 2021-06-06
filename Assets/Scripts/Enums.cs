@@ -10,3 +10,10 @@ public enum PossibleTargets
     SelfAndAlly,
     Any
 }
+
+public enum Shapes
+{
+    Area,
+    Cone,
+    Line
+}
