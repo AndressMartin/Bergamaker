@@ -25,6 +25,7 @@ public class GridManager : MonoBehaviour
     public List<Transform> foundObjects = new List<Transform>();
     public List<Transform> foundTerrain = new List<Transform>();
     [SerializeField] Vector3 mousePosition;
+    private Vector3 previousCasterPosition;
 
     //            -----TARGETING
     public bool onSearchMode { get; private set; }
@@ -111,8 +112,13 @@ public class GridManager : MonoBehaviour
     void CasterRange(Transform caster, int range, List<Vector3> _tiles)
     {
         CleanArea(tilesFull, tileMapRange);
-        CleanArea(_tiles, tileMapRange);
-        GetArea(range, caster.GetChild(0).position, _tiles, _shapeType);
+
+        if (grid.LocalToCell(previousCasterPosition) != grid.LocalToCell(caster.position))
+        {
+            CleanArea(_tiles, tileMapRange);
+            GetArea(range, caster.GetChild(0).position, _tiles, _shapeType);
+            previousCasterPosition = caster.position;
+        }
     }
     void MouseRange(int area, List<Vector3> _tiles)
     {
@@ -181,6 +187,7 @@ public class GridManager : MonoBehaviour
             {
                 for (int iteration = 1; iteration < 5; iteration++)
                 {
+                    Debug.Log("Painting");
                     if (!tilesFull.Contains(Coordinates(iteration, i, center)))
                         _tiles.Add(Coordinates(iteration, i, center));
                 }
@@ -188,6 +195,7 @@ public class GridManager : MonoBehaviour
                 {
                     for (int f = 1; f <= i; f++)
                     {
+                        Debug.Log("Painting");
                         for (int iteration = 1; iteration < 5; iteration++)
                         {
                             if (!tilesFull.Contains(Coordinates(iteration, i, f, center)))
@@ -516,6 +524,7 @@ public class GridManager : MonoBehaviour
         _aoe = 0;
         targetUnit = null;
         targetUnits.Clear();
+        previousCasterPosition = new Vector3();
         timesTargetWasSent = 0;
     }
 
