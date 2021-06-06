@@ -115,6 +115,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
         {
             _GridManager.SearchMode(false);
             targets = _GridManager.targetUnits.ToList();
+            _GridManager.TargetArrow(_GridManager.targetUnits);
             _GridManager.targetUnits.Clear();
             ChargeIni();
             actionMaker.GetComponent<Movement>().Lento(false);
@@ -159,7 +160,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
         _GridManager.SearchMode(false);
         if (targets != null)
         {
-            if (targets.Any()) _GridManager.ResetMat(targets);
+            if (targets.Any()) _GridManager.ResetArrow(targets);
         }
         actionMaker.GetComponent<Movement>().PermitirMovimento(true);
     }

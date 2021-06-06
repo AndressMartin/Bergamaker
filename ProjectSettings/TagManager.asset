@@ -59,3 +59,6 @@ TagManager:
   - name: Enemies
     uniqueID: 2464884733
     locked: 0
+  - name: Fog
+    uniqueID: 1782506127
+    locked: 0

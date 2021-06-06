@@ -26,6 +26,7 @@ public class GridManager : MonoBehaviour
     public List<Transform> foundTerrain = new List<Transform>();
     [SerializeField] Vector3 mousePosition;
     private Vector3 previousCasterPosition;
+    private Transform arrow;
 
     //            -----TARGETING
     public bool onSearchMode { get; private set; }
@@ -48,9 +49,9 @@ public class GridManager : MonoBehaviour
     public Transform _selectableTarget;
     public LayerMask ignorar;
 
-    public Material targetMat;
-    public Material selectMat;
-    public Material defaultMat;
+    //public Material targetMat;
+    //public Material selectMat;
+    //public Material defaultMat;
 
     void Start()
     {
@@ -103,7 +104,7 @@ public class GridManager : MonoBehaviour
         {
             CleanAllAreas();
             CleanEntities();
-            CleanSelection(selectMat);
+            CleanSelection(Color.yellow);
         }
     }
 
@@ -359,7 +360,7 @@ public class GridManager : MonoBehaviour
     {
         //Debug.LogWarning("Is on target");
         Collider2D[] hits = Physics2D.OverlapPointAll(mainCamera.ScreenToWorldPoint(Input.mousePosition), ~ignorar);
-        CleanSelection(selectMat);
+        CleanSelection(Color.yellow);
         if (_aoe > 0) return SelectInsideAoe();
         else SelectTarget(hits);
         return hits;
@@ -404,13 +405,13 @@ public class GridManager : MonoBehaviour
                 {
                     if (targetUnits.Contains(_selectableTarget.gameObject) == false)
                     {
-                        SelectableOutline(_selectableTarget.gameObject);
+                        SelectArrow(_selectableTarget.gameObject);
                         _selectable.Add(_selectableTarget);
                     }
                 }
                 else
                 {
-                    SelectableOutline(_selectableTarget.gameObject);
+                    SelectArrow(_selectableTarget.gameObject);
                     _selectable.Add(_selectableTarget);
                 }
             }
@@ -435,7 +436,7 @@ public class GridManager : MonoBehaviour
         List<Collider2D> tempList = new List<Collider2D>();
         for (int i = 0; i < _selectable.Count; i++)
         {
-            SelectableOutline(_selectable[i].gameObject);
+            SelectArrow(_selectable[i].gameObject);
             tempList.Add(_selectable[i].gameObject.GetComponent<Collider2D>());
             //Debug.LogWarning($"_SELECTABLE IS {0} AND ITS COLLIDER IS {1}" + i + _selectable[i].gameObject.GetComponent<Collider2D>());
         }
@@ -477,14 +478,14 @@ public class GridManager : MonoBehaviour
             if (targetUnits.Contains(targetUnit) != true)
             {
                 targetUnits.Add(targetUnit);
-                TargetedOutline(targetUnit);
+                TargetArrow(targetUnit);
                 timesTargetWasSent++;
             }
         }
         else
         {
             targetUnits.Add(targetUnit);
-            TargetedOutline(targetUnit);
+            TargetArrow(targetUnit);
             timesTargetWasSent++;
         }
 
@@ -511,7 +512,7 @@ public class GridManager : MonoBehaviour
             {
                 targetUnits.Remove(unit);
                 timesTargetWasSent--;
-                ResetMat(unit);
+                ResetArrow(unit);
             }
         }
     }
@@ -528,14 +529,21 @@ public class GridManager : MonoBehaviour
         timesTargetWasSent = 0;
     }
 
-    private void CleanSelection(Material materialToRemove)
+    private void CleanSelection(Color color)
     {
         if (_selectable != null)
         {
             foreach (Transform entity in _selectable)
             {
-                if (entity.gameObject.GetComponent<SpriteRenderer>().sharedMaterial == materialToRemove)
-                    ResetMat(entity.gameObject);
+                
+                arrow = entity.transform.GetChild(1);
+                var arrowSprite = arrow.GetComponent<SpriteRenderer>();
+                if (arrowSprite.color == color)
+                {
+                    arrowSprite.color = Color.white;
+                    if (arrowSprite.enabled == true) arrowSprite.enabled = false;
+                }
+
             }
             _selectable.Clear();
             _selectableTarget = null;
@@ -544,59 +552,78 @@ public class GridManager : MonoBehaviour
 
     GameObject RemovePreviousAutoSelection(GameObject previousSelection)
     {
-        ResetMat(previousSelection);
+        ResetArrow(previousSelection);
         return null;
     }
-    public void TargetedOutline(GameObject _obj)
+    public void TargetArrow(GameObject _obj)
     {
         if (_obj != null && _obj.GetComponent<SpriteRenderer>())
         {
-            _obj.GetComponent<SpriteRenderer>().material = targetMat;
+            arrow = _obj.transform.GetChild(1);
+            var arrowSprite = arrow.GetComponent<SpriteRenderer>();
+            if (arrowSprite.enabled == false) arrowSprite.enabled = true;
+            arrowSprite.color = Color.red;
         }
     }
-    public void TargetedOutline(List<GameObject> _objs)
+    public void TargetArrow(List<GameObject> _objs)
     {
         foreach(GameObject _obj in _objs)
         {
             if (_obj != null && _obj.GetComponent<SpriteRenderer>())
             {
-                _obj.GetComponent<SpriteRenderer>().material = targetMat;
+                arrow = _obj.transform.GetChild(1);
+                var arrowSprite = arrow.GetComponent<SpriteRenderer>();
+                if (arrowSprite.enabled == false) arrowSprite.enabled = true;
+                arrowSprite.color = Color.red;
             }
         }
     }
-    public void SelectableOutline(GameObject _obj)
+    public void SelectArrow(GameObject _obj)
     {
         if (_obj != null && _obj.GetComponent<SpriteRenderer>())
         {
-            _obj.GetComponent<SpriteRenderer>().material = selectMat;
+            arrow = _obj.transform.GetChild(1);
+            var arrowSprite = arrow.GetComponent<SpriteRenderer>();
+            if (arrowSprite.enabled == false) arrowSprite.enabled = true;
+            arrowSprite.color = Color.yellow;
         }
 
     }
-    public void SelectableOutline(List<GameObject> _objs)
+    public void SelectArrow(List<GameObject> _objs)
     {
         foreach (GameObject _obj in _objs)
         {
             if (_obj != null && _obj.GetComponent<SpriteRenderer>())
             {
-                _obj.GetComponent<SpriteRenderer>().material = selectMat;
+                arrow = _obj.transform.GetChild(1);
+                var arrowSprite = arrow.GetComponent<SpriteRenderer>();
+                if (arrowSprite.enabled == false) arrowSprite.enabled = true;
+                arrowSprite.color = Color.yellow;
             }
         }
 
     }
-    public void ResetMat(GameObject _obj)
+    public void ResetArrow(GameObject _obj)
     {
         if (_obj != null && _obj.GetComponent<SpriteRenderer>())
         {
-            _obj.GetComponent<SpriteRenderer>().material = defaultMat;
+            arrow = _obj.transform.GetChild(1);
+            var arrowSprite = arrow.GetComponent<SpriteRenderer>();
+            arrowSprite.color = Color.white;
+            if (arrowSprite.enabled == true) arrowSprite.enabled = false;
+
         }
     }
-    public void ResetMat(List<GameObject> _objs)
+    public void ResetArrow(List<GameObject> _objs)
     {
         foreach (GameObject _obj in _objs)
         {
             if (_obj != null && _obj.GetComponent<SpriteRenderer>())
             {
-                _obj.GetComponent<SpriteRenderer>().material = defaultMat;
+                arrow = _obj.transform.GetChild(1);
+                var arrowSprite = arrow.GetComponent<SpriteRenderer>();
+                arrowSprite.color = Color.white;
+                if (arrowSprite.enabled == true) arrowSprite.enabled = false;
             }
         }
     }
