@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     public bool _permissaoAndar = true;
     public bool lento;
     public bool isClimbing;
-
+    public List<float> lastCoordinates;
     private int animacao = 0; //A animacao atual do personagem
 
     //Enumerador das direcoes do personagem
@@ -44,6 +44,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        lastCoordinates = new List<float>() { 0, 0 };
         rb = GetComponent<Rigidbody2D>();
         spriteRend = GetComponent<SpriteRenderer>();
         _dash = GetComponent<Dash>();
@@ -53,6 +54,17 @@ public class Movement : MonoBehaviour
     }
     private void Update()
     {
+        if (lastCoordinates[0] != _input.horizontal && _input.horizontal != 0) 
+        {
+            lastCoordinates[0] = _input.horizontal;
+            lastCoordinates[1] = 0;
+        }
+
+        if (lastCoordinates[1] != _input.vertical && _input.vertical != 0)
+        {
+            lastCoordinates[1] = _input.vertical;
+            lastCoordinates[0] = 0;
+        }
         Move(_input.horizontal, _input.vertical);
     }
 

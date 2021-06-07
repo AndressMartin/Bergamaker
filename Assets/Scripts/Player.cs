@@ -59,7 +59,6 @@ public class Player: EntityModel
     {
         return inventory;
     }
-
    
 
     private void UseItem(Item item)
