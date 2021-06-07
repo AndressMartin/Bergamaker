@@ -11,6 +11,7 @@ public class BolaDeFogo : ActionModel
     public override float CD => .5f;
     public override bool isInstant => false;
     public override int AOE => 2;
+    public override bool HasAOEEffect => true;
     public override PossibleTargets targetType => PossibleTargets.Any;
     public override Shapes shapeType => Shapes.Area;
 }

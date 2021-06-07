@@ -17,3 +17,11 @@ public enum Shapes
     Cone,
     Line
 }
+
+public enum TerrainEffects
+{
+    OnFire,
+    Wet,
+    Oil,
+    Frozen
+}

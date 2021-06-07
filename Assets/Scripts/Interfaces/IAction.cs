@@ -50,6 +50,7 @@ public interface IDirect : ITarget
 public interface IArea : ITarget
 {
     int AOE { get; }
+    List<Vector3> AOEArea { get; }
     Shapes shapeType { get; }
 }
 public interface ISkill : IAction
@@ -59,5 +60,7 @@ public interface ISkill : IAction
 public interface IMagic : IAction
 {
     int MNCost { get; }
+    TerrainEffects EffectType { get; }
+    bool HasAOEEffect { get; }
     void CustarMN();
 }

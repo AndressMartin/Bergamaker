@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ActionModel: MonoBehaviour, IDirect, IArea
+public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
 {
     public virtual int range { get; protected set; }
     public virtual int PACost { get; protected set; }
+    public virtual int MNCost { get; protected set; }
     public virtual PossibleTargets targetType { get; protected set; }
     public virtual bool isInstant { get; protected set; }
     public virtual bool multiTargetsOnly { get; protected set; }
@@ -16,6 +17,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public virtual int AOE { get; protected set; }
     public virtual Shapes shapeType { get; private set; }
     public virtual int targetsNum { get; protected set; }
+    public virtual bool HasAOEEffect { get; protected set; }
+    public virtual TerrainEffects EffectType { get; protected set; }
     public List<GameObject> targets { get; protected set; }
     public float chargeTime { get; private set; }
     public bool charging { get; private set; }
@@ -27,9 +30,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     public Transform actionChild { get; private set; }
     public Transform skillHolder { get; private set; }
     public Sprite sprite { get; private set; }
+    public List<Vector3> AOEArea { get; private set; }
 
     void Start()
     {
+        if (AOE > 0) AOEArea = new List<Vector3>();
         actionMaker = FindObjectOfType<Player>();
         actionMakerInput = actionMaker.GetComponent<InputSys>();
         skillHolder = gameObject.transform.parent;
@@ -78,7 +83,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
         if (AOE <= 0)
             _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), multiTargetsOnly, PassDesiredTargets());
         else if (AOE > 0)
-            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, shapeType, PassDesiredTargets());
+            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, HasAOEEffect, shapeType, PassDesiredTargets());
     }
     public List<string> PassDesiredTargets()
     {
@@ -113,6 +118,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
         actionMaker.GetComponent<Movement>().Lento(true);
         if (_GridManager.timesTargetWasSent >= targetsNum && _GridManager.targetUnits.Any())
         {
+            AOEArea = _GridManager.SendAOEArea().ToList();
+            foreach (var tile in AOEArea) Debug.LogWarning(tile);
             _GridManager.SearchMode(false);
             targets = _GridManager.targetUnits.ToList();
             _GridManager.TargetArrow(_GridManager.targetUnits);
@@ -179,7 +186,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
     }
     public void CustarAP()
     {
-        actionMaker.AlterarPA(-PACost);
+        if (PACost > 0) actionMaker.AlterarPA(-PACost);
     }
     public void MakeEffect()
     {
@@ -228,11 +235,16 @@ public class ActionModel: MonoBehaviour, IDirect, IArea
 
     public virtual void SpecificEffect()
     {
-        return;
+        if (HasAOEEffect) _GridManager.ApplyEffectsOnTiles(AOEArea, EffectType);
     }
 
     public Sprite GetSkillSprite()
     {
-        return Resources.Load<Sprite>("Sprites/" + this.GetType().Name);
+        return Resources.Load<Sprite>("UISprites/" + this.GetType().Name);
+    }
+
+    public void CustarMN()
+    {
+        if (MNCost > 0) actionMaker.AlterarMN(-MNCost);
     }
 }

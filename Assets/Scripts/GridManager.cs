@@ -17,6 +17,8 @@ public class GridManager : MonoBehaviour
     public TileBase tintTile;
     public Tilemap chao;
     public Tilemap paredes;
+    public Tilemap buracos;
+    public Tilemap EffectsMap;
     public List<Vector3> tilesRange = new List<Vector3>();
     public List<Vector3> tilesAoe = new List<Vector3>();
     public List<Vector3> tilesFull = new List<Vector3>();
@@ -33,11 +35,12 @@ public class GridManager : MonoBehaviour
     public bool auto = false; //For self targeting
     public List<string> _desiredTargets = new List<string>();
     public int _range;
-    public int _aoe;
+    public int _AOE;
     public Shapes _shapeType;
     public int _targetsNum;
     public int timesTargetWasSent;
     public bool _multiTargetsOnly;
+    public bool _HasAOEEffect;
 
     private Transform _actionMaker;
     //For Direct Actions
@@ -70,9 +73,9 @@ public class GridManager : MonoBehaviour
             CasterRange(_actionMaker, _range, tilesRange);
             FindWalls(tilesRange);
             FillGrid(tilesRange, tileMapRange);
-            if (_aoe > 0)
+            if (_AOE > 0)
             {
-                MouseRange(_aoe, tilesAoe);
+                MouseRange(_AOE, tilesAoe);
                 FindWalls(tilesAoe);
                 FillGrid(tilesAoe, tileMapAoe);
                 PaintGridForAOE();
@@ -89,7 +92,7 @@ public class GridManager : MonoBehaviour
             {
                 if (selection != null)
                 {
-                    if (_aoe > 0)
+                    if (_AOE > 0)
                     {
                         targetAoe(selection);
                     }
@@ -137,9 +140,9 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    internal bool Any()
+    internal List<Vector3> SendAOEArea()
     {
-        throw new NotImplementedException();
+        return tilesAoe;
     }
 
     private void CleanArea(List<Vector3> _tiles, Tilemap _tilemap)
@@ -222,6 +225,11 @@ public class GridManager : MonoBehaviour
         {
             Tile.ColliderType tileType = paredes.GetColliderType(Vector3Int.FloorToInt(tile));
             if (tileType != Tile.ColliderType.None)
+            {
+                tilesIgnore.Add(tile);
+            }
+            Tile.ColliderType tileType2 = buracos.GetColliderType(Vector3Int.FloorToInt(tile));
+            if (tileType2 != Tile.ColliderType.None)
             {
                 tilesIgnore.Add(tile);
             }
@@ -345,14 +353,15 @@ public class GridManager : MonoBehaviour
         _multiTargetsOnly = multiTargetsOnly;
     }
     //AOE Search
-    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe, Shapes shapeType, List<string> desiredTargets)
+    public void StartSearchMode(bool boo, int range, Transform actionMaker, int aoe, bool HasAOEEffect, Shapes shapeType, List<string> desiredTargets)
     {
         onSearchMode = boo;
         _range = range;
         _actionMaker = actionMaker;
         _desiredTargets = desiredTargets;
-        _aoe = aoe;
+        _AOE = aoe;
         _shapeType = shapeType;
+        _HasAOEEffect = HasAOEEffect;
     }
     //Multiple Targets??
     //TODO: Not implemented
@@ -361,7 +370,7 @@ public class GridManager : MonoBehaviour
         //Debug.LogWarning("Is on target");
         Collider2D[] hits = Physics2D.OverlapPointAll(mainCamera.ScreenToWorldPoint(Input.mousePosition), ~ignorar);
         CleanSelection(Color.yellow);
-        if (_aoe > 0) return SelectInsideAoe();
+        if (_AOE > 0) return SelectInsideAoe();
         else SelectTarget(hits);
         return hits;
     }
@@ -522,7 +531,8 @@ public class GridManager : MonoBehaviour
         onSearchMode = false;
         _range = 0;
         _actionMaker = null;
-        _aoe = 0;
+        _AOE = 0;
+        _HasAOEEffect = false;
         targetUnit = null;
         targetUnits.Clear();
         previousCasterPosition = new Vector3();
@@ -548,6 +558,12 @@ public class GridManager : MonoBehaviour
             _selectable.Clear();
             _selectableTarget = null;
         }
+    }
+
+    public void ApplyEffectsOnTiles(List<Vector3> area, TerrainEffects effectType)
+    {
+        FillGrid(area, EffectsMap);
+        EffectsMap.GetComponent<TerrainEffectsManagement>().GetEffectParams(effectType);
     }
 
     GameObject RemovePreviousAutoSelection(GameObject previousSelection)
