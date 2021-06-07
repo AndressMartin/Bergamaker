@@ -36,6 +36,7 @@ public class GridManager : MonoBehaviour
     public List<string> _desiredTargets = new List<string>();
     public int _range;
     public int _AOE;
+    public Vector3 pointClicked;
     public Shapes _shapeType;
     public int _targetsNum;
     public int timesTargetWasSent;
@@ -72,12 +73,12 @@ public class GridManager : MonoBehaviour
             CleanEntities();
             CasterRange(_actionMaker, _range, tilesRange);
             FindWalls(tilesRange);
-            FillGrid(tilesRange, tileMapRange);
+            FillGrid(tilesRange, tileMapRange, tintTile);
             if (_AOE > 0)
             {
                 MouseRange(_AOE, tilesAoe);
                 FindWalls(tilesAoe);
-                FillGrid(tilesAoe, tileMapAoe);
+                FillGrid(tilesAoe, tileMapAoe, tintTile);
                 PaintGridForAOE();
             }
             FindEntities(_desiredTargets);
@@ -92,6 +93,7 @@ public class GridManager : MonoBehaviour
             {
                 if (selection != null)
                 {
+                    pointClicked = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f));
                     if (_AOE > 0)
                     {
                         targetAoe(selection);
@@ -143,6 +145,10 @@ public class GridManager : MonoBehaviour
     internal List<Vector3> SendAOEArea()
     {
         return tilesAoe;
+    }
+    internal Vector3 SendPointClicked()
+    {
+        return pointClicked;
     }
 
     private void CleanArea(List<Vector3> _tiles, Tilemap _tilemap)
@@ -272,7 +278,7 @@ public class GridManager : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private void FillGrid(List<Vector3> _tiles, Tilemap _tilemap)
+    private void FillGrid(List<Vector3> _tiles, Tilemap _tilemap, TileBase tileBase)
     {
         bool continuePaintingTile = true;
         for (var i = 0; i < _tiles.Count; i++)
@@ -285,7 +291,7 @@ public class GridManager : MonoBehaviour
                 }
             }
             if (continuePaintingTile)
-                _tilemap.SetTile(Vector3Int.FloorToInt(_tiles[i]), tintTile);
+                _tilemap.SetTile(Vector3Int.FloorToInt(_tiles[i]), tileBase);
             else
                 continuePaintingTile = true;
         }
@@ -562,8 +568,14 @@ public class GridManager : MonoBehaviour
 
     public void ApplyEffectsOnTiles(List<Vector3> area, TerrainEffects effectType)
     {
-        FillGrid(area, EffectsMap);
-        EffectsMap.GetComponent<TerrainEffectsManagement>().GetEffectParams(effectType);
+        FillGrid(area, EffectsMap, FindEffectsTileBaseOfName(effectType));
+        EffectsMap.GetComponent<TerrainEffectsManagement>().GetEffectParams(area, effectType);
+    }
+
+    private TileBase FindEffectsTileBaseOfName(TerrainEffects effectType)
+    {
+        TileBase tileBaseName = Resources.Load<TileBase>("Tiles/Animated Tiles/" + effectType + "AnimTile");
+        return tileBaseName;
     }
 
     GameObject RemovePreviousAutoSelection(GameObject previousSelection)

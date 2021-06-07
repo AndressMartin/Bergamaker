@@ -35,6 +35,7 @@ public interface IAction
 public interface ITarget: IAction
 {
     int range { get; }
+    Vector3 pointClicked { get; }
     GridManager _GridManager { get; }
     void SendTargetRequest();
     int PassRange();

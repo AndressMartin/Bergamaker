@@ -31,6 +31,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public Transform skillHolder { get; private set; }
     public Sprite sprite { get; private set; }
     public List<Vector3> AOEArea { get; private set; }
+    public Vector3 pointClicked { get; private set; }
 
     void Start()
     {
@@ -119,7 +120,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         if (_GridManager.timesTargetWasSent >= targetsNum && _GridManager.targetUnits.Any())
         {
             AOEArea = _GridManager.SendAOEArea().ToList();
-            foreach (var tile in AOEArea) Debug.LogWarning(tile);
+            pointClicked = _GridManager.SendPointClicked();
             _GridManager.SearchMode(false);
             targets = _GridManager.targetUnits.ToList();
             _GridManager.TargetArrow(_GridManager.targetUnits);
@@ -200,8 +201,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             {
                 Debug.LogError("EntityModel was null while applying effect");
             }
-            SpecificEffect();
         }
+        SpecificEffect();
         End();
     }
     public void Fail()
