@@ -10,9 +10,10 @@ public interface IActor
     int PVMax { get; }
     int MNMax { get; }
     int PAMax { get; }
-
+    TerrainEffects status { get; }
+    Object statusObject { get; }
     int AlterarPV(int alteracao);
     int AlterarMN(int alteracao);
     int AlterarPA(int alteracao);
-
+    void AlterarStatus(TerrainEffects status);
 }

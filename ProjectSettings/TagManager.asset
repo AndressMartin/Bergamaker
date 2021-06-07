@@ -50,6 +50,9 @@ TagManager:
   - name: Cenario
     uniqueID: 205759407
     locked: 0
+  - name: Effects
+    uniqueID: 134369265
+    locked: 0
   - name: Players
     uniqueID: 3509270737
     locked: 0

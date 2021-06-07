@@ -569,7 +569,16 @@ public class GridManager : MonoBehaviour
     public void ApplyEffectsOnTiles(List<Vector3> area, TerrainEffects effectType)
     {
         FillGrid(area, EffectsMap, FindEffectsTileBaseOfName(effectType));
+        ApplyCollider(area, EffectsMap);
         EffectsMap.GetComponent<TerrainEffectsManagement>().GetEffectParams(area, effectType);
+    }
+
+    private void ApplyCollider(List<Vector3> area, Tilemap effectsMap)
+    {
+        foreach (Vector3 tile in area)
+        {
+            effectsMap.SetColliderType(Vector3Int.FloorToInt(tile), Tile.ColliderType.Grid);
+        }
     }
 
     private TileBase FindEffectsTileBaseOfName(TerrainEffects effectType)

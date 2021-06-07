@@ -114,6 +114,10 @@ public class Player: EntityModel
         MN += alteracao;
         return MN;
     }
+    public override void AlterarStatus(TerrainEffects status)
+    {
+        base.AlterarStatus(status);
+    }
     public IEnumerator Invincibility()
     {
         invinciFrames = true;
