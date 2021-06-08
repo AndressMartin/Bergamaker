@@ -27,17 +27,11 @@ public class TerrainEffectsManagement : MonoBehaviour
     {
         this.effectType = effectType;
         this.area = area;
-        FillGrid();
-    }
-
-    private void FillGrid()
-    {
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var colliderType = collision.gameObject.GetComponent<EntityModel>();
+        var colliderType = collision.transform.parent.GetComponent<EntityModel>();
         if (colliderType != null)
         {
             colliderType.AlterarStatus(effectType);

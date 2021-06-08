@@ -11,20 +11,11 @@ public class Player: EntityModel
     [SerializeField] public override int MN { get; protected set; }
     [SerializeField] public override int PA { get; protected set; }
 
-    private bool pvRegen, paRegen, mnRegen;
-    private float pvRegenRate = 1.0f;
-    private float paRegenRate = 1.0f;
-    private float mnRegenRate = 1.0f;
-    private int pvRegenAmout = 1;
-    private int paRegenAmout = 10;
-    private int mnRegenAmout = 5;
-    private float invinciTimer = 1.0f;
-
     [SerializeField] private int FOR, DEX, INT, MEM, ATE;
 
     protected float ForAtt, DexAtt, Vel, Slots, SkillPt, CritCh, Pre, EsqCh, Def, Esp, Ten;
     protected float ResAgu, ResTer, ResAr, ResFog, ResLuz, ResSom;
-    private bool invinciFrames;
+    
 
     [SerializeField] private UI_Inventory uiInventory;
     public Inventory inventory;
@@ -45,6 +36,19 @@ public class Player: EntityModel
         child = transform.GetChild(0).gameObject;
 
         child.GetComponent<ItemCollision>().inventory = inventory;
+    }
+    //Player Methods
+    private int PVMaxCalc()
+    {
+        return FOR * 10;
+    }
+    private int MNMaxCalc()
+    {
+        return INT * 10;
+    }
+    private int PAMaxCalc()
+    {
+        return DEX * 10;
     }
     public Vector3 GetPosition()
     {
@@ -78,64 +82,9 @@ public class Player: EntityModel
 
         }
     }
-
-
     // Update is called once per frame
-    void Update()
-    {
-        checkPAMinMax();    
-        checkPVMinMax();
-        checkMNMinMax();
-
-        if (PV <= 0)
-            Die();
-    }
-
-    //IActor Methods
-    public override int AlterarPA(int alteracao)
-    {
-        PA += alteracao;
-        return PA;
-    }
-    public override int AlterarPV(int alteracao)
-    {
-        if (!invinciFrames)
-        {
-            PV += alteracao;
-            if (PV + alteracao < PV)
-                StartCoroutine(Invincibility());
-            return PV;
-        }
-        return PV;
-    }
-    public override int AlterarMN(int alteracao)
-    {
-        MN += alteracao;
-        return MN;
-    }
-    public override void AlterarStatus(TerrainEffects status)
-    {
-        base.AlterarStatus(status);
-    }
-    public IEnumerator Invincibility()
-    {
-        invinciFrames = true;
-        yield return new WaitForSeconds(invinciTimer);
-        invinciFrames = false;
-    }
-    //Player Methods
-    private int PVMaxCalc()
-    {
-        return FOR * 10;
-    }
-    private int MNMaxCalc()
-    {
-        return INT * 10;
-    }
-    private int PAMaxCalc()
-    {
-        return DEX * 10;
-    }
+    
+    
     private void SetMaxTestStats()
     {
         FOR = Random.Range(10, 20);
@@ -152,73 +101,5 @@ public class Player: EntityModel
     }
 
     //Regen
-    private void checkPVMinMax()
-    {
-        if (PV != PVMax && !pvRegen)
-        {
-            StartCoroutine(PVRegen());
-        }
-        if (PV > PVMax)
-        {
-            PV = PVMax;
-        }
-    }
-    private IEnumerator PVRegen()
-    {
-        pvRegen = true;
-        while (PV < PVMax)
-        {
-            yield return new WaitForSeconds(pvRegenRate);
-            PV = AlterarPV(pvRegenAmout);
-        }
-        pvRegen = false;
-    }
-
-    private void checkPAMinMax()
-    {
-        if (PA != PAMax && !paRegen)
-        {
-            StartCoroutine(PARegen());
-        }
-        if (PA > PAMax)
-        {
-            PA = PAMax;
-        }
-    }
-    private IEnumerator PARegen()
-    {
-        paRegen = true;
-        while (PA < PAMax)
-        {
-            yield return new WaitForSeconds(paRegenRate);
-            PA = AlterarPA(paRegenAmout);
-        }
-        paRegen = false;
-    }
-
-    private void checkMNMinMax()
-    {
-        if (MN != MNMax && !mnRegen)
-        {
-            StartCoroutine(MNRegen());
-        }
-        if (MN > MNMax)
-        {
-            MN = MNMax;
-        }
-    }
-    private IEnumerator MNRegen()
-    {
-        mnRegen = true;
-        while (MN < MNMax)
-        {
-            yield return new WaitForSeconds(mnRegenRate);
-            MN = AlterarMN(mnRegenAmout);
-        }
-        mnRegen = false;
-    }
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
+    
 }

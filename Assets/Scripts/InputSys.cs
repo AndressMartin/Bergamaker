@@ -71,7 +71,7 @@ public class InputSys : MonoBehaviour
 
     private void GetChosenSkill(int num)
     {
-        quickActions[num-1].Activate(GetComponent<EntityModel>());
+        quickActions[num-1].Activate(transform.GetComponent<EntityModel>());
         skillPress = false;
         holdingSkill = true;
         skillNum = 0;

@@ -75,7 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab67f6236d7ea624a89dfb19239bf2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
 --- !u!1 &783601676
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6608d2730571b774eb6399eca53d97d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
 --- !u!1 &1112119390
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4a78b63f8adfc4488bf13d991e7a13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireExplosion: {fileID: 0}
+  lightArea: {fileID: 0}
 --- !u!1 &2386953425904379158
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 2386953427465710897}
   m_Layer: 0
   m_Name: SkillManager
-  m_TagString: Untagged
+  m_TagString: SkillHolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

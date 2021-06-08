@@ -12,6 +12,6 @@ public class AtaqueInimigo : ActionModel
     public override bool isInstant => false;
     public override int targetsNum => 1;
     public override bool multiTargetsOnly => false;
-    public override PossibleTargets targetType => PossibleTargets.Ally;
+    public override PossibleTargets targetType => PossibleTargets.SelfAndAlly;
 
 }
