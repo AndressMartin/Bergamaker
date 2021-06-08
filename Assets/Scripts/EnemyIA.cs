@@ -105,7 +105,7 @@ public class EnemyIA : MonoBehaviour
 
     public void Attacking()
     {
-        transform.GetComponent<AtaqueInimigo>().Activated();
+        transform.GetComponent<AtaqueInimigo>().Activate(transform.GetComponent<EntityModel>());
         state = State.Following;
 
 

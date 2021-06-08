@@ -15,12 +15,12 @@ public interface IAction
     float CD { get; }
     int onButton { get; }
     bool activated { get; }
-    Player actionMaker { get; }
-    InputSys actionMakerInput { get; }
+    EntityModel actionMaker { get; }
+    Movement actionMakerMove { get; }
     Transform actionChild { get; }
     Transform skillHolder { get; }
     Sprite sprite { get; }
-    void Activated();
+    void Activate(EntityModel actionCaller);
     void ChargeIni();
     void Charge();
     //IEnumerator ChargeEnd();

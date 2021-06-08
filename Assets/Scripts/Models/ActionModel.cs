@@ -25,19 +25,18 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public bool activated { get; private set; }
     public int onButton { get; private set; }
     public GridManager _GridManager { get; private set; }
-    public Player actionMaker { get; private set; }
-    public InputSys actionMakerInput { get; private set; }
+    public EntityModel actionMaker { get; private set; }
+    public Movement actionMakerMove { get; private set; }
     public Transform actionChild { get; private set; }
     public Transform skillHolder { get; private set; }
     public Sprite sprite { get; private set; }
     public List<Vector3> AOEArea { get; private set; }
     public Vector3 pointClicked { get; private set; }
 
-    void Start()
+    private void StartingParameters()
     {
         if (AOE > 0) AOEArea = new List<Vector3>();
-        actionMaker = FindObjectOfType<Player>();
-        actionMakerInput = actionMaker.GetComponent<InputSys>();
+        actionMakerMove = actionMaker.GetComponent<Movement>();
         skillHolder = gameObject.transform.parent;
         onButton = FindStoredButton();
         sprite = GetSkillSprite();
@@ -47,30 +46,30 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
 
     void Update()
     {
+        if(actionMaker != null)
+        {
 
+        }
         if (activated)
         {
-            if (actionMaker.PA <= PACost)
-            {
-                Fail();
-            }
             if (_GridManager.onSearchMode == true)
                 WaitTarget();
 
             if (charging)
                 Charge();
         }
-        if (actionMakerInput.skillNum == onButton
-            && actionMakerInput.skillPress)
-        {
-            Activated();
-            actionMakerInput.skillPress = false;
-        }
     }
-    public void Activated()
+    public void Activate(EntityModel actionCaller)
     {
+        actionMaker = actionCaller;
+        StartingParameters();
+        if (actionMaker.PA <= PACost)
+        {
+            Debug.Log("No AP for execution");
+            Fail();
+            return;
+        }
         activated = true;
-        actionMakerInput.holdingSkill = true;
         if (isInstant)
             ChargeIni();
         else
@@ -116,7 +115,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     }
     public virtual void WaitTarget()
     {
-        actionMaker.GetComponent<Movement>().Lento(true);
+        actionMakerMove.Lento(true);
         if (_GridManager.timesTargetWasSent >= targetsNum && _GridManager.targetUnits.Any())
         {
             AOEArea = _GridManager.SendAOEArea().ToList();
@@ -126,12 +125,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             _GridManager.TargetArrow(_GridManager.targetUnits);
             _GridManager.targetUnits.Clear();
             ChargeIni();
-            actionMaker.GetComponent<Movement>().Lento(false);
+            actionMakerMove.Lento(false);
         }
         else if (Interruption())
         {
             // Debug.LogError("An interruption to targeting ocurred");
-            ResetTargetParams();
             Fail();
         }
     }
@@ -145,7 +143,6 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public void Charge()
     {
         chargeTime -= Time.deltaTime;
-        var actionMakerMove = actionMaker.GetComponent<Movement>();
         actionMakerMove.PermitirMovimento(false);
         if (chargeTime <= 0)
         {
@@ -160,28 +157,31 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         charging = false;
         chargeTime = 0;
         if (actionMaker != null) actionMaker.GetComponent<ColorSys>().DefaultColor();
-        actionMaker.GetComponent<Movement>().PermitirMovimento(true);
+        actionMakerMove.PermitirMovimento(true);
     }
     public void ResetTargetParams()
     {
-        actionMaker.GetComponent<Movement>().Lento(false);
+        actionMakerMove.Lento(false);
         _GridManager.SearchMode(false);
         if (targets != null)
         {
             if (targets.Any()) _GridManager.ResetArrow(targets);
         }
-        actionMaker.GetComponent<Movement>().PermitirMovimento(true);
+        actionMakerMove.PermitirMovimento(true);
     }
     public bool Interruption()
     {
         var actionMakerInput = actionMaker.GetComponent<InputSys>();
+        Debug.Log(actionMakerInput);
         if (actionMakerInput.CancelPress() ||
             actionMakerInput.DashPress())
         {
+            Debug.Log("true");
             return true;
         }
         else
         {
+            Debug.Log("false");
             return false;
         }
     }
@@ -215,7 +215,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     {
         activated = false;
         _GridManager.ResetParams();
-        actionMakerInput.holdingSkill = false;
+        if (actionMaker.GetComponent<InputSys>() != null) actionMaker.GetComponent<InputSys>().holdingSkill = false;
     }
     public int FindStoredButton()
     {

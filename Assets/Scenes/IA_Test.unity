@@ -306,11 +306,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.94000006
+      value: 3.02
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.02
+      value: 3.73
       objectReference: {fileID: 0}
     - target: {fileID: 1994812241393454278, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
       propertyPath: m_LocalPosition.z
@@ -635,12 +635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 070b87bd9d1bf744ca1fedea98fab616, type: 3}
---- !u!1839735485 &1435823495 stripped
-Tilemap:
-  m_CorrespondingSourceObject: {fileID: 8974185410614079055, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
-  m_PrefabInstance: {fileID: 254225085}
-  m_PrefabAsset: {fileID: 0}
---- !u!43 &1509106234
+--- !u!43 &1207257304
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -804,6 +799,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1839735485 &1435823495 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 8974185410614079055, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
+  m_PrefabInstance: {fileID: 254225085}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1616354227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -837,7 +837,7 @@ PrefabInstance:
       objectReference: {fileID: 325167864}
     - target: {fileID: 7730092735522790381, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7730092735589337714, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
       propertyPath: m_AnchorMax.y
@@ -861,7 +861,7 @@ PrefabInstance:
       objectReference: {fileID: 1940626600}
     - target: {fileID: 7730092736600288680, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7730092736720284820, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
       propertyPath: m_Name
@@ -957,7 +957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7730092736945738274, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d145582fa27fa67468dc37cbbd579063, type: 3}
@@ -1111,6 +1111,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2386953427465710898, guid: a410f3b4c8d72ce4489094398b4c9278, type: 3}
+      propertyPath: m_TagString
+      value: SkillHolder
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a410f3b4c8d72ce4489094398b4c9278, type: 3}
 --- !u!114 &1940626599 stripped
@@ -1236,7 +1240,10 @@ MonoBehaviour:
   rangeAtaque: 0
   rangeView: 0
   maxSpeed: 2
+  transformInicial: {fileID: 0}
+  transformFinal: {fileID: 0}
   state: 1
+  mode: 0
 --- !u!114 &1962516193
 MonoBehaviour:
   m_ObjectHideFlags: 0

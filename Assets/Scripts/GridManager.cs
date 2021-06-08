@@ -189,10 +189,10 @@ public class GridManager : MonoBehaviour
     }
     void GetArea(int range, Vector3 position, List<Vector3> _tiles, Shapes shapeType)
     {
-        Vector3 center = grid.LocalToCell(position);
-        _tiles.Add(center);
         if (shapeType == Shapes.Area)
         {
+            Vector3 center = grid.LocalToCell(position);
+            _tiles.Add(center);
             for (int i = 0; i < range; i++)
             {
                 for (int iteration = 1; iteration < 5; iteration++)
@@ -221,7 +221,22 @@ public class GridManager : MonoBehaviour
         }
         if (shapeType == Shapes.Line)
         {
-            Debug.Log("Cry less");
+            var lastCoordinates = _actionMaker.GetComponent<Movement>().lastCoordinates;
+            var center = grid.LocalToCell(_actionMaker.position);
+            if (lastCoordinates[0] != 0)
+            {
+                for (int i = 0; i < range; i++)
+                {
+                    _tiles.Add(new Vector3(center.x + ((i + 1) * lastCoordinates[0]), center.y, center.z));
+                }
+            }
+            else if (lastCoordinates[1] != 0)
+            {
+                for (int i = 0; i < range; i++)
+                {
+                    _tiles.Add(new Vector3(center.x, center.y + ((i + 1) * lastCoordinates[1]), center.z));
+                }
+            }
         }
     }
 

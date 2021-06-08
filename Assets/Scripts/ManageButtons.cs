@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class ManageButtons : MonoBehaviour
 {
-    public GameObject SkillManager;
+    private GameObject SkillManager;
     public Transform abilitySlotTemplate;
     public List<ActionModel> quickActions = new List<ActionModel>();
     public List<Button> buttons = new List<Button>();
@@ -17,9 +17,11 @@ public class ManageButtons : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SkillManager = GameObject.FindGameObjectWithTag("SkillHolder");
         foreach (Transform child in SkillManager.transform)
         {
             quickActions.Add(child.GetComponent<ActionModel>());
+            Debug.Log(child.GetComponent<ActionModel>().GetType());
         }
         UpdateVisual();
         ManageSlider();
@@ -31,17 +33,25 @@ public class ManageButtons : MonoBehaviour
         {
             ActionModel skill = quickActions[i];
             Transform abilitySlotTransform = Instantiate(abilitySlotTemplate, transform);
+            var abilitySlotTransformButton = abilitySlotTransform.GetComponent<Button>();
+            //abilitySlotTransformButton.onClick.RemoveAllListeners();
+            //abilitySlotTransformButton.onClick.AddListener(delegate { quickActions[i].Activated(); });
             abilitySlotTransform.gameObject.SetActive(true);
-            buttons.Add(abilitySlotTransform.GetComponent<Button>());
+            abilitySlotTransformButton.onClick.AddListener(CustomButton_onClick);
+            buttons.Add(abilitySlotTransformButton);
             RectTransform abilitySlotRectTransform = abilitySlotTransform.GetComponent<RectTransform>();
             abilitySlotRectTransform.anchoredPosition = new Vector2(50f * i, 0f);
             abilitySlotTransform.Find("ItemImage").GetComponent<Image>().sprite = skill.GetSkillSprite();
-            abilitySlotTransform.Find("NumberText").GetComponent<Text>().text = ((i + 1).ToString());
+            abilitySlotTransform.Find("NumberText").GetComponent<Text>().text = (i + 1).ToString();
             sliders.Add(abilitySlotTransform.Find("Slider").GetComponent<Slider>());
             //abilitySlotRectTransform.GetComponent<UI_HotkeyBarAbilitySlot>().SetHotKeyAbility(skill);
         }
     }
 
+    void CustomButton_onClick()
+    {
+        Debug.Log("tttttt");
+    }
     // Update is called once per frame
     void Update()
     {

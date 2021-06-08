@@ -12,5 +12,5 @@ public class SetaDeGelo : ActionModel
     public override bool isInstant => false;
     public override int AOE => 1;
     public override PossibleTargets targetType => PossibleTargets.Enemy;
-    public override Shapes shapeType => Shapes.Area;
+    public override Shapes shapeType => Shapes.Line;
 }

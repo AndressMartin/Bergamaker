@@ -13,8 +13,19 @@ public class InputSys : MonoBehaviour
     public bool selectPress { get; set; }
     public bool holdingSkill { get; set; }
 	public bool interactPress { get; private set; }
+    private GameObject SkillManager;
+    public List<ActionModel> quickActions = new List<ActionModel>();
 
     public List<int> buttons = new List<int>();
+    private void Start()
+    {
+        SkillManager = GameObject.FindGameObjectWithTag("SkillHolder");
+        foreach (Transform child in SkillManager.transform)
+        {
+            quickActions.Add(child.GetComponent<ActionModel>());
+            Debug.Log(child.GetComponent<ActionModel>().GetType());
+        }
+    }
     private void Update()
     {
         MovePress(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -52,10 +63,18 @@ public class InputSys : MonoBehaviour
                 skillPress = Input.GetButtonDown("Skill5");
                 skillNum = 5;
             }
+            if (skillNum > 0) GetChosenSkill(skillNum);
         }
         GetSelectPress(Input.GetButtonDown("Select"));
-
         //FindSkillPressed(Input.anyKeyDown);
+    }
+
+    private void GetChosenSkill(int num)
+    {
+        quickActions[num-1].Activate(GetComponent<EntityModel>());
+        skillPress = false;
+        holdingSkill = true;
+        skillNum = 0;
     }
 
     public void DashPress(bool _dashPress)
