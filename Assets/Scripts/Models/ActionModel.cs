@@ -32,7 +32,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public Sprite sprite { get; private set; }
     public List<Vector3> AOEArea { get; private set; }
     public Vector3 pointClicked { get; private set; }
-
+    public List<GameObject> ArcAttacks;
     private void StartingParameters()
     {
         if (AOE > 0) AOEArea = new List<Vector3>();
@@ -133,9 +133,38 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public void ChargeIni()
     {
         //_GridManager.TargetedOutline(targets);
+        if (AOE <= 0) 
+        {
+            foreach (var target in targets)
+            {
+                CreateArc(target);
+            }
+        }
         charging = true;
         chargeTime = chargeTimeMax;
     }
+
+    private void CreateArc(GameObject target)
+    {
+        GameObject ArcAttack = (GameObject)Instantiate(Resources.Load("Prefabs/Effects/ArcAttack"), actionMaker.transform);
+        //Set begin, middle and endPoints
+        ArcAttack.transform.GetChild(1).GetChild(0).position = actionMaker.transform.position;
+        var localPosB = actionMaker.transform.InverseTransformPoint(target.transform.position);
+        var diffX = localPosB.x;
+        var diffY = localPosB.y;
+        ArcAttack.transform.GetChild(1).GetChild(2).position = target.transform.position;
+        ArcAttack.transform.GetChild(1).GetChild(1).position = Vector3.Lerp(
+            ArcAttack.transform.GetChild(1).GetChild(0).position,
+            ArcAttack.transform.GetChild(1).GetChild(2).position, 0.5f);
+        //if (diffX > diffY) ArcAttack.transform.GetChild(1).GetChild(1).position = new Vector2(
+        //    actionMaker.transform.position.x - target.transform.position.x,
+        //    (actionMaker.transform.position.y - target.transform.position.y));
+        //else if (diffX <= diffY) ArcAttack.transform.GetChild(1).GetChild(1).position = new Vector2(
+        //    (actionMaker.transform.position.x - target.transform.position.x),
+        //    actionMaker.transform.position.y - target.transform.position.y);
+        ArcAttacks.Add(ArcAttack);
+    }
+
     public void Charge()
     {
         chargeTime -= Time.deltaTime;
@@ -212,6 +241,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     }
     public void End()
     {
+        if (ArcAttacks.Any()) foreach (var arc in ArcAttacks) Destroy(arc);
         activated = false;
         _GridManager.ResetParams();
         if (actionMaker.GetComponent<InputSys>() != null) actionMaker.GetComponent<InputSys>().holdingSkill = false;

@@ -31,6 +31,7 @@ public class GridManager : MonoBehaviour
     private Transform arrow;
 
     //            -----TARGETING
+
     public bool onSearchMode { get; private set; }
     public bool auto = false; //For self targeting
     public List<string> _desiredTargets = new List<string>();
@@ -93,7 +94,7 @@ public class GridManager : MonoBehaviour
             {
                 if (selection != null)
                 {
-                    pointClicked = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f));
+                    pointClicked = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f));
                     if (_AOE > 0)
                     {
                         targetAoe(selection);
@@ -130,7 +131,7 @@ public class GridManager : MonoBehaviour
     {
         Vector3 previousMousePosition = mousePosition;
         mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f);
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        mousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
 
         if (grid.LocalToCell(mousePosition) != grid.LocalToCell(previousMousePosition))
         {
@@ -503,20 +504,27 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
-        if (_multiTargetsOnly) //If the same target cannot be selected many times
+        if (targetUnit != null)
         {
-            if (targetUnits.Contains(targetUnit) != true)
+            if (_multiTargetsOnly) //If the same target cannot be selected many times
             {
-                targetUnits.Add(targetUnit);
-                TargetArrow(targetUnit);
-                timesTargetWasSent++;
+                if (targetUnits.Contains(targetUnit) != true && targetUnit.GetComponent<EntityModel>() != null)
+                {
+                    targetUnits.Add(targetUnit);
+                    TargetArrow(targetUnit);
+                    timesTargetWasSent++;
+                }
             }
-        }
-        else
-        {
-            targetUnits.Add(targetUnit);
-            TargetArrow(targetUnit);
-            timesTargetWasSent++;
+            else
+            {
+                if (targetUnit.GetComponent<EntityModel>() != null)
+                {
+                    targetUnits.Add(targetUnit);
+                    TargetArrow(targetUnit);
+                    timesTargetWasSent++;
+                }
+            }
+
         }
 
         return targetUnits;
