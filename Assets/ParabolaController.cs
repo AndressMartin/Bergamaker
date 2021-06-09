@@ -90,12 +90,6 @@ public class ParabolaController : MonoBehaviour
             lineDraw.SetPosition(c - 1, prevPos);
             prevPos = currPos;
         }
-        Gradient gradient = new Gradient();
-        gradient.SetKeys(
-            new GradientColorKey[] { new GradientColorKey(Color.yellow, 0.0f), new GradientColorKey(Color.red, 1.0f) },
-            new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(1f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) }
-        );
-        lineDraw.colorGradient = gradient;
     }
 
     // Use this for initialization

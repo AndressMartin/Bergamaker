@@ -29,12 +29,14 @@ public class GridManager : MonoBehaviour
     [SerializeField] Vector3 mousePosition;
     private Vector3 previousCasterPosition;
     private Transform arrow;
+    private bool canUpdate;
 
     //            -----TARGETING
 
     public bool onSearchMode { get; private set; }
     public bool auto = false; //For self targeting
     public List<string> _desiredTargets = new List<string>();
+    private bool _isAuto;
     public int _range;
     public int _AOE;
     public Vector3 pointClicked;
@@ -75,25 +77,40 @@ public class GridManager : MonoBehaviour
             CasterRange(_actionMaker, _range, tilesRange);
             FindWalls(tilesRange);
             FillGrid(tilesRange, tileMapRange, tintTile);
-            if (_AOE > 0)
+            if (_AOE > 1)
             {
                 MouseRange(_AOE, tilesAoe);
                 FindWalls(tilesAoe);
                 FillGrid(tilesAoe, tileMapAoe, tintTile);
-                PaintGridForAOE();
+                PaintGridForAOE(tilesAoe);
+            }
+            if (_AOE == 1)
+            {
+                CleanArea(tilesAoe, tileMapAoe);
+                tilesAoe = tilesRange.ToList();
+                FillGrid(tilesAoe, tileMapAoe, tintTile);
+                PaintGridForAOE(tilesAoe);
             }
             FindEntities(_desiredTargets);
+            if (_isAuto) TargetFirstFoundEntity();
             //FindObjects();
             //FindTerrain();
             PaintGridForFoundEntities();
-            RemoveAndDeselectTargetsOutOfRange();
+            //RemoveAndDeselectTargetsOutOfRange();
             //Handle selection
-            Collider2D[] selection = StartSelection();
-
+            Collider2D[] selection = StartSelectionWithMouse();
+            if (_AOE == 1)
+            {
+                
+                selection = null;
+                selection = StartSelectionForRange();
+            }
             if (Input.GetMouseButtonDown(0))
             {
+                Debug.Log("Clicking");
                 if (selection != null)
                 {
+                    Debug.Log("Selection Not Null");
                     pointClicked = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f));
                     if (_AOE > 0)
                     {
@@ -101,6 +118,7 @@ public class GridManager : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("Targetting Once");
                         targetOnce(selection);
                     }
                 }
@@ -114,19 +132,33 @@ public class GridManager : MonoBehaviour
         }
     }
 
-
-
     void CasterRange(Transform caster, int range, List<Vector3> _tiles)
     {
         CleanArea(tilesFull, tileMapRange);
 
-        if (grid.LocalToCell(previousCasterPosition) != grid.LocalToCell(caster.position))
+        if (UpdateGrid())
         {
             CleanArea(_tiles, tileMapRange);
             GetArea(range, caster.GetChild(0).position, _tiles, _shapeType);
-            previousCasterPosition = caster.position;
         }
     }
+
+    private bool UpdateGrid()
+    {
+        if (grid.LocalToCell(previousCasterPosition) != grid.LocalToCell(_actionMaker.position))
+        {
+            previousCasterPosition = _actionMaker.position;
+            return true;
+        }
+        if (canUpdate == true)
+        {
+            canUpdate = false;
+            return true;
+        }
+        //else if ()
+        return false;
+    }
+
     void MouseRange(int area, List<Vector3> _tiles)
     {
         Vector3 previousMousePosition = mousePosition;
@@ -222,8 +254,13 @@ public class GridManager : MonoBehaviour
         }
         if (shapeType == Shapes.Line)
         {
-            var lastCoordinates = _actionMaker.GetComponent<Movement>().lastCoordinates;
-            var center = grid.LocalToCell(_actionMaker.position);
+            List<float> lastCoordinates = new List<float>();
+            if (lastCoordinates != _actionMaker.GetComponent<Movement>().lastCoordinates)
+            {
+                lastCoordinates = _actionMaker.GetComponent<Movement>().lastCoordinates;
+                canUpdate = true;
+            }
+            var center = grid.LocalToCell(_actionMaker.transform.GetChild(0).position);
             if (lastCoordinates[0] != 0)
             {
                 for (int i = 0; i < range; i++)
@@ -344,9 +381,9 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private void PaintGridForAOE()
+    private void PaintGridForAOE(List<Vector3> _tiles)
     {
-        foreach(Vector3 tile in tilesAoe)
+        foreach(Vector3 tile in _tiles)
         {
             SetTileColor(true, Color.red, Vector3Int.FloorToInt(tile), tileMapAoe);
         }
@@ -385,18 +422,38 @@ public class GridManager : MonoBehaviour
         _shapeType = shapeType;
         _HasAOEEffect = HasAOEEffect;
     }
+
+    internal void StartSearchMode(bool boo, int range, Transform actionMaker, List<string> desiredTargets, bool isAuto)
+    {
+        onSearchMode = boo;
+        _range = range;
+        _actionMaker = actionMaker;
+        _desiredTargets = desiredTargets;
+        _isAuto = isAuto;
+    }
     //Multiple Targets??
     //TODO: Not implemented
-    private Collider2D[] StartSelection()
+    private Collider2D[] StartSelectionWithMouse()
     {
+        if (_AOE == 1) return null;
         //Debug.LogWarning("Is on target");
         Collider2D[] hits = Physics2D.OverlapPointAll(mainCamera.ScreenToWorldPoint(Input.mousePosition), ~ignorar);
         CleanSelection(Color.yellow);
-        if (_AOE > 0) return SelectInsideAoe();
+        if (_AOE > 1) return SelectInsideAoe();
         else SelectTarget(hits);
         return hits;
     }
 
+    private Collider2D[] StartSelectionForRange()
+    {
+        List<Collider2D> entityColliders = new List<Collider2D>();
+        foreach(var entity in foundEntities)
+        {
+            entityColliders.Add(entity.GetComponent<Collider2D>());
+        }
+        Collider2D[] hits = entityColliders.ToArray();
+        return hits;
+    }
     private void SelectTarget(Collider2D[] hits)
     {
         foreach (Collider2D hit in hits)
@@ -432,15 +489,7 @@ public class GridManager : MonoBehaviour
             }
             if (_selectableTarget != null && _selectable.Contains(_selectableTarget) == false)
             {
-                if (_multiTargetsOnly) //If the same target cannot be selected many times
-                {
-                    if (targetUnits.Contains(_selectableTarget.gameObject) == false)
-                    {
-                        SelectArrow(_selectableTarget.gameObject);
-                        _selectable.Add(_selectableTarget);
-                    }
-                }
-                else
+                if (targetUnits.Contains(_selectableTarget.gameObject) == false)
                 {
                     SelectArrow(_selectableTarget.gameObject);
                     _selectable.Add(_selectableTarget);
@@ -524,10 +573,13 @@ public class GridManager : MonoBehaviour
                     timesTargetWasSent++;
                 }
             }
-
+            canUpdate = true;
+            Debug.Log(targetUnits.Count);
+            Debug.Log(targetUnit);
+            targetUnit = null;
+            return targetUnits;
         }
-
-        return targetUnits;
+        return null;
     }
 
     private List<GameObject> targetAoe(Collider2D[] hits)
@@ -541,6 +593,34 @@ public class GridManager : MonoBehaviour
         }
         return targetUnits;
     }
+
+    private List<GameObject> TargetFirstFoundEntity()
+    {
+        float LowestDistance = 0f;
+        Transform localEntity = null;
+        foreach(var entity in foundEntities)
+        {
+            var Distance = 0f;
+            if (LowestDistance == 0f)
+            {
+                LowestDistance = Vector3.Distance(_actionMaker.position, entity.position);
+                localEntity = entity;
+            }
+            else Distance = Vector3.Distance(_actionMaker.position, entity.position);
+            if (LowestDistance < Distance)
+            {
+                LowestDistance = Distance;
+                localEntity = entity;
+            }
+        }
+        if (localEntity != null)
+        {
+            timesTargetWasSent++;
+            targetUnits.Add(localEntity.gameObject);
+        }
+        return targetUnits;
+    }
+
 
     private void RemoveAndDeselectTargetsOutOfRange()
     {

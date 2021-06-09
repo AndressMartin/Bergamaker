@@ -37,6 +37,7 @@ public interface ITarget: IAction
     int range { get; }
     Vector3 pointClicked { get; }
     GridManager _GridManager { get; }
+    List<GameObject> ArcAttacks { get; }
     void SendTargetRequest();
     int PassRange();
     List<string> PassDesiredTargets();
@@ -46,6 +47,7 @@ public interface IDirect : ITarget
 {
     List<GameObject> targets { get; }
     int targetsNum { get; }
+    bool isAuto { get; }
     bool multiTargetsOnly { get; }
 }
 public interface IArea : ITarget

@@ -28,6 +28,7 @@ public class InputSys : MonoBehaviour
     }
     private void Update()
     {
+        ShowHoldingSkill();
         MovePress(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         DashPress(Input.GetButtonDown("Dash"));
@@ -69,12 +70,18 @@ public class InputSys : MonoBehaviour
         //FindSkillPressed(Input.anyKeyDown);
     }
 
+    private void ShowHoldingSkill()
+    {
+        
+        Debug.Log(skillNum + "" + holdingSkill);
+    }
+
     private void GetChosenSkill(int num)
     {
-        quickActions[num-1].Activate(transform.GetComponent<EntityModel>());
         skillPress = false;
         holdingSkill = true;
         skillNum = 0;
+        quickActions[num - 1].Activate(transform.GetComponent<EntityModel>());
     }
 
     public void DashPress(bool _dashPress)

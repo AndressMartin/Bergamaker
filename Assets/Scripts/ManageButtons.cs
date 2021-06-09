@@ -34,11 +34,14 @@ public class ManageButtons : MonoBehaviour
             ActionModel skill = quickActions[i];
             Transform abilitySlotTransform = Instantiate(abilitySlotTemplate, transform);
             var abilitySlotTransformButton = abilitySlotTransform.GetComponent<Button>();
-            //abilitySlotTransformButton.onClick.RemoveAllListeners();
-            //abilitySlotTransformButton.onClick.AddListener(delegate { quickActions[i].Activated(); });
             abilitySlotTransform.gameObject.SetActive(true);
+
+            abilitySlotTransformButton.onClick.RemoveAllListeners();
+            abilitySlotTransformButton.onClick.AddListener(delegate { skill.Activate(FindObjectOfType<Player>()); });
             abilitySlotTransformButton.onClick.AddListener(CustomButton_onClick);
+
             buttons.Add(abilitySlotTransformButton);
+
             RectTransform abilitySlotRectTransform = abilitySlotTransform.GetComponent<RectTransform>();
             abilitySlotRectTransform.anchoredPosition = new Vector2(50f * i, 0f);
             abilitySlotTransform.Find("ItemImage").GetComponent<Image>().sprite = skill.GetSkillSprite();

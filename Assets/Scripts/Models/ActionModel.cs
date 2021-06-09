@@ -19,6 +19,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public virtual int targetsNum { get; protected set; }
     public virtual bool HasAOEEffect { get; protected set; }
     public virtual TerrainEffects EffectType { get; protected set; }
+    public virtual bool isAuto { get; private set; }
     public List<GameObject> targets { get; protected set; }
     public float chargeTime { get; private set; }
     public bool charging { get; private set; }
@@ -32,10 +33,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public Sprite sprite { get; private set; }
     public List<Vector3> AOEArea { get; private set; }
     public Vector3 pointClicked { get; private set; }
-    public List<GameObject> ArcAttacks;
+    public List<GameObject> ArcAttacks { get; private set; }
     private void StartingParameters()
     {
         if (AOE > 0) AOEArea = new List<Vector3>();
+        ArcAttacks = new List<GameObject>();
         actionMakerMove = actionMaker.GetComponent<Movement>();
         skillHolder = gameObject.transform.parent;
         if (actionMaker.GetComponent<Player>() != null) onButton = FindStoredButton();
@@ -48,7 +50,6 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     {
         if (activated)
         {
-            Debug.Log("BBBBBBBBBBB");
             if (_GridManager.onSearchMode == true)
                 WaitTarget();
 
@@ -59,16 +60,15 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public void Activate(EntityModel actionCaller)
     {
         actionMaker = actionCaller;
+        StartingParameters();
         if (actionMaker.PA <= PACost)
         {
             Debug.Log("No AP for execution");
-            Fail();
+            End();
             return;
         }
-        StartingParameters();
         activated = true;
-        if (isInstant)
-            ChargeIni();
+        if (isInstant)  ChargeIni();
         else
         {
             SendTargetRequest();
@@ -76,7 +76,9 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     }
     public virtual void SendTargetRequest()
     {
-        if (AOE <= 0)
+        if (isAuto)
+            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), PassDesiredTargets(), isAuto);
+        else if (AOE <= 0)
             _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), multiTargetsOnly, PassDesiredTargets());
         else if (AOE > 0)
             _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, HasAOEEffect, shapeType, PassDesiredTargets());
@@ -111,8 +113,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     }
     public virtual void WaitTarget()
     {
-        Debug.Log("CCCCCCCCCC");
         if (actionMakerMove != null) actionMakerMove.Lento(true);
+        
         if (_GridManager.timesTargetWasSent >= targetsNum && _GridManager.targetUnits.Any())
         {
             AOEArea = _GridManager.SendAOEArea().ToList();
@@ -124,6 +126,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             ChargeIni();
             if (actionMakerMove != null) actionMakerMove.Lento(false);
         }
+        else if (isAuto) Fail();
         else if (Interruption())
         {
             // Debug.LogError("An interruption to targeting ocurred");
@@ -133,12 +136,16 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public void ChargeIni()
     {
         //_GridManager.TargetedOutline(targets);
-        if (AOE <= 0) 
+        if (AOE <= 1) 
         {
             foreach (var target in targets)
             {
                 CreateArc(target);
             }
+        }
+        else
+        {
+            CreateArc(pointClicked);
         }
         charging = true;
         chargeTime = chargeTimeMax;
@@ -156,6 +163,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         ArcAttack.transform.GetChild(1).GetChild(1).position = Vector3.Lerp(
             ArcAttack.transform.GetChild(1).GetChild(0).position,
             ArcAttack.transform.GetChild(1).GetChild(2).position, 0.5f);
+
         //if (diffX > diffY) ArcAttack.transform.GetChild(1).GetChild(1).position = new Vector2(
         //    actionMaker.transform.position.x - target.transform.position.x,
         //    (actionMaker.transform.position.y - target.transform.position.y));
@@ -163,6 +171,45 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         //    (actionMaker.transform.position.x - target.transform.position.x),
         //    actionMaker.transform.position.y - target.transform.position.y);
         ArcAttacks.Add(ArcAttack);
+        Gradient gradient = new Gradient();
+        Color myColor = new Color();
+        if (actionMaker is Player) myColor = Color.green;
+        else if (actionMaker is Creature) myColor = Color.red;
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(myColor, 0.0f), new GradientColorKey(myColor, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(1f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) }
+        );
+        ArcAttack.transform.GetChild(1).GetComponent<LineRenderer>().colorGradient = gradient;
+    }
+    private void CreateArc(Vector3 target)
+    {
+        GameObject ArcAttack = (GameObject)Instantiate(Resources.Load("Prefabs/Effects/ArcAttack"), actionMaker.transform);
+        //Set begin, middle and endPoints
+        ArcAttack.transform.GetChild(1).GetChild(0).position = actionMaker.transform.position;
+        var localPosB = actionMaker.transform.InverseTransformPoint(target);
+        var diffX = localPosB.x;
+        var diffY = localPosB.y;
+        ArcAttack.transform.GetChild(1).GetChild(2).position = target;
+        ArcAttack.transform.GetChild(1).GetChild(1).position = Vector3.Lerp(
+            ArcAttack.transform.GetChild(1).GetChild(0).position,
+            ArcAttack.transform.GetChild(1).GetChild(2).position, 0.5f);
+
+        //if (diffX > diffY) ArcAttack.transform.GetChild(1).GetChild(1).position = new Vector2(
+        //    actionMaker.transform.position.x - target.transform.position.x,
+        //    (actionMaker.transform.position.y - target.transform.position.y));
+        //else if (diffX <= diffY) ArcAttack.transform.GetChild(1).GetChild(1).position = new Vector2(
+        //    (actionMaker.transform.position.x - target.transform.position.x),
+        //    actionMaker.transform.position.y - target.transform.position.y);
+        ArcAttacks.Add(ArcAttack);
+        Gradient gradient = new Gradient();
+        Color myColor = new Color();
+        if (actionMaker is Player) myColor = Color.green;
+        else if (actionMaker is Creature) myColor = Color.red;
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(myColor, 0.0f), new GradientColorKey(myColor, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(1f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) }
+        );
+        ArcAttack.transform.GetChild(1).GetComponent<LineRenderer>().colorGradient = gradient;
     }
 
     public void Charge()
@@ -181,7 +228,6 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     {
         charging = false;
         chargeTime = 0;
-        actionMakerMove.PermitirMovimento(true);
     }
     public void ResetTargetParams()
     {
@@ -223,6 +269,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         {
             try
             {
+                Debug.Log(efeito + " de dano em " + target);
                 target.GetComponent<EntityModel>().AlterarPV(efeito);
             }
             catch (Exception)
@@ -241,10 +288,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     }
     public void End()
     {
+        Debug.Log("Ending");
         if (ArcAttacks.Any()) foreach (var arc in ArcAttacks) Destroy(arc);
         activated = false;
-        _GridManager.ResetParams();
-        if (actionMaker.GetComponent<InputSys>() != null) actionMaker.GetComponent<InputSys>().holdingSkill = false;
+        if (_GridManager != null) _GridManager.ResetParams();
+        if (actionMaker.GetComponent<InputSys>() != null)   actionMaker.GetComponent<InputSys>().holdingSkill = false;
     }
     public int FindStoredButton()
     {
