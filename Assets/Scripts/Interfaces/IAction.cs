@@ -53,6 +53,7 @@ public interface IDirect : ITarget
 public interface IArea : ITarget
 {
     int AOE { get; }
+    Vector3 centerOfAOE { get; }
     List<Vector3> AOEArea { get; }
     Shapes shapeType { get; }
 }

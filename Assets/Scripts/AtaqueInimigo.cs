@@ -10,8 +10,9 @@ public class AtaqueInimigo : ActionModel
     public override float chargeTimeMax => 1f;
     public override float CD => .5f;
     public override bool isInstant => false;
+    public override bool isAuto => true;
     public override int targetsNum => 1;
     public override bool multiTargetsOnly => false;
-    public override PossibleTargets targetType => PossibleTargets.SelfAndAlly;
+    public override PossibleTargets targetType => PossibleTargets.Ally;
 
 }

@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,7 +125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442469041}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.007000029, y: -0.37199998, z: 0}
+  m_LocalPosition: {x: 0, y: -0.37199998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5749437480232028140}
@@ -146,20 +146,20 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.644
-  m_Color: {r: 1, g: 0.91114724, b: 0.7216981, a: 1}
-  m_Intensity: 1
+  m_FalloffIntensity: 0.37
+  m_Color: {r: 1, g: 0.6014429, b: 0.10849059, a: 1}
+  m_Intensity: 1.5
   m_LightVolumeIntensity: 0
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000afa3430cf14f0208d1382bd12db79423fd27eb928fe23e6a
-  m_LightCookieSprite: {fileID: 0}
+  m_LightCookieSprite: {fileID: 21300000, guid: f07c331b9cb7da3448c3aea8029c56c5, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
   m_OverlapOperation: 0
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 1
+  m_ShadowIntensityEnabled: 0
   m_ShadowIntensity: 0.4
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0
@@ -197,8 +197,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 2
-  m_PointLightOuterRadius: 6
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 5
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -363,6 +363,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6089575f486e0f047bb66aebe19308ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invinciFrames: 0
+  pvRegen: 0
+  paRegen: 0
+  mnRegen: 0
+  pvRegenRate: 1
+  paRegenRate: 1
+  mnRegenRate: 1
+  pvRegenAmout: 1
+  paRegenAmout: 10
+  mnRegenAmout: 5
+  invinciTimer: 1
   FOR: 0
   DEX: 0
   INT: 0
@@ -399,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e56992f2fba161c4987bbde3dadd0872, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quickActions: []
   buttons: 
 --- !u!114 &5589265446917936808
 MonoBehaviour:

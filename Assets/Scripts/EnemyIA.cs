@@ -29,6 +29,8 @@ public class EnemyIA : MonoBehaviour
         BackToPatrol,
         WaitnAttack,
     }
+
+    private bool attacking;
     public State state;
     public Mode mode;
 
@@ -105,7 +107,10 @@ public class EnemyIA : MonoBehaviour
 
     public void Attacking()
     {
-        //transform.GetComponent<AtaqueInimigo>().Activate(transform.GetComponent<EntityModel>());
+        if (transform.GetComponent<AtaqueInimigo>().activated == false)
+        {
+            transform.GetComponent<AtaqueInimigo>().Activate(transform.GetComponent<EntityModel>());
+        }
         state = State.Following;
     }
 

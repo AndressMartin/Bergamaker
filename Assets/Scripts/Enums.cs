@@ -7,7 +7,7 @@ public enum PossibleTargets
     Enemy,
     Ally,
     Self,
-    SelfAndAlly,
+    SelfAndAllies,
     Any
 }
 

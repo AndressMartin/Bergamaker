@@ -9742,7 +9742,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -29381,7 +29381,7 @@ GameObject:
   - component: {fileID: 8974185410614079048}
   - component: {fileID: 5618060323566907220}
   m_Layer: 7
-  m_Name: "Ch\xE3o"
+  m_Name: Chao
   m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34615,19 +34615,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8974185410767165288}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf119db6ca979064a90d156b28afae80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 8974185410767165295}
-  tileMapRange: {fileID: 5332523155323306654}
-  tileMapAoe: {fileID: 564547515}
+  grid: {fileID: 0}
+  tileMapRange: {fileID: 0}
+  tileMapAoe: {fileID: 0}
   tintTile: {fileID: 11400000, guid: 4945a3198f27522499509439fb04fc1b, type: 2}
-  chao: {fileID: 8974185410614079055}
-  paredes: {fileID: 8974185409087266987}
-  buracos: {fileID: 8974185410463315290}
-  EffectsMap: {fileID: 1257935693305623886}
+  chao: {fileID: 0}
+  paredes: {fileID: 0}
+  buracos: {fileID: 0}
+  EffectsMap: {fileID: 0}
   tilesRange: []
   tilesAoe: []
   tilesFull: []
@@ -34653,7 +34653,7 @@ MonoBehaviour:
   _selectableTarget: {fileID: 0}
   ignorar:
     serializedVersion: 2
-    m_Bits: 631
+    m_Bits: 0
 --- !u!95 &623295724
 Animator:
   serializedVersion: 3

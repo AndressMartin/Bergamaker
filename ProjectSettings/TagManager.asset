@@ -11,6 +11,7 @@ TagManager:
   - NPC
   - Item
   - SkillHolder
+  - GridManager
   layers:
   - Default
   - TransparentFX

@@ -33,7 +33,10 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public Sprite sprite { get; private set; }
     public List<Vector3> AOEArea { get; private set; }
     public Vector3 pointClicked { get; private set; }
+    public Vector3 centerOfAOE { get; private set; }
     public List<GameObject> ArcAttacks { get; private set; }
+    private bool playingAnimation;
+
     private void StartingParameters()
     {
         if (AOE > 0) AOEArea = new List<Vector3>();
@@ -43,7 +46,15 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         if (actionMaker.GetComponent<Player>() != null) onButton = FindStoredButton();
         sprite = GetSkillSprite();
         //actionMakerInput.GetSkillButton(onButton);
-        _GridManager = FindObjectOfType<GridManager>();
+        if (actionMaker.GetComponent<GridManager>() == null)
+        {
+            _GridManager = actionMaker.gameObject.AddComponent<GridManager>();
+        }
+        else
+        {
+            _GridManager = actionMaker.gameObject.GetComponent<GridManager>();
+        }
+        playingAnimation = false;
     }
 
     void Update()
@@ -55,6 +66,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
 
             if (charging)
                 Charge();
+
+            if (playingAnimation)
+            {
+                Animating();
+            }
         }
     }
     public void Activate(EntityModel actionCaller)
@@ -89,8 +105,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         if (targetType == PossibleTargets.Enemy)
             desiredTargets.Add("Enemy");
         else if (targetType == PossibleTargets.Ally)
-            desiredTargets.Add("Ally");
-        else if (targetType == PossibleTargets.SelfAndAlly)
+            desiredTargets.Add("Player");
+        else if (targetType == PossibleTargets.SelfAndAllies)
         {
             desiredTargets.Add("Ally");
             desiredTargets.Add("Player");
@@ -114,11 +130,12 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public virtual void WaitTarget()
     {
         if (actionMakerMove != null) actionMakerMove.Lento(true);
-        
+        _GridManager.TargetingLoop();
         if (_GridManager.timesTargetWasSent >= targetsNum && _GridManager.targetUnits.Any())
         {
             AOEArea = _GridManager.SendAOEArea().ToList();
             pointClicked = _GridManager.SendPointClicked();
+            centerOfAOE = _GridManager.SendCenterOfAOE();
             _GridManager.SearchMode(false);
             targets = _GridManager.targetUnits.ToList();
             _GridManager.TargetArrow(_GridManager.targetUnits);
@@ -126,7 +143,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             ChargeIni();
             if (actionMakerMove != null) actionMakerMove.Lento(false);
         }
-        else if (isAuto) Fail();
+        else if (isAuto)
+        {
+            Debug.Log("Didn't find target");
+            Fail();
+        }
         else if (Interruption())
         {
             // Debug.LogError("An interruption to targeting ocurred");
@@ -145,10 +166,14 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         }
         else
         {
-            CreateArc(pointClicked);
+            CreateArc(centerOfAOE);
         }
         charging = true;
         chargeTime = chargeTimeMax;
+
+        actionMakerMove.PermitirMovimento(false);
+        actionMakerMove.AnimacaoIniciarCasting();
+        actionMakerMove.DefinirDirecaoAtaque(AOE, pointClicked, targets);
     }
 
     private void CreateArc(GameObject target)
@@ -180,6 +205,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(1f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) }
         );
         ArcAttack.transform.GetChild(1).GetComponent<LineRenderer>().colorGradient = gradient;
+        ArcAttack.transform.GetChild(1).GetChild(2).GetComponent<ParabolaEndTargetFollow>().targetPos = target.transform.position;
     }
     private void CreateArc(Vector3 target)
     {
@@ -210,6 +236,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             new GradientAlphaKey[] { new GradientAlphaKey(0.0f, 0.0f), new GradientAlphaKey(1f, 0.5f), new GradientAlphaKey(0.0f, 1.0f) }
         );
         ArcAttack.transform.GetChild(1).GetComponent<LineRenderer>().colorGradient = gradient;
+        ArcAttack.transform.GetChild(1).GetChild(2).GetComponent<ParabolaEndTargetFollow>().targetPos = target;
     }
 
     public void Charge()
@@ -218,12 +245,61 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         actionMakerMove.PermitirMovimento(false);
         if (chargeTime <= 0)
         {
-            ResetChargeParams();
-            ResetTargetParams();
-            CustarAP();
-            MakeEffect();
+            ChargeEnd();
+            PlayAnimation();
+            playingAnimation = true;
         }
     }
+
+    public virtual void PlayAnimation()
+    {
+        if (AOE > 0) CheckTargetsRemainingInArea();
+        MakeEffect();
+        End();
+        actionMakerMove.Lento(false);
+        actionMaker.GetComponent<Movement>().PermitirMovimento(true);
+        playingAnimation = false;
+    }
+
+    public void Animating()
+    {
+        if (actionMakerMove.acertandoAtaque)
+        {
+            //Debug.Log("Acertou");
+            actionMakerMove.acertandoAtaque = false;
+            if (AOE > 0) CheckTargetsRemainingInArea();
+            MakeEffect();
+        }
+
+        if (actionMakerMove.terminandoAtaque)
+        {
+            //Debug.Log("Finalizou");
+            actionMakerMove.terminandoAtaque = false;
+            End();
+            actionMakerMove.Lento(false);
+            actionMaker.GetComponent<Movement>().PermitirMovimento(true);
+            playingAnimation = false;
+        }
+    }
+
+    private void CheckTargetsRemainingInArea()
+    {
+        var localtargets = targets.ToList();
+        foreach(var target in localtargets)
+        {
+            if (AOEArea.Contains(_GridManager.grid.LocalToCell(target.transform.position)) == false)
+            {
+                targets.Remove(target);
+            }
+        }
+    }
+    private void ChargeEnd()
+    {
+        ResetChargeParams();
+        ResetTargetParams();
+        CustarAP();
+    }
+
     public void ResetChargeParams()
     {
         charging = false;
@@ -231,13 +307,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     }
     public void ResetTargetParams()
     {
-        actionMakerMove.Lento(false);
         _GridManager.SearchMode(false);
         if (targets != null)
         {
             if (targets.Any()) _GridManager.ResetArrow(targets);
         }
-        actionMakerMove.PermitirMovimento(true);
     }
     public bool Interruption()
     {
@@ -278,7 +352,6 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             }
         }
         SpecificEffect();
-        End();
     }
     public void Fail()
     {

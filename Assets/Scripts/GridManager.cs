@@ -40,6 +40,7 @@ public class GridManager : MonoBehaviour
     public int _range;
     public int _AOE;
     public Vector3 pointClicked;
+    public Vector3 centerOfAOE;
     public Shapes _shapeType;
     public int _targetsNum;
     public int timesTargetWasSent;
@@ -63,12 +64,24 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         Debug.Log(_shapeType);
-        grid = GetComponent<Grid>();
+        grid = FindObjectOfType<Grid>();
+        tileMapRange = grid.transform.Find("SelectionRange").GetComponent<Tilemap>();
+        tileMapAoe = grid.transform.Find("SelectionAoe").GetComponent<Tilemap>();
+        chao = grid.transform.Find("Chao").GetComponent<Tilemap>();
+        paredes = grid.transform.Find("Paredes").GetComponent<Tilemap>();
+        buracos = grid.transform.Find("Buracos").GetComponent<Tilemap>();
+        EffectsMap = grid.transform.Find("TerrainEffects").GetComponent<Tilemap>();
+        tintTile = Resources.Load<TileBase>("Tiles/Grid/whiteblock");
         mainCamera = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
+    {
+        TargetingLoop();
+    }
+
+    public void TargetingLoop()
     {
         if (onSearchMode)
         {
@@ -101,7 +114,6 @@ public class GridManager : MonoBehaviour
             Collider2D[] selection = StartSelectionWithMouse();
             if (_AOE == 1)
             {
-                
                 selection = null;
                 selection = StartSelectionForRange();
             }
@@ -131,6 +143,7 @@ public class GridManager : MonoBehaviour
             CleanSelection(Color.yellow);
         }
     }
+
 
     void CasterRange(Transform caster, int range, List<Vector3> _tiles)
     {
@@ -183,6 +196,10 @@ public class GridManager : MonoBehaviour
     {
         return pointClicked;
     }
+    internal Vector3 SendCenterOfAOE()
+    {
+        return centerOfAOE;
+    }
 
     private void CleanArea(List<Vector3> _tiles, Tilemap _tilemap)
     {
@@ -225,6 +242,7 @@ public class GridManager : MonoBehaviour
         if (shapeType == Shapes.Area)
         {
             Vector3 center = grid.LocalToCell(position);
+            centerOfAOE = grid.GetCellCenterWorld(Vector3Int.FloorToInt(center));
             _tiles.Add(center);
             for (int i = 0; i < range; i++)
             {
@@ -641,6 +659,7 @@ public class GridManager : MonoBehaviour
         _range = 0;
         _actionMaker = null;
         _AOE = 0;
+        _isAuto = false;
         _HasAOEEffect = false;
         targetUnit = null;
         targetUnits.Clear();

@@ -8,7 +8,7 @@ public class Creature : EntityModel
 
     public override int MN { get; protected set; } = 0;
 
-    public override int PA { get; protected set; } = 30;
+    public override int PA { get; protected set; } = 1000;
 
     public override int PVMax { get; protected set; } = 40;
 
@@ -23,21 +23,5 @@ public class Creature : EntityModel
         {
             Destroy(gameObject);
         }
-    }
-
-    public override int AlterarMN(int alteracao)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override int AlterarPA(int alteracao)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override int AlterarPV(int alteracao)
-    {
-        PV += alteracao;
-        return PV;
     }
 }
