@@ -34641,6 +34641,7 @@ MonoBehaviour:
   _range: 0
   _AOE: 0
   pointClicked: {x: 0, y: 0, z: 0}
+  centerOfAOE: {x: 0, y: 0, z: 0}
   _shapeType: 0
   _targetsNum: 0
   timesTargetWasSent: 0
