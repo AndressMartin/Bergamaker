@@ -51,6 +51,13 @@ public class EnemyIA : MonoBehaviour
 
     public void Update()
     {
+        if (state == State.Stop || state == State.Attacking)
+            aIPath.canMove = false;
+
+        else if (state == State.Following)
+            aIPath.canMove = true;
+
+
         if (mode == Mode.WaitnAttack)
         {
             if (Vector3.Distance(transform.position, player.transform.position) > rangeView && state != State.Stop)
@@ -59,20 +66,19 @@ public class EnemyIA : MonoBehaviour
                 Stop();
             }
 
-            else if (Vector3.Distance(transform.position, player.transform.position) < rangeView)
-            {
-                //se esta dentro da visão persegue
-                Following();
-            }
-
-
-            if (Vector3.Distance(transform.position, player.transform.position) < rangeAtaque)
+            else if (Vector3.Distance(transform.position, player.transform.position) < rangeAtaque)
             {
                 //se tem distancia para atacar ataque
                 Attacking();
             }
+
+            else if (Vector3.Distance(transform.position, player.transform.position) < rangeView )
+            {
+                //se esta dentro da visão persegue
+                Following();
+            }           
         }
-        if (mode == Mode.BackToPatrol)
+        else if (mode == Mode.BackToPatrol)
         {
           
             if (Vector3.Distance(transform.position, player.transform.position) > rangeView && state != State.BackPatrolling)
@@ -81,7 +87,7 @@ public class EnemyIA : MonoBehaviour
                 BackToPatrol();
             }
 
-            else if (Vector3.Distance(transform.position, player.transform.position) < rangeView)
+            else if (Vector3.Distance(transform.position, player.transform.position) < rangeView && state != State.Attacking)
             {
                 //se esta dentro da visão persegue
                 Following();
@@ -107,54 +113,24 @@ public class EnemyIA : MonoBehaviour
 
     public void Attacking()
     {
+        state = State.Attacking;
         if (transform.GetComponent<AtaqueInimigo>().activated == false)
         {
             transform.GetComponent<AtaqueInimigo>().Activate(transform.GetComponent<EntityModel>());
         }
-        state = State.Following;
+        
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public void Following()
     {
-        aIPath.maxSpeed = maxSpeed;
-       //Debug.Log("Seguindo");
-        target = player.transform;
         state = State.Following;
-
+        target = player.transform;
     }
 
     public void Stop()
     {
-        aIPath.maxSpeed = 0;
         target = null;
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-       // Debug.Log("parado");
         state = State.Stop;
     }
 }

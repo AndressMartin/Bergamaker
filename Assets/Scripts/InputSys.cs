@@ -15,6 +15,7 @@ public class InputSys : MonoBehaviour
 	public bool interactPress { get; private set; }
     private GameObject SkillManager;
     public List<ActionModel> quickActions = new List<ActionModel>();
+    public UI_Inventory uI_Inventory;
 
     public List<int> buttons = new List<int>();
     private void Start()
@@ -24,6 +25,7 @@ public class InputSys : MonoBehaviour
         {
             quickActions.Add(child.GetComponent<ActionModel>());
             Debug.Log(child.GetComponent<ActionModel>().GetType());
+           
         }
     }
     private void Update()
@@ -68,6 +70,20 @@ public class InputSys : MonoBehaviour
         }
         GetSelectPress(Input.GetButtonDown("Select"));
         //FindSkillPressed(Input.anyKeyDown);
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            HideMenu();
+        }
+    }
+    private void HideMenu()
+    {
+        uI_Inventory.uI_Inventory.SetActive(!uI_Inventory.uI_Inventory.active);
+    }
+
+    public void HideMenu(bool estado)
+    {
+        uI_Inventory.uI_Inventory.SetActive(estado);
     }
 
     private void ShowHoldingSkill()
