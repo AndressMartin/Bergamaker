@@ -1,0 +1,291 @@
+fileFormatVersion: 2
+guid: 87f1ce23610e44c45aac857257758523
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2375211881444718578
+    second: Floresta 1-3_0
+  - first:
+      213: -4673571478579627067
+    second: Floresta 1-3_1
+  - first:
+      213: -3259904322979138429
+    second: Floresta 1-3_2
+  - first:
+      213: -6197868574185326593
+    second: Floresta 1-3_3
+  - first:
+      213: -6433585193550974215
+    second: Floresta 1-3_4
+  - first:
+      213: -1053758402807714910
+    second: Floresta 1-3_5
+  - first:
+      213: 8553169173021766527
+    second: Floresta 1-3_6
+  - first:
+      213: -3779753676808740526
+    second: Floresta 1-3_7
+  - first:
+      213: -1787474844879247632
+    second: Floresta 1-3_8
+  - first:
+      213: 6178176720091603572
+    second: Floresta 1-3_9
+  - first:
+      213: 8120646088345494644
+    second: Floresta 1-3_10
+  - first:
+      213: 922042771970593924
+    second: Floresta 1-3_11
+  - first:
+      213: 2884568566081548832
+    second: Floresta 1-3_12
+  - first:
+      213: -2894624483130655552
+    second: Floresta 1-3_13
+  - first:
+      213: -1773212109202010765
+    second: Floresta 1-3_14
+  - first:
+      213: -571504673273166471
+    second: Floresta 1-3_15
+  - first:
+      213: 8912437346501633623
+    second: Floresta 1-3_16
+  - first:
+      213: -5558886585097782709
+    second: Floresta 1-3_17
+  - first:
+      213: 5072931896066807352
+    second: Floresta 1-3_18
+  - first:
+      213: 2794459002773904414
+    second: Floresta 1-3_19
+  - first:
+      213: 1636792469026150091
+    second: Floresta 1-3_20
+  - first:
+      213: -1169119861007031468
+    second: Floresta 1-3_21
+  - first:
+      213: 6817934995284581599
+    second: Floresta 1-3_22
+  - first:
+      213: -2018396560016325646
+    second: Floresta 1-3_23
+  - first:
+      213: 5809822015045259810
+    second: Floresta 1-3_24
+  - first:
+      213: 2542411496882685681
+    second: Floresta 1-3_25
+  - first:
+      213: -6101756218504988496
+    second: Floresta 1-3_26
+  - first:
+      213: -4995377508186934867
+    second: Floresta 1-3_27
+  - first:
+      213: -5877841187878491186
+    second: Floresta 1-3_28
+  - first:
+      213: -7158516876007071424
+    second: Floresta 1-3_29
+  - first:
+      213: -788263552022509444
+    second: Floresta 1-3_30
+  - first:
+      213: -1456436531783784058
+    second: Floresta 1-3_31
+  - first:
+      213: -6236296740120213765
+    second: Floresta 1-3_32
+  - first:
+      213: 6324192663737472881
+    second: Floresta 1-3_33
+  - first:
+      213: -5612749793586704993
+    second: Floresta 1-3_34
+  - first:
+      213: 6601948309844707778
+    second: Floresta 1-3_35
+  - first:
+      213: 6112734468923837304
+    second: Floresta 1-3_36
+  - first:
+      213: 7717368355702584429
+    second: Floresta 1-3_37
+  - first:
+      213: 7414420177046215874
+    second: Floresta 1-3_38
+  - first:
+      213: -8149152045068214252
+    second: Floresta 1-3_39
+  - first:
+      213: -694353259223669710
+    second: Floresta 1-3_40
+  - first:
+      213: -4908406335151840519
+    second: Floresta 1-3_41
+  - first:
+      213: 6035673060593290981
+    second: Floresta 1-3_42
+  - first:
+      213: 157529253985384561
+    second: Floresta 1-3_43
+  - first:
+      213: 1807167474087397892
+    second: Floresta 1-3_44
+  - first:
+      213: 1407464321485780673
+    second: Floresta 1-3_45
+  - first:
+      213: -3637634363038268131
+    second: Floresta 1-3_46
+  - first:
+      213: 2804190007942390105
+    second: Floresta 1-3_47
+  - first:
+      213: 5081923826798754389
+    second: Floresta 1-3_48
+  - first:
+      213: -7683507408170306565
+    second: Floresta 1-3_49
+  - first:
+      213: 6711039297362410439
+    second: Floresta 1-3_50
+  - first:
+      213: 736968424406458985
+    second: Floresta 1-3_51
+  - first:
+      213: 3650224677701511479
+    second: Floresta 1-3_52
+  - first:
+      213: 4739571437516225556
+    second: Floresta 1-3_53
+  - first:
+      213: 5677825035029197911
+    second: Floresta 1-3_54
+  - first:
+      213: 7562952905577922149
+    second: Floresta 1-3_55
+  - first:
+      213: 3131527856458538093
+    second: Floresta 1-3_56
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
