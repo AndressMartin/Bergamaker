@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Cacau_LancandoMagiaInicio_F
+  m_Name: SapoLanceiro_Andando_C
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,15 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 8406476222211172341, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
+      value: {fileID: 2877193379802242654, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
     - time: 0.12
-      value: {fileID: -8032640758670870883, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
+      value: {fileID: -8164975404960156988, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
     - time: 0.24
-      value: {fileID: 4253689728731501646, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
-    - time: 0.3433333
-      value: {fileID: 4253689728731501646, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
+      value: {fileID: 8688992342438571674, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
+    - time: 0.35999998
+      value: {fileID: -1224007714408103943, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
+    - time: 0.4633333
+      value: {fileID: -1224007714408103943, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,16 +48,17 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 8406476222211172341, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
-    - {fileID: -8032640758670870883, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
-    - {fileID: 4253689728731501646, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
-    - {fileID: 4253689728731501646, guid: f4aa1b3df39b429479153ae666b08211, type: 3}
+    - {fileID: 2877193379802242654, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
+    - {fileID: -8164975404960156988, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
+    - {fileID: 8688992342438571674, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
+    - {fileID: -1224007714408103943, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
+    - {fileID: -1224007714408103943, guid: b57c1b0cbd03d3641bb7c443598fc4f2, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35999998
+    m_StopTime: 0.48
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -74,11 +77,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.35
-    functionName: AnimacaoEventoIniciarLancandoMagiaLooping
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

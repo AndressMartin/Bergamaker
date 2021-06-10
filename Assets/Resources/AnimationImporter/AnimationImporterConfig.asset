@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animationNamesThatDoNotLoop:
   - Morto
+  - Explodindo
   _automaticImporting: 0
   _spritePixelsPerUnit: 32
   _targetObjectType: 0

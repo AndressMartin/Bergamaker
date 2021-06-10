@@ -14,4 +14,9 @@ public class AtaqueBasico : ActionModel
     public override int targetsNum => 1;
     public override bool multiTargetsOnly => false;
     public override PossibleTargets targetType => PossibleTargets.Enemy;
+
+    public override void PlayAnimation()
+    {
+        actionMakerMove.AnimacaoAtaqueBasico();
+    }
 }

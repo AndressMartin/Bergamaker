@@ -18,7 +18,6 @@ public class Movement : MonoBehaviour
     public bool lento;
     public bool isClimbing;
     public List<float> lastCoordinates;
-    private int animacao = 0; //A animacao atual do personagem
 
     //Enumerador das direcoes do personagem
     private enum Direcao : int
@@ -41,6 +40,12 @@ public class Movement : MonoBehaviour
         Morto,
         AtaqueBasico
     };
+
+    private AnimacaoEnum animacao = 0; //A animacao atual do personagem
+
+    //Variaveis para as animacoes
+    public bool acertandoAtaque = false,
+                terminandoAtaque = false;
 
     void Start()
     {
@@ -92,28 +97,101 @@ public class Movement : MonoBehaviour
 
             //Faz o personagem se mover, utilizando sua velocidade base e o modificador da velocidade
             rb.velocity = new Vector2(horizontal, vertical).normalized * (velocidade * velocidadeM);
-        }
 
-        //Define a animacao
-        DefinirAnimacao(horizontal, vertical);
+            //Define a animacao
+            AnimacaoMovimento(horizontal, vertical);
+        }
 
         //Roda a animacao
         Animar();
     }
 
-    private void DefinirAnimacao(float horizontal, float vertical)
+    public void DefinirDirecaoAtaque(int AOE, Vector3 pointClicked, List<GameObject> targets)
+    {
+        Debug.Log("Entrou na funcao");
+        float DistanciaX,
+              DistanciaY;
+
+        if (AOE > 0)
+        {
+            DistanciaX = transform.GetChild(0).transform.position.x - pointClicked.x;
+            DistanciaY = transform.GetChild(0).transform.position.y - pointClicked.y;
+
+            if(Mathf.Abs(DistanciaX) > Mathf.Abs(DistanciaY))
+            {
+                if (DistanciaX > 0)
+                {
+                    spriteRend.flipX = true;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+                else
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+            }
+            else
+            {
+                if ((DistanciaY) < 0)
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Cima);
+                }
+                else
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Baixo);
+                }
+            }
+        }
+        else
+        {
+            DistanciaX = transform.GetChild(0).transform.position.x - targets[0].transform.GetChild(0).transform.position.x;
+            DistanciaY = transform.GetChild(0).transform.position.y - targets[0].transform.GetChild(0).transform.position.y;
+
+            if (DistanciaY < 0)
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Cima);
+            }
+            else
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Baixo);
+            }
+
+            if (DistanciaX > 0.3)
+            {
+                if (DistanciaY >= -0.5 && DistanciaY <= 0.5)
+                {
+                    spriteRend.flipX = true;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+            }
+            else if (DistanciaX < -0.3)
+            {
+                if (DistanciaY >= -0.5 && DistanciaY <= 0.5)
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+            }
+        }
+    }
+
+    private void AnimacaoMovimento(float horizontal, float vertical)
     {
         if (isClimbing)
         {
             spriteRend.flipX = false;
             animator.SetFloat("Direcao", (float)Direcao.Cima);
-            animacao = (int)AnimacaoEnum.SubindoEscadas;
+            animacao = AnimacaoEnum.SubindoEscadas;
         }
         else
         {
             if (horizontal != 0 || vertical != 0)
             {
-                animacao = (int)AnimacaoEnum.Andando;
+                animacao = AnimacaoEnum.Andando;
 
                 if (horizontal == -1f)
                 {
@@ -139,7 +217,7 @@ public class Movement : MonoBehaviour
             }
             else if (horizontal == 0 && vertical == 0)
             {
-                animacao = (int)AnimacaoEnum.Idle;
+                animacao = AnimacaoEnum.Idle;
             }
         }
     }
@@ -148,18 +226,76 @@ public class Movement : MonoBehaviour
     {
         switch (animacao)
         {
-            case (int)AnimacaoEnum.Idle:
+            case AnimacaoEnum.Idle:
                 animator.Play("Idle");
                 break;
 
-            case (int)AnimacaoEnum.Andando:
+            case AnimacaoEnum.Andando:
                 animator.Play("Andando");
                 break;
 
-            case (int)AnimacaoEnum.SubindoEscadas:
+            case AnimacaoEnum.SubindoEscadas:
                 animator.Play("Subindo Escadas");
                 break;
+
+            case AnimacaoEnum.CastandoMagia:
+                animator.Play("Castando Magia");
+                break;
+
+            case AnimacaoEnum.LancandoMagiaInicio:
+                animator.Play("Lancando Magia - Inicio");
+                break;
+
+            case AnimacaoEnum.LancandoMagiaLooping:
+                animator.Play("Lancando Magia - Looping");
+                break;
+
+            case AnimacaoEnum.TomandoDano:
+                animator.Play("Tomando Dano");
+                break;
+
+            case AnimacaoEnum.Morto:
+                animator.Play("Morto");
+                break;
+
+            case AnimacaoEnum.AtaqueBasico:
+                animator.Play("Ataque Basico");
+                break;
         }
+    }
+
+    public void AnimacaoEventoAcertarAtaque()
+    {
+        acertandoAtaque = true;
+    }
+
+    public void AnimacaoEventoTerminarAtaque()
+    {
+        terminandoAtaque = true;
+    }
+
+    public void AnimacaoEventoIniciarLancandoMagiaLooping()
+    {
+        animacao = AnimacaoEnum.LancandoMagiaLooping;
+    }
+
+    public void AnimacaoIniciarCasting()
+    {
+        animacao = AnimacaoEnum.CastandoMagia;
+    }
+
+    public void AnimacaoLancandoMagiaInicio()
+    {
+        acertandoAtaque = false;
+        terminandoAtaque = false;
+        animacao = AnimacaoEnum.LancandoMagiaInicio;
+    }
+
+    public void AnimacaoAtaqueBasico()
+    {
+        acertandoAtaque = false;
+        terminandoAtaque = false;
+        animacao = AnimacaoEnum.AtaqueBasico;
     }
 
     public void PermitirMovimento(bool permissao)
