@@ -14,7 +14,7 @@ public class BolaDeFogo : ActionModel
     public override bool isInstant => false;
     public override int AOE => 2;
     public override bool HasAOEEffect => true;
-    public override PossibleTargets targetType => PossibleTargets.Any;
+    public override ActionTargets targetType => ActionTargets.Any;
     public override Shapes shapeType => Shapes.Area;
     public GameObject bolaDeFogoAnimacao;
     private bolaDeFogo_Script bolaDeFogoAnimacaoScript;

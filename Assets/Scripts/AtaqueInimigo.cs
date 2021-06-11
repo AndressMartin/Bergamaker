@@ -13,6 +13,6 @@ public class AtaqueInimigo : ActionModel
     public override bool isAuto => true;
     public override int targetsNum => 1;
     public override bool multiTargetsOnly => false;
-    public override PossibleTargets targetType => PossibleTargets.Ally;
+    public override ActionTargets targetType => ActionTargets.Ally;
 
 }

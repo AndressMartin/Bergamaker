@@ -12,5 +12,5 @@ public class BarragemDeFogo : ActionModel
     public override bool isInstant => false;
     public override bool multiTargetsOnly => false;
     public override int targetsNum => 5;
-    public override PossibleTargets targetType => PossibleTargets.Enemy;
+    public override ActionTargets targetType => ActionTargets.Enemy;
 }

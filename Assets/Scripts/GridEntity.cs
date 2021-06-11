@@ -53,7 +53,6 @@ public class GridEntity : GridManager
         tilesAoe = new List<Vector3>();
         tilesFull = new List<Vector3>();
         mainCamera = Camera.main;
-        Debug.Log(previousCasterPosition);
     }
     private void Update()
     {
@@ -206,6 +205,8 @@ public class GridEntity : GridManager
         if (_isAuto)
         {
             Vector3 center = grid.LocalToCell(position);
+            centerOfAOE = grid.GetCellCenterWorld(Vector3Int.FloorToInt(center));
+            _tiles.Add(center);
             for (int i = 0; i < range; i++)
             {
                 for (int iteration = 1; iteration < 5; iteration++)

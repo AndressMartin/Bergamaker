@@ -8,7 +8,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public virtual int range { get; protected set; }
     public virtual int PACost { get; protected set; }
     public virtual int MNCost { get; protected set; }
-    public virtual PossibleTargets targetType { get; protected set; }
+    public virtual ActionTargets targetType { get; protected set; }
     public virtual bool isInstant { get; protected set; }
     public virtual bool multiTargetsOnly { get; protected set; }
     public virtual int efeito { get; protected set; }
@@ -40,6 +40,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     private void StartingParameters()
     {
         if (AOE > 0) AOEArea = new List<Vector3>();
+        targets = new List<GameObject>();
         ArcAttacks = new List<GameObject>();
         actionMakerMove = actionMaker.GetComponent<MovementModel>();
         skillHolder = gameObject.transform.parent;
@@ -77,7 +78,13 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             return;
         }
         activated = true;
-        if (isInstant)  ChargeIni();
+        if (targetType == ActionTargets.Self) 
+        {
+            Debug.Log(actionMaker.gameObject);
+            Debug.Log(targets);
+            targets.Add(actionMaker.gameObject);
+            ChargeIni(); 
+        }
         else
         {
             SendTargetRequest();
@@ -95,16 +102,16 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public List<string> PassDesiredTargets()
     {
         List<string> desiredTargets = new List<string>();
-        if (targetType == PossibleTargets.Enemy)
+        if (targetType == ActionTargets.Enemy)
             desiredTargets.Add("Enemy");
-        else if (targetType == PossibleTargets.Ally)
+        else if (targetType == ActionTargets.Ally)
             desiredTargets.Add("Player");
-        else if (targetType == PossibleTargets.SelfAndAllies)
+        else if (targetType == ActionTargets.SelfAndAllies)
         {
             desiredTargets.Add("Ally");
             desiredTargets.Add("Player");
         }
-        else if (targetType == PossibleTargets.Any)
+        else if (targetType == ActionTargets.Any)
         {
             desiredTargets.Add("Enemy");
             desiredTargets.Add("Ally");
@@ -155,11 +162,12 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public void ChargeIni()
     {
         //_GridManager.TargetedOutline(targets);
+        Debug.Log("Bla");
         if (AOE <= 1) 
         {
             foreach (var target in targets)
             {
-                CreateArc(target);
+                if (targetType != ActionTargets.Self) CreateArc(target);
             }
         }
         else
@@ -239,6 +247,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
 
     public void Charge()
     {
+        Debug.Log("Bla");
         chargeTime -= Time.deltaTime;
         actionMakerMove.PermitirMovimento(false);
         if (chargeTime <= 0)

@@ -13,7 +13,7 @@ public class AtaqueBasico : ActionModel
     public override bool isAuto => true;
     public override int targetsNum => 1;
     public override bool multiTargetsOnly => false;
-    public override PossibleTargets targetType => PossibleTargets.Enemy;
+    public override ActionTargets targetType => ActionTargets.Enemy;
 
     public override void PlayAnimation()
     {

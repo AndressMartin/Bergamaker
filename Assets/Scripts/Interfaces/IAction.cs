@@ -6,7 +6,7 @@ using UnityEngine;
 public interface IAction
 {
     int PACost { get; }
-    PossibleTargets targetType { get;}
+    ActionTargets targetType { get;}
     bool isInstant { get; }
     int efeito { get; }
     float chargeTimeMax { get; }
