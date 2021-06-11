@@ -28,7 +28,7 @@ public class Movement : MonoBehaviour
     };
 
     //Enumerador das animacoes do personagem
-    private enum AnimacaoEnum
+    public enum AnimacaoEnum
     {
         Idle,
         Andando,
@@ -41,7 +41,7 @@ public class Movement : MonoBehaviour
         AtaqueBasico
     };
 
-    private AnimacaoEnum animacao = 0; //A animacao atual do personagem
+    public AnimacaoEnum animacao = AnimacaoEnum.Idle; //A animacao atual do personagem
 
     //Variaveis para as animacoes
     public bool acertandoAtaque = false,

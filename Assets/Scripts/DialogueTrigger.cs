@@ -14,7 +14,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
 
-        inputSys.HideMenu(false);
+        //inputSys.HideMenu(false);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -16,19 +16,32 @@ public class BolaDeFogo : ActionModel
     public override bool HasAOEEffect => true;
     public override PossibleTargets targetType => PossibleTargets.Any;
     public override Shapes shapeType => Shapes.Area;
-    public GameObject fireExplosion;
+    public GameObject bolaDeFogoAnimacao;
+    private bolaDeFogo_Script bolaDeFogoAnimacaoScript;
+
     public GameObject lightArea;
+
+    /*
     public override void SpecificEffect()
     {
         Debug.Log("Come here");
         fireExplosion = Instantiate(Resources.Load<GameObject>("Prefabs/Effects/Fire_Explosion"), pointClicked, new Quaternion(0, 0, 0, 0));
         StartCoroutine(ExplosionCoroutine());
         base.SpecificEffect();
-        lightArea = Instantiate(Resources.Load<GameObject>("Prefabs/Effects/BolaDeFogoLightArea"), pointClicked, new Quaternion(0, 0, 0, 0));
+        lightArea = Instantiate(Resources.Load<GameObject>("Prefabs/Effects/BolaDeFogoLightArea"), pointClicked, new Quaternion(0, 0, 0, 0));  
     }
+    */
+
     IEnumerator ExplosionCoroutine()
     {
         yield return new WaitForSeconds(2);
-        Destroy(fireExplosion);
+        Destroy(bolaDeFogoAnimacao);
+    }
+
+    public override void PlayAnimation()
+    {
+        bolaDeFogoAnimacao = Instantiate(Resources.Load<GameObject>("Prefabs/Magias/BolaDeFogo_Animacao"), pointClicked, new Quaternion(0, 0, 0, 0));
+        bolaDeFogoAnimacaoScript = bolaDeFogoAnimacao.GetComponent<bolaDeFogo_Script>();
+        bolaDeFogoAnimacaoScript.Iniciar(actionMaker, pointClicked);
     }
 }
