@@ -91,7 +91,7 @@ public class bolaDeFogo_Script : MonoBehaviour
         }
     }
 
-    public void Iniciar(EntityModel actionCaller, Vector3 pointClicked)
+    public void Iniciar(EntityModel actionCaller, Vector3 centerOfAOE)
     {
         posicao = transform.position;
         animator = GetComponent<Animator>();
@@ -106,7 +106,7 @@ public class bolaDeFogo_Script : MonoBehaviour
         actionMaker = actionCaller;
         actionMakerSprite = actionMaker.GetComponent<SpriteRenderer>();
         actionMakerMove = actionMaker.GetComponent<Movement>();
-        alvo = pointClicked;
+        alvo = centerOfAOE;
 
         posicao.x = actionMaker.transform.position.x;
         posicao.y = actionMaker.transform.position.y + actionMakerSprite.bounds.size.y / 2;
