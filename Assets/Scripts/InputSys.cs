@@ -20,6 +20,7 @@ public class InputSys : MonoBehaviour
     public List<int> buttons = new List<int>();
     private void Start()
     {
+        HideMenu();
         SkillManager = GameObject.FindGameObjectWithTag("SkillHolder");
         foreach (Transform child in SkillManager.transform)
         {

@@ -13,15 +13,11 @@ MonoBehaviour:
   m_Name: OnFireAnimTile
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -6468145149120137130, guid: 42c6b67013badc345b86c5020305a7e4, type: 3}
-  - {fileID: -7145578010142773548, guid: 42c6b67013badc345b86c5020305a7e4, type: 3}
-  - {fileID: 2007257881164783876, guid: 42c6b67013badc345b86c5020305a7e4, type: 3}
-  - {fileID: -3772337742747773101, guid: 42c6b67013badc345b86c5020305a7e4, type: 3}
-  - {fileID: 5655202323007523139, guid: 42c6b67013badc345b86c5020305a7e4, type: 3}
-  - {fileID: 8168948086293454212, guid: 42c6b67013badc345b86c5020305a7e4, type: 3}
-  - {fileID: -5021869383411722869, guid: 42c6b67013badc345b86c5020305a7e4, type: 3}
-  m_MinSpeed: 7
-  m_MaxSpeed: 7
+  - {fileID: -6739564871899072122, guid: 8224e44e05645f94dadec45a9abedef8, type: 3}
+  - {fileID: -2000355929377437697, guid: 8224e44e05645f94dadec45a9abedef8, type: 3}
+  - {fileID: 3559392312162627897, guid: 8224e44e05645f94dadec45a9abedef8, type: 3}
+  m_MinSpeed: 8
+  m_MaxSpeed: 8
   m_AnimationStartTime: 0
   m_AnimationStartFrame: 0
   m_TileColliderType: 0
