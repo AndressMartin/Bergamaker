@@ -44,7 +44,7 @@ public class GridEntity : GridManager
     public Transform _selectableTarget;
     public LayerMask ignorar;
     public GridGlobal _gridGlobal;
-
+    public bool canAttack;
     public void Start()
     {
         _gridGlobal = FindObjectOfType<GridGlobal>();
@@ -107,15 +107,16 @@ public class GridEntity : GridManager
             if (Input.GetMouseButtonDown(0))
             {
                 Debug.Log("Clicking");
+                if (_AOE > 0)
+                {
+                    targetAoe(selection);
+                }
                 if (selection != null)
                 {
                     Debug.Log("Selection Not Null");
                     pointClicked = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f));
-                    if (_AOE > 0)
-                    {
-                        targetAoe(selection);
-                    }
-                    else
+                    
+                    if (_AOE <= 0)
                     {
                         Debug.Log("Targetting Once");
                         targetOnce(selection);
@@ -177,6 +178,10 @@ public class GridEntity : GridManager
             {
                 _gridGlobal.CleanArea(_tiles, _gridGlobal.tileMapAoe);
                 GetArea(area, mousePosition, _tiles, _shapeType);
+            }
+            else
+            {
+                _gridGlobal.CleanArea(_tiles, _gridGlobal.tileMapAoe);
             }
         }
     }
@@ -280,7 +285,7 @@ public class GridEntity : GridManager
             }
         }
     }
-    void FindEntities(List<string> entityTags)
+    public void FindEntities(List<string> entityTags)
     {
         tilesFull.AddRange(tilesRange);
         tilesFull.AddRange(tilesAoe);
@@ -305,6 +310,32 @@ public class GridEntity : GridManager
                 }
             }
         }
+    }
+
+    public List<GameObject> FindEntities(List<string> entityTags, List<Vector3> area)
+    {
+        List<GameObject> _foundEntities = new List<GameObject>();
+        GameObject[] arr = null; //Temporary array 
+        List<GameObject> localEntities = new List<GameObject>();
+        foreach (string tag in entityTags)
+        {
+            arr = GameObject.FindGameObjectsWithTag(tag);
+            foreach (var element in arr) localEntities.Add(element);
+        }
+        Array.Clear(arr, 0, arr.Length);
+        for (var i = 0; i < area.Count; i++)
+        {
+            for (var l = 0; l < localEntities.Count; l++)
+            {
+                BoxCollider2D childCollider = localEntities[l].transform.GetChild(0).GetComponent<BoxCollider2D>();
+                var V2EntityPos = childCollider.ClosestPoint(area[i]);
+                if (_gridGlobal.chao.LocalToCell(area[i]) == _gridGlobal.chao.LocalToCell(V2EntityPos) && foundEntities.Contains(localEntities[l].transform) == false)
+                {
+                    _foundEntities.Add(localEntities[l]);
+                }
+            }
+        }
+        return _foundEntities;
     }
 
     private void CleanEntities()
@@ -498,6 +529,7 @@ public class GridEntity : GridManager
 
     private List<GameObject> targetAoe(Collider2D[] hits)
     {
+        if (!hits.Any()) canAttack = true; 
         foreach (Collider2D hit in hits)
         {
             Debug.Log(hit.gameObject);
@@ -523,6 +555,7 @@ public class GridEntity : GridManager
         _isAuto = false;
         _HasAOEEffect = false;
         targetUnit = null;
+        canAttack = false;
         targetUnits.Clear();
         previousCasterPosition = new Vector3();
         timesTargetWasSent = 0;

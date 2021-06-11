@@ -128,7 +128,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             _MyGrid.TargetingLoop();
             _MyGrid.gridIni = true;
         }
-        if (_MyGrid.timesTargetWasSent >= targetsNum && _MyGrid.targetUnits.Any())
+        if ((_MyGrid.timesTargetWasSent >= targetsNum && _MyGrid.targetUnits.Any()) || _MyGrid.canAttack)
         {
             AOEArea = _MyGrid.PassAOEArea().ToList();
             pointClicked = _MyGrid.PassPointClicked();
@@ -290,6 +290,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
                 targets.Remove(target);
             }
         }
+        var newTargets = _MyGrid.FindEntities(PassDesiredTargets(), AOEArea);
+        targets.AddRange(newTargets);
     }
     private void ChargeEnd()
     {
