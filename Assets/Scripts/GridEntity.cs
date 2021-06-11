@@ -55,7 +55,6 @@ public class GridEntity : GridManager
         mainCamera = Camera.main;
         Debug.Log(previousCasterPosition);
     }
-
     private void Update()
     {
         TargetingLoop();
@@ -66,6 +65,15 @@ public class GridEntity : GridManager
         {
             Debug.Log("Entrou no search");
             CleanEntities();
+            if (_isAuto) 
+            { 
+                AutoRange(_actionMaker, _range, tilesRange);
+                //_gridGlobal.FillGrid(tilesRange, _gridGlobal.tileMapRange, tilesIgnore); //NOTE: AUTOATTACK SHOULDNT FILL GRID BECAUSE OF AI. LATER: IMPLEMENT NEVER TO FILL GRID IF AI.
+                FindEntities(_desiredTargets);
+                TargetFirstFoundEntity();
+                CleanAllAreas();
+                return;
+            }
             CasterRange(_actionMaker, _range, tilesRange);
             _gridGlobal.FindWalls(tilesRange, tilesIgnore);
             _gridGlobal.FillGrid(tilesRange, _gridGlobal.tileMapRange, tilesIgnore);
@@ -85,7 +93,6 @@ public class GridEntity : GridManager
             }
             tilesIgnore.Clear();
             FindEntities(_desiredTargets);
-            if (_isAuto) TargetFirstFoundEntity();
             //FindObjects();
             //FindTerrain();
             _gridGlobal.PaintGridForFoundEntities(foundEntities, tilesFull);
@@ -117,14 +124,17 @@ public class GridEntity : GridManager
             }
             
         }
-        else
+        else if (!_isAuto)
         {
-            _gridGlobal.CleanAllTileMaps();
+            _gridGlobal.CleanAllTileMaps(tilesRange, tilesAoe);
             CleanAllAreas();
             CleanEntities();
             CleanSelection(Color.yellow);
         }
     }
+
+    
+
     private bool UpdateGrid()
     {
         if (grid.LocalToCell(previousCasterPosition) != grid.LocalToCell(_actionMaker.position))
@@ -140,6 +150,11 @@ public class GridEntity : GridManager
         //else if ()
         return false;
     }
+    private void AutoRange(Transform caster, int range, List<Vector3> _tiles)
+    {
+        GetArea(range, caster.GetChild(0).position, _tiles, Shapes.Area);
+    }
+
     void CasterRange(Transform caster, int range, List<Vector3> _tiles)
     {
         _gridGlobal.CleanArea(tilesFull, _gridGlobal.tileMapRange);
@@ -183,6 +198,32 @@ public class GridEntity : GridManager
     }
     void GetArea(int range, Vector3 position, List<Vector3> _tiles, Shapes shapeType)
     {
+        if (_isAuto)
+        {
+            Vector3 center = grid.LocalToCell(position);
+            for (int i = 0; i < range; i++)
+            {
+                for (int iteration = 1; iteration < 5; iteration++)
+                {
+                    Debug.Log("Painting");
+                    if (!tilesFull.Contains(Coordinates(iteration, i, center)))
+                        _tiles.Add(Coordinates(iteration, i, center));
+                }
+                for (int f = 1; f <= i+1; f++)
+                {
+                    for (int iteration = 1; iteration < 5; iteration++)
+                    {
+                        if (iteration == 1) _tiles.Add(new Vector3(center.x - (i + 1), center.y + f, center.z));
+                        if (iteration == 2) _tiles.Add(new Vector3(center.x - (i + 1), center.y - f, center.z));
+                        if (iteration == 3) _tiles.Add(new Vector3(center.x + (i + 1), center.y + f, center.z));
+                        if (iteration == 4) _tiles.Add(new Vector3(center.x + (i + 1), center.y - f, center.z));
+                        if (!tilesFull.Contains(Coordinates(iteration, i, f, center)))
+                            _tiles.Add(Coordinates(iteration, i, f, center));
+                    }
+                }
+            }
+            return;
+        }
         if (shapeType == Shapes.Area)
         {
             Vector3 center = grid.LocalToCell(position);
@@ -407,7 +448,7 @@ public class GridEntity : GridManager
                 if (foundEntities.Contains(hit.transform))
                 {
                     targetUnit = hit.gameObject;
-                    _gridGlobal.CleanAllTileMaps();
+                    _gridGlobal.CleanAllTileMaps(tilesRange, tilesAoe);
                     CleanEntities();
                 }
                 else if (hit.tag == "Floor")
@@ -485,6 +526,7 @@ public class GridEntity : GridManager
         targetUnits.Clear();
         previousCasterPosition = new Vector3();
         timesTargetWasSent = 0;
+        _shapeType = Shapes.Area;
     }
     private void CleanSelection(Color color)
     {

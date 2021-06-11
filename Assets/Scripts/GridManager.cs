@@ -17,17 +17,7 @@ public class GridManager : MonoBehaviour
     public Tilemap buracos;
     public Tilemap EffectsMap;
 
-    void Start()
-    {
-        grid = FindObjectOfType<Grid>();
-        tileMapRange = grid.transform.Find("SelectionRange").GetComponent<Tilemap>();
-        tileMapAoe = grid.transform.Find("SelectionAoe").GetComponent<Tilemap>();
-        chao = grid.transform.Find("Chao").GetComponent<Tilemap>();
-        paredes = grid.transform.Find("Paredes").GetComponent<Tilemap>();
-        buracos = grid.transform.Find("Buracos").GetComponent<Tilemap>();
-        EffectsMap = grid.transform.Find("TerrainEffects").GetComponent<Tilemap>();
-        tintTile = Resources.Load<TileBase>("Tiles/Grid/whiteblock");
-    }
+    
 }
 
 

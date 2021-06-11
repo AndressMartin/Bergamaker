@@ -16,7 +16,7 @@ public interface IAction
     int onButton { get; }
     bool activated { get; }
     EntityModel actionMaker { get; }
-    Movement actionMakerMove { get; }
+    MovementModel actionMakerMove { get; }
     Transform actionChild { get; }
     Transform skillHolder { get; }
     Sprite sprite { get; }

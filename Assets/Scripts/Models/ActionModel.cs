@@ -27,7 +27,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public int onButton { get; private set; }
     public GridEntity _MyGrid { get; private set; }
     public EntityModel actionMaker { get; private set; }
-    public Movement actionMakerMove { get; private set; }
+    public MovementModel actionMakerMove { get; private set; }
     public Transform actionChild { get; private set; }
     public Transform skillHolder { get; private set; }
     public Sprite sprite { get; private set; }
@@ -41,7 +41,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     {
         if (AOE > 0) AOEArea = new List<Vector3>();
         ArcAttacks = new List<GameObject>();
-        actionMakerMove = actionMaker.GetComponent<Movement>();
+        actionMakerMove = actionMaker.GetComponent<MovementModel>();
         skillHolder = gameObject.transform.parent;
         if (actionMaker.GetComponent<Player>() != null) onButton = FindStoredButton();
         sprite = GetSkillSprite();
@@ -255,7 +255,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         MakeEffect();
         End();
         actionMakerMove.Lento(false);
-        actionMaker.GetComponent<Movement>().PermitirMovimento(true);
+        actionMakerMove.PermitirMovimento(true);
         playingAnimation = false;
     }
 
@@ -275,7 +275,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             actionMakerMove.terminandoAtaque = false;
             End();
             actionMakerMove.Lento(false);
-            actionMaker.GetComponent<Movement>().PermitirMovimento(true);
+            actionMakerMove.PermitirMovimento(true);
             playingAnimation = false;
         }
     }

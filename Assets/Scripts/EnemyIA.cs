@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyIA : MonoBehaviour
+public class EnemyIA : MovementModel
 {
     
     public AIDestinationSetter aIDestinationSetter;
@@ -12,8 +12,7 @@ public class EnemyIA : MonoBehaviour
     public AIPath aIPath;
     public float rangeAtaque;
     public float rangeView;
-    public float maxSpeed=2;
-
+    public float defaultSpeed;
     public Transform transformInicial;
     public Transform transformFinal;
 
@@ -39,9 +38,9 @@ public class EnemyIA : MonoBehaviour
         player = FindObjectOfType<Player>();
         aIDestinationSetter = GetComponent<AIDestinationSetter>();
         aIPath = GetComponent<AIPath>();
-
         rangeView = 6f;
         rangeAtaque = 2f;
+        defaultSpeed = aIPath.maxSpeed;
         target = aIDestinationSetter.target;
 
         transformInicial = transform;
@@ -51,13 +50,30 @@ public class EnemyIA : MonoBehaviour
 
     public void Update()
     {
+        aIPath.maxSpeed = aIPath.maxSpeed * velocidadeM;
+
         if (state == State.Stop || state == State.Attacking)
             aIPath.canMove = false;
 
         else if (state == State.Following)
             aIPath.canMove = true;
 
-
+        if (_permissaoAndar)
+        {
+            if (lento)
+            {
+                if(aIPath.maxSpeed == defaultSpeed) velocidadeM = 0.4f;
+            }
+            else
+            {
+                velocidadeM = 1;
+                aIPath.maxSpeed = defaultSpeed;
+            }
+        }
+        else
+        {
+            velocidadeM = 0;
+        }
         if (mode == Mode.WaitnAttack)
         {
             if (Vector3.Distance(transform.position, player.transform.position) > rangeView && state != State.Stop)
@@ -101,7 +117,6 @@ public class EnemyIA : MonoBehaviour
             }
         }
 
-
     }
 
     public void BackToPatrol()
@@ -118,7 +133,10 @@ public class EnemyIA : MonoBehaviour
         {
             transform.GetComponent<AtaqueInimigo>().Activate(transform.GetComponent<EntityModel>());
         }
-        
+        else
+        {
+            state = State.Following;
+        }
     }
 
 

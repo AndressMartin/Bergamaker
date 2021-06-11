@@ -3,19 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Movement : MovementModel
 {
-    public float velocidade = 4f, //Velocidade do personagem
-                 velocidadeM = 1f; //Modificador da velocidade do personagem, para quando ele ficar lento ou subir escadas
-
     private Rigidbody2D rb;
     private SpriteRenderer spriteRend;
     private Dash _dash;
     private InputSys _input;
     private BoxCollider2D bColl2d;
     private Animator animator;
-    public bool _permissaoAndar = true;
-    public bool lento;
     public bool isClimbing;
     public List<float> lastCoordinates;
 
@@ -42,10 +37,6 @@ public class Movement : MonoBehaviour
     };
 
     private AnimacaoEnum animacao = 0; //A animacao atual do personagem
-
-    //Variaveis para as animacoes
-    public bool acertandoAtaque = false,
-                terminandoAtaque = false;
 
     void Start()
     {
@@ -101,83 +92,15 @@ public class Movement : MonoBehaviour
             //Define a animacao
             AnimacaoMovimento(horizontal, vertical);
         }
-
+        else
+        {
+            velocidadeM = 0;
+        }
         //Roda a animacao
         Animar();
     }
 
-    public void DefinirDirecaoAtaque(int AOE, Vector3 pointClicked, List<GameObject> targets)
-    {
-        Debug.Log("Entrou na funcao");
-        float DistanciaX,
-              DistanciaY;
-
-        if (AOE > 0)
-        {
-            DistanciaX = transform.GetChild(0).transform.position.x - pointClicked.x;
-            DistanciaY = transform.GetChild(0).transform.position.y - pointClicked.y;
-
-            if(Mathf.Abs(DistanciaX) > Mathf.Abs(DistanciaY))
-            {
-                if (DistanciaX > 0)
-                {
-                    spriteRend.flipX = true;
-                    animator.SetFloat("Direcao", (float)Direcao.Lado);
-                }
-                else
-                {
-                    spriteRend.flipX = false;
-                    animator.SetFloat("Direcao", (float)Direcao.Lado);
-                }
-            }
-            else
-            {
-                if ((DistanciaY) < 0)
-                {
-                    spriteRend.flipX = false;
-                    animator.SetFloat("Direcao", (float)Direcao.Cima);
-                }
-                else
-                {
-                    spriteRend.flipX = false;
-                    animator.SetFloat("Direcao", (float)Direcao.Baixo);
-                }
-            }
-        }
-        else
-        {
-            DistanciaX = transform.GetChild(0).transform.position.x - targets[0].transform.GetChild(0).transform.position.x;
-            DistanciaY = transform.GetChild(0).transform.position.y - targets[0].transform.GetChild(0).transform.position.y;
-
-            if (DistanciaY < 0)
-            {
-                spriteRend.flipX = false;
-                animator.SetFloat("Direcao", (float)Direcao.Cima);
-            }
-            else
-            {
-                spriteRend.flipX = false;
-                animator.SetFloat("Direcao", (float)Direcao.Baixo);
-            }
-
-            if (DistanciaX > 0.3)
-            {
-                if (DistanciaY >= -0.5 && DistanciaY <= 0.5)
-                {
-                    spriteRend.flipX = true;
-                    animator.SetFloat("Direcao", (float)Direcao.Lado);
-                }
-            }
-            else if (DistanciaX < -0.3)
-            {
-                if (DistanciaY >= -0.5 && DistanciaY <= 0.5)
-                {
-                    spriteRend.flipX = false;
-                    animator.SetFloat("Direcao", (float)Direcao.Lado);
-                }
-            }
-        }
-    }
+    
 
     private void AnimacaoMovimento(float horizontal, float vertical)
     {
@@ -279,9 +202,82 @@ public class Movement : MonoBehaviour
         animacao = AnimacaoEnum.LancandoMagiaLooping;
     }
 
-    public void AnimacaoIniciarCasting()
+    public override void AnimacaoIniciarCasting()
     {
         animacao = AnimacaoEnum.CastandoMagia;
+    }
+
+    public override void DefinirDirecaoAtaque(int AOE, Vector3 pointClicked, List<GameObject> targets)
+    {
+        Debug.Log("Entrou na funcao");
+        float DistanciaX,
+              DistanciaY;
+
+        if (AOE > 0)
+        {
+            DistanciaX = transform.GetChild(0).transform.position.x - pointClicked.x;
+            DistanciaY = transform.GetChild(0).transform.position.y - pointClicked.y;
+
+            if (Mathf.Abs(DistanciaX) > Mathf.Abs(DistanciaY))
+            {
+                if (DistanciaX > 0)
+                {
+                    spriteRend.flipX = true;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+                else
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+            }
+            else
+            {
+                if ((DistanciaY) < 0)
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Cima);
+                }
+                else
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Baixo);
+                }
+            }
+        }
+        else
+        {
+            DistanciaX = transform.GetChild(0).transform.position.x - targets[0].transform.GetChild(0).transform.position.x;
+            DistanciaY = transform.GetChild(0).transform.position.y - targets[0].transform.GetChild(0).transform.position.y;
+
+            if (DistanciaY < 0)
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Cima);
+            }
+            else
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Baixo);
+            }
+
+            if (DistanciaX > 0.3)
+            {
+                if (DistanciaY >= -0.5 && DistanciaY <= 0.5)
+                {
+                    spriteRend.flipX = true;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+            }
+            else if (DistanciaX < -0.3)
+            {
+                if (DistanciaY >= -0.5 && DistanciaY <= 0.5)
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+            }
+        }
     }
 
     public void AnimacaoLancandoMagiaInicio()
@@ -291,21 +287,10 @@ public class Movement : MonoBehaviour
         animacao = AnimacaoEnum.LancandoMagiaInicio;
     }
 
-    public void AnimacaoAtaqueBasico()
+    public override void AnimacaoAtaqueBasico()
     {
         acertandoAtaque = false;
         terminandoAtaque = false;
         animacao = AnimacaoEnum.AtaqueBasico;
-    }
-
-    public void PermitirMovimento(bool permissao)
-    {
-        _permissaoAndar = permissao;
-        if (permissao == false) rb.velocity = new Vector2(0f, 0f);
-    }
-
-    public void Lento(bool condicao)
-    {
-        lento = condicao;
     }
 }

@@ -8,16 +8,35 @@ using UnityEngine.Tilemaps;
 public class GridGlobal : GridManager
 {
 
-    
+    void Awake()
+    {
+        grid = GetComponent<Grid>();
+        tileMapRange = grid.transform.Find("SelectionRange").GetComponent<Tilemap>();
+        tileMapAoe = grid.transform.Find("SelectionAoe").GetComponent<Tilemap>();
+        chao = grid.transform.Find("Chao").GetComponent<Tilemap>();
+        paredes = grid.transform.Find("Paredes").GetComponent<Tilemap>();
+        buracos = grid.transform.Find("Buracos").GetComponent<Tilemap>();
+        EffectsMap = grid.transform.Find("TerrainEffects").GetComponent<Tilemap>();
+        tintTile = Resources.Load<TileBase>("Tiles/Grid/whiteblock");
+    }
+
     public void CleanArea(List<Vector3> _tiles, Tilemap tilemap)
     {
         _tiles.Clear();
-          tilemap.ClearAllTiles();
+         tilemap.ClearAllTiles();
     }
-    public void CleanAllTileMaps()
+    public void CleanAllTileMaps(List<Vector3> tilesRange, List<Vector3> tilesAoe)
     {
-        tileMapRange.ClearAllTiles();
-        tileMapAoe.ClearAllTiles();
+        foreach(var tile in tilesRange)
+        {
+            tileMapRange.SetTile((Vector3Int.FloorToInt(tile)), null); // Remove tile at 0,0,0
+        }
+        //tileMapRange.ClearAllTiles();
+        foreach (var tile in tilesAoe)
+        {
+            tileMapAoe.SetTile((Vector3Int.FloorToInt(tile)), null); // Remove tile at 0,0,0
+        }
+        //tileMapAoe.ClearAllTiles();
     }
     public void FindWalls(List<Vector3> _tiles, List<Vector3> tilesIgnore)
     {
