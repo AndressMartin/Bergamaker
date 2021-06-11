@@ -25,7 +25,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public bool charging { get; private set; }
     public bool activated { get; private set; }
     public int onButton { get; private set; }
-    public GridManager _GridManager { get; private set; }
+    public GridEntity _MyGrid { get; private set; }
     public EntityModel actionMaker { get; private set; }
     public Movement actionMakerMove { get; private set; }
     public Transform actionChild { get; private set; }
@@ -46,14 +46,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         if (actionMaker.GetComponent<Player>() != null) onButton = FindStoredButton();
         sprite = GetSkillSprite();
         //actionMakerInput.GetSkillButton(onButton);
-        if (actionMaker.GetComponent<GridManager>() == null)
-        {
-            _GridManager = actionMaker.gameObject.AddComponent<GridManager>();
-        }
-        else
-        {
-            _GridManager = actionMaker.gameObject.GetComponent<GridManager>();
-        }
+         _MyGrid = actionMaker.gameObject.GetComponent<GridEntity>();
         playingAnimation = false;
     }
 
@@ -61,7 +54,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     {
         if (activated)
         {
-            if (_GridManager.onSearchMode == true)
+            if (_MyGrid.onSearchMode == true)
                 WaitTarget();
 
             if (charging)
@@ -93,11 +86,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public virtual void SendTargetRequest()
     {
         if (isAuto)
-            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), PassDesiredTargets(), isAuto);
+            _MyGrid.StartSearchMode(true, PassRange(), PassActionMaker(), PassDesiredTargets(), isAuto);
         else if (AOE <= 0)
-            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), multiTargetsOnly, PassDesiredTargets());
+            _MyGrid.StartSearchMode(true, PassRange(), PassActionMaker(), multiTargetsOnly, PassDesiredTargets());
         else if (AOE > 0)
-            _GridManager.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, HasAOEEffect, shapeType, PassDesiredTargets());
+            _MyGrid.StartSearchMode(true, PassRange(), PassActionMaker(), AOE, HasAOEEffect, shapeType, PassDesiredTargets());
     }
     public List<string> PassDesiredTargets()
     {
@@ -130,16 +123,20 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public virtual void WaitTarget()
     {
         if (actionMakerMove != null) actionMakerMove.Lento(true);
-        _GridManager.TargetingLoop();
-        if (_GridManager.timesTargetWasSent >= targetsNum && _GridManager.targetUnits.Any())
+        if (_MyGrid.gridIni == false)
         {
-            AOEArea = _GridManager.SendAOEArea().ToList();
-            pointClicked = _GridManager.SendPointClicked();
-            centerOfAOE = _GridManager.SendCenterOfAOE();
-            _GridManager.SearchMode(false);
-            targets = _GridManager.targetUnits.ToList();
-            _GridManager.TargetArrow(_GridManager.targetUnits);
-            _GridManager.targetUnits.Clear();
+            _MyGrid.TargetingLoop();
+            _MyGrid.gridIni = true;
+        }
+        if (_MyGrid.timesTargetWasSent >= targetsNum && _MyGrid.targetUnits.Any())
+        {
+            AOEArea = _MyGrid.PassAOEArea().ToList();
+            pointClicked = _MyGrid.PassPointClicked();
+            centerOfAOE = _MyGrid.PassCenterOfAOE();
+            _MyGrid.SearchMode(false);
+            targets = _MyGrid.targetUnits.ToList();
+            _MyGrid.TargetArrow(_MyGrid.targetUnits);
+            _MyGrid.targetUnits.Clear();
             ChargeIni();
             if (actionMakerMove != null) actionMakerMove.Lento(false);
         }
@@ -147,6 +144,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         {
             Debug.Log("Didn't find target");
             Fail();
+            if (actionMakerMove != null) actionMakerMove.Lento(false);
         }
         else if (Interruption())
         {
@@ -287,7 +285,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         var localtargets = targets.ToList();
         foreach(var target in localtargets)
         {
-            if (AOEArea.Contains(_GridManager.grid.LocalToCell(target.transform.position)) == false)
+            if (AOEArea.Contains(_MyGrid._gridGlobal.grid.LocalToCell(target.transform.position)) == false)
             {
                 targets.Remove(target);
             }
@@ -307,10 +305,10 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     }
     public void ResetTargetParams()
     {
-        _GridManager.SearchMode(false);
+        _MyGrid.SearchMode(false);
         if (targets != null)
         {
-            if (targets.Any()) _GridManager.ResetArrow(targets);
+            if (targets.Any()) _MyGrid.ResetArrow(targets);
         }
     }
     public bool Interruption()
@@ -364,7 +362,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         Debug.Log("Ending");
         if (ArcAttacks.Any()) foreach (var arc in ArcAttacks) Destroy(arc);
         activated = false;
-        if (_GridManager != null) _GridManager.ResetParams();
+        _MyGrid.gridIni = false;
+        if (_MyGrid != null) _MyGrid.ResetParams();
         if (actionMaker.GetComponent<InputSys>() != null)   actionMaker.GetComponent<InputSys>().holdingSkill = false;
     }
     public int FindStoredButton()
@@ -386,7 +385,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
 
     public virtual void SpecificEffect()
     {
-        if (HasAOEEffect) _GridManager.ApplyEffectsOnTiles(AOEArea, EffectType);
+        if (HasAOEEffect) _MyGrid._gridGlobal.ApplyEffectsOnTiles(AOEArea, EffectType);
     }
 
     public Sprite GetSkillSprite()

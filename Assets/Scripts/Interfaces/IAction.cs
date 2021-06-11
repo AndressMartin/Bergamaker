@@ -36,7 +36,7 @@ public interface ITarget: IAction
 {
     int range { get; }
     Vector3 pointClicked { get; }
-    GridManager _GridManager { get; }
+    GridEntity _MyGrid { get; }
     List<GameObject> ArcAttacks { get; }
     void SendTargetRequest();
     int PassRange();

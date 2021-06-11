@@ -210,7 +210,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 786599417, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
 --- !u!1001 &325167862
 PrefabInstance:
@@ -509,7 +510,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &905198503
+--- !u!43 &863917267
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -673,7 +674,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!43 &947335088
+--- !u!43 &905198503
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1424,6 +1425,55 @@ MonoBehaviour:
   transformFinal: {fileID: 0}
   state: 1
   mode: 0
+--- !u!114 &1962516187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962516185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91db037679b6d0b46a1fd6a34c36abe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  tileMapRange: {fileID: 0}
+  tileMapAoe: {fileID: 0}
+  tintTile: {fileID: 0}
+  chao: {fileID: 0}
+  paredes: {fileID: 0}
+  buracos: {fileID: 0}
+  EffectsMap: {fileID: 0}
+  tilesRange: []
+  tilesAoe: []
+  tilesFull: []
+  tilesIgnore: []
+  foundEntities: []
+  foundObjects: []
+  foundTerrain: []
+  mousePosition: {x: 0, y: 0, z: 0}
+  auto: 0
+  _desiredTargets: []
+  _range: 0
+  _AOE: 0
+  pointClicked: {x: 0, y: 0, z: 0}
+  centerOfAOE: {x: 0, y: 0, z: 0}
+  _shapeType: 0
+  _targetsNum: 0
+  timesTargetWasSent: 0
+  _multiTargetsOnly: 0
+  _HasAOEEffect: 0
+  gridIni: 0
+  targetUnit: {fileID: 0}
+  targetUnits: []
+  mainCamera: {fileID: 0}
+  _selectable: []
+  _selectableTarget: {fileID: 0}
+  ignorar:
+    serializedVersion: 2
+    m_Bits: 0
+  _gridGlobal: {fileID: 0}
 --- !u!114 &1962516193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1588,3 +1638,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec0b1fe47969a5347ae1d6f3daea8499, type: 3}
+--- !u!1 &2032095643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8974185410767165288, guid: cc718c12cd9ba0142b263f782e25b20d, type: 3}
+  m_PrefabInstance: {fileID: 254225085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2032095646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032095643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bd500ef55d1404993c7e3a50eb4ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  tileMapRange: {fileID: 0}
+  tileMapAoe: {fileID: 0}
+  tintTile: {fileID: 0}
+  chao: {fileID: 0}
+  paredes: {fileID: 0}
+  buracos: {fileID: 0}
+  EffectsMap: {fileID: 0}

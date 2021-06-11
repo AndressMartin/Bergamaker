@@ -34560,9 +34560,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8974185410767165294}
   - component: {fileID: 8974185410767165295}
-  - component: {fileID: 786599417}
   - component: {fileID: 623295724}
-  - component: {fileID: 623295726}
+  - component: {fileID: 1543418907}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -34608,53 +34607,6 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
---- !u!114 &786599417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8974185410767165288}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf119db6ca979064a90d156b28afae80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 0}
-  tileMapRange: {fileID: 0}
-  tileMapAoe: {fileID: 0}
-  tintTile: {fileID: 11400000, guid: 4945a3198f27522499509439fb04fc1b, type: 2}
-  chao: {fileID: 0}
-  paredes: {fileID: 0}
-  buracos: {fileID: 0}
-  EffectsMap: {fileID: 0}
-  tilesRange: []
-  tilesAoe: []
-  tilesFull: []
-  tilesIgnore: []
-  foundEntities: []
-  foundObjects: []
-  foundTerrain: []
-  mousePosition: {x: 0, y: 0, z: 0}
-  auto: 0
-  _desiredTargets: []
-  _range: 0
-  _AOE: 0
-  pointClicked: {x: 0, y: 0, z: 0}
-  centerOfAOE: {x: 0, y: 0, z: 0}
-  _shapeType: 0
-  _targetsNum: 0
-  timesTargetWasSent: 0
-  _multiTargetsOnly: 0
-  _HasAOEEffect: 0
-  targetUnit: {fileID: 0}
-  targetUnits: []
-  mainCamera: {fileID: 0}
-  _selectable: []
-  _selectableTarget: {fileID: 0}
-  ignorar:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!95 &623295724
 Animator:
   serializedVersion: 3
@@ -34674,22 +34626,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &623295726
+--- !u!114 &1543418907
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8974185410767165288}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ecc7506f4bc10440990d7d8286d5ec8, type: 3}
+  m_Script: {fileID: 11500000, guid: 42bd500ef55d1404993c7e3a50eb4ca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 8974185410767165295}
-  fog: {fileID: 1113785630}
-  tilesVision: []
-  tilesFog: []
-  isFog: 1
-  gridHolder: {fileID: 0}
-  tintTile: {fileID: 11400000, guid: 4945a3198f27522499509439fb04fc1b, type: 2}
+  grid: {fileID: 0}
+  tileMapRange: {fileID: 0}
+  tileMapAoe: {fileID: 0}
+  tintTile: {fileID: 0}
+  chao: {fileID: 0}
+  paredes: {fileID: 0}
+  buracos: {fileID: 0}
+  EffectsMap: {fileID: 0}
