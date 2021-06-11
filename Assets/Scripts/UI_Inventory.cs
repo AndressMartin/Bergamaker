@@ -11,9 +11,16 @@ public class UI_Inventory : MonoBehaviour
     private Transform itemSlotContainer;
     private Transform itemSlotTemplate;
     private Player player;
+    public GameObject uI_Inventory;
 
+
+    private void Update()
+    {
+       
+    }
     private void Awake()
     {
+
         itemSlotContainer = transform.Find("itemSlotContainer");
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
     }
@@ -44,7 +51,7 @@ public class UI_Inventory : MonoBehaviour
 
         int x = 0;
         int y = 0;
-        float itemSlotCellSize = 30f;
+        float itemSlotCellSize = 35f;
 
         foreach (Item item in inventory.GetItemList())
         {
@@ -80,7 +87,7 @@ public class UI_Inventory : MonoBehaviour
             }
 
             x++;
-            if (x > 4) {
+            if (x > 7) {
                 x = 0;
                 y++;
             }
