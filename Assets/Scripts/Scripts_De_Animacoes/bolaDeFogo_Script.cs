@@ -86,8 +86,6 @@ public class bolaDeFogo_Script : MonoBehaviour
             {
                 sprite.flipY = false;
                 seMovendo = false;
-
-                AnimacaoEventoAcertarAtaque();
                 AnimacaoExplodindo();
             }
         }
