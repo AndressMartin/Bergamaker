@@ -11,6 +11,6 @@ public class SetaDeGelo : ActionModel
     public override float CD => .5f;
     public override bool isInstant => false;
     public override int AOE => 1;
-    public override PossibleTargets targetType => PossibleTargets.Enemy;
+    public override ActionTargets targetType => ActionTargets.Enemy;
     public override Shapes shapeType => Shapes.Line;
 }
