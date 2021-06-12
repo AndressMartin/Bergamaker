@@ -109,7 +109,7 @@ public class bolaDeFogo_Script : MonoBehaviour
         alvo = centerOfAOE;
 
         posicao.x = actionMaker.transform.position.x;
-        posicao.y = actionMaker.transform.position.y + actionMakerSprite.bounds.size.y / 2;
+        posicao.y = (float)(actionMaker.transform.position.y + (actionMakerSprite.bounds.size.y * 0.77));
 
         transform.position = posicao;
 
