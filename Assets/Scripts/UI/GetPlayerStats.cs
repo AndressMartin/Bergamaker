@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class GetPlayerStats : MonoBehaviour
 {
-    public Text mainStats;
-    public Text MaxStats;
+    public Text PV, PVMax, MN, MNMax, PA, PAMax; 
     public Player player;
     public Slider sliderPA, sliderPV, sliderMN;
 
@@ -20,12 +19,16 @@ public class GetPlayerStats : MonoBehaviour
 
     private void SetMainStats()
     {
-        mainStats.text = $"PA: {player.PA}\nPV: {player.PV}\nMN: {player.MN}";
+        PV.text = $"{player.PV}";
+        MN.text = $"{player.MN}";
+        PA.text = $"{player.PA}";
     }
 
     private void SetMaxStats()
     {
-        MaxStats.text = $"{player.PAMax}\n{player.PVMax}\n{player.MNMax}";
+        PVMax.text = $"{player.PVMax}";
+        MNMax.text = $"{player.MNMax}";
+        PAMax.text = $"{player.PAMax}";
     }
 
     private void SetSlider()
