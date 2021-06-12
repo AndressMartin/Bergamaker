@@ -31,10 +31,21 @@ public class TerrainEffectsManagement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var colliderType = collision.transform.parent.GetComponent<EntityModel>();
-        if (colliderType != null)
+        if (collision.isTrigger != true)
         {
-            colliderType.AlterarStatus(effectType);
+            try
+            {
+                EntityModel colliderType = collision.transform.parent.GetComponent<EntityModel>();
+                if (colliderType != null)
+                {
+                    colliderType.AlterarStatus(effectType);
+                }
+            }
+            catch (Exception)
+            {
+                Debug.LogError("Tried to get a nill collider parent: " + collision.gameObject);
+            }
         }
+        
     }
 }
