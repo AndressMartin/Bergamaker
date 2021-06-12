@@ -60,5 +60,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 Packages/packages-lock.json
-UserSettings/EditorUserSettings.asset
-UserSettings/EditorUserSettings.asset
+/UserSettings/EditorUserSettings.asset
