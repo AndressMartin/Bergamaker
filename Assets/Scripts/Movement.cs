@@ -61,6 +61,7 @@ public class Movement : MovementModel
             lastCoordinates[1] = _input.vertical;
             lastCoordinates[0] = 0;
         }
+
         Move(_input.horizontal, _input.vertical);
     }
 
@@ -86,9 +87,6 @@ public class Movement : MovementModel
                 velocidadeM = 1;
             }
 
-            //Faz o personagem se mover, utilizando sua velocidade base e o modificador da velocidade
-            rb.velocity = new Vector2(horizontal, vertical).normalized * (velocidade * velocidadeM);
-
             //Define a animacao
             AnimacaoMovimento(horizontal, vertical);
         }
@@ -96,6 +94,10 @@ public class Movement : MovementModel
         {
             velocidadeM = 0;
         }
+
+        //Faz o personagem se mover, utilizando sua velocidade base e o modificador da velocidade
+        rb.velocity = new Vector2(horizontal, vertical).normalized * (velocidade * velocidadeM);
+
         //Roda a animacao
         Animar();
     }

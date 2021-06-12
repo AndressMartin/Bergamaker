@@ -126,7 +126,7 @@ public class bolaDeFogo_Script : MonoBehaviour
     public void AnimacaoEventoTerminarAtaque()
     {
         actionMakerMove.terminandoAtaque = true;
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     private void AnimacaoNoAr()
