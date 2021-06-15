@@ -79,6 +79,7 @@ public class InputSys : MonoBehaviour
     }
     private void HideMenu()
     {
+        Debug.Log("Apertou I");
         uI_Inventory.uI_Inventory.SetActive(!uI_Inventory.uI_Inventory.active);
     }
 

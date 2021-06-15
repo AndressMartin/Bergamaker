@@ -30,7 +30,7 @@ public class DialogueManager : MonoBehaviour
         nameText.text = data[0];
         for (int i = 0; i < tablesize-1 ; i ++)
         {
-            sentences.Enqueue(data[1 + i]);
+            sentences.Enqueue(data[0 + i]); 
         }
     }
 
