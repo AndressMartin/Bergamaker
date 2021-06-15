@@ -28,6 +28,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public GridEntity _MyGrid { get; private set; }
     public EntityModel actionMaker { get; private set; }
     public MovementModel actionMakerMove { get; private set; }
+    public Animacao actionMakerMoveAnimation { get; private set; }
     public Transform actionChild { get; private set; }
     public Transform skillHolder { get; private set; }
     public Sprite sprite { get; private set; }
@@ -43,6 +44,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         targets = new List<GameObject>();
         ArcAttacks = new List<GameObject>();
         actionMakerMove = actionMaker.GetComponent<MovementModel>();
+        actionMakerMoveAnimation = actionMakerMove.GetComponent<Animacao>();
         skillHolder = gameObject.transform.parent;
         if (actionMaker.GetComponent<Player>() != null) onButton = FindStoredButton();
         sprite = GetSkillSprite();
@@ -178,8 +180,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         chargeTime = chargeTimeMax;
 
         actionMakerMove.PermitirMovimento(false);
-        actionMakerMove.AnimacaoIniciarCasting();
-        actionMakerMove.DefinirDirecaoAtaque(AOE, pointClicked, targets);
+        actionMakerMoveAnimation.AnimacaoIniciarCasting();
+        actionMakerMoveAnimation.DefinirDirecaoAtaque(AOE, pointClicked, targets);
     }
 
     private void CreateArc(GameObject target)
@@ -270,18 +272,18 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
 
     public void Animating()
     {
-        if (actionMakerMove.acertandoAtaque)
+        if (actionMakerMoveAnimation.acertandoAtaque)
         {
             //Debug.Log("Acertou");
-            actionMakerMove.acertandoAtaque = false;
+            actionMakerMoveAnimation.acertandoAtaque = false;
             if (AOE > 0) CheckTargetsRemainingInArea();
             MakeEffect();
         }
 
-        if (actionMakerMove.terminandoAtaque)
+        if (actionMakerMoveAnimation.terminandoAtaque)
         {
             //Debug.Log("Finalizou");
-            actionMakerMove.terminandoAtaque = false;
+            actionMakerMoveAnimation.terminandoAtaque = false;
             End();
             actionMakerMove.Lento(false);
             actionMakerMove.PermitirMovimento(true);
