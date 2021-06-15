@@ -17,6 +17,6 @@ public class AtaqueBasico : ActionModel
 
     public override void PlayAnimation()
     {
-        actionMakerMove.AnimacaoAtaqueBasico();
+        actionMakerMoveAnimation.AnimacaoAtaqueBasico();
     }
 }

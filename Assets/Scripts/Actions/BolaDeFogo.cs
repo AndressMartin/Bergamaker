@@ -40,8 +40,8 @@ public class BolaDeFogo : ActionModel
 
     public override void PlayAnimation()
     {
-        bolaDeFogoAnimacao = Instantiate(Resources.Load<GameObject>("Prefabs/Magias/BolaDeFogo_Animacao"), pointClicked, new Quaternion(0, 0, 0, 0));
+        bolaDeFogoAnimacao = Instantiate(Resources.Load<GameObject>("Prefabs/Magias/BolaDeFogo_Animacao"), centerOfAOE, new Quaternion(0, 0, 0, 0));
         bolaDeFogoAnimacaoScript = bolaDeFogoAnimacao.GetComponent<bolaDeFogo_Script>();
-        bolaDeFogoAnimacaoScript.Iniciar(actionMaker, pointClicked);
+        bolaDeFogoAnimacaoScript.Iniciar(actionMaker, centerOfAOE);
     }
 }

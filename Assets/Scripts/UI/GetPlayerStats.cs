@@ -20,7 +20,7 @@ public class GetPlayerStats : MonoBehaviour
     private void SetMainStats()
     {
         PV.text = $"{player.PV}";
-        MN.text = $"{player.MN}";
+        MN.text = $"{player.MN}"; 
         PA.text = $"{player.PA}";
     }
 

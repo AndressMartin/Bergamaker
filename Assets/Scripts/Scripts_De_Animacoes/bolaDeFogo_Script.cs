@@ -23,7 +23,7 @@ public class bolaDeFogo_Script : MonoBehaviour
     public EntityModel actionMaker;//Guarda o objeto que esta lancando a magia
     private SpriteRenderer actionMakerSprite, //Guarda o sprite do objeto que esta lancando a magia
                            sprite; //Guarda o sprite da magia
-    public Movement actionMakerMove { get; private set; } //Guarda um script do objeto que esta lancando a magia
+    public Animacao actionMakerMoveAnimation { get; private set; } //Guarda o script de animacao do objeto que esta lancando a magia
 
     private Vector3 alvo; //Guarda a posicao que a magia deve acertar
 
@@ -49,11 +49,11 @@ public class bolaDeFogo_Script : MonoBehaviour
 
                 if (tempo >= 0.5)
                 {
-                    actionMakerMove.AnimacaoLancandoMagiaInicio();
+                    actionMakerMoveAnimation.AnimacaoLancandoMagiaInicio();
                 }
             }
 
-            if(actionMakerMove.animacao == Movement.AnimacaoEnum.LancandoMagiaLooping)
+            if(actionMakerMoveAnimation.animacao == Animacao.AnimacaoEnum.LancandoMagiaLooping)
             {
                 ativo = false;
                 seMovendo = true;
@@ -105,7 +105,7 @@ public class bolaDeFogo_Script : MonoBehaviour
 
         actionMaker = actionCaller;
         actionMakerSprite = actionMaker.GetComponent<SpriteRenderer>();
-        actionMakerMove = actionMaker.GetComponent<Movement>();
+        actionMakerMoveAnimation = actionMaker.GetComponent<Animacao>();
         alvo = centerOfAOE;
 
         posicao.x = actionMaker.transform.position.x;
@@ -120,12 +120,12 @@ public class bolaDeFogo_Script : MonoBehaviour
 
     public void AnimacaoEventoAcertarAtaque()
     {
-        actionMakerMove.acertandoAtaque = true;
+        actionMakerMoveAnimation.acertandoAtaque = true;
     }
 
     public void AnimacaoEventoTerminarAtaque()
     {
-        actionMakerMove.terminandoAtaque = true;
+        actionMakerMoveAnimation.terminandoAtaque = true;
         Destroy(gameObject);
     }
 
