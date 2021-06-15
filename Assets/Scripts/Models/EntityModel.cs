@@ -76,7 +76,7 @@ public class EntityModel : MonoBehaviour, IActor
             if (status == TerrainEffects.OnFire)
             {
                 var effect = Resources.Load("Prefabs/Effects/OnFireEntityEffect");
-                statusObject = Instantiate(effect, transform.position, transform.rotation, transform);
+                statusObject = Instantiate(effect, transform.GetComponent<SpriteRenderer>().bounds.center, transform.rotation, transform);
             }
         }
     }
