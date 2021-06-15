@@ -178,10 +178,11 @@ public class GridEntity : GridManager
                 _gridGlobal.CleanArea(_tiles, _gridGlobal.tileMapAoe);
                 GetArea(area, mousePosition, _tiles, _shapeType);
             }
-            else
-            {
-                _gridGlobal.CleanArea(_tiles, _gridGlobal.tileMapAoe);
-            }
+        }
+        //Destroy area if mouse is not in range
+        if (tilesRange.Contains(grid.LocalToCell(mousePosition)) != true)
+        {
+            _gridGlobal.CleanArea(_tiles, _gridGlobal.tileMapAoe);
         }
     }
     Vector3 Coordinates(int iteration, int i, Vector3 center)
@@ -530,13 +531,18 @@ public class GridEntity : GridManager
 
     private List<GameObject> targetAoe(Collider2D[] hits)
     {
-        if (!hits.Any()) canAttack = true; 
-        foreach (Collider2D hit in hits)
+        //Check if clicking inside the range area
+        if (tilesRange.Contains(grid.LocalToCell(mousePosition)))
         {
-            Debug.Log(hit.gameObject);
-            var hitObject = hit.gameObject;
-            targetUnits.Add(hitObject);
-            //targetUnits.Add(hit.GetComponentInParent<Transform>().gameObject);
+            //CanAttack becomes true so you can return a null target. This allows you to target an area without any found entity.
+            if (!hits.Any()) canAttack = true;
+            foreach (Collider2D hit in hits)
+            {
+                Debug.Log(hit.gameObject);
+                var hitObject = hit.gameObject;
+                targetUnits.Add(hitObject);
+                //targetUnits.Add(hit.GetComponentInParent<Transform>().gameObject);
+            }
         }
         return targetUnits;
     }
