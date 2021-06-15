@@ -26,6 +26,9 @@ public class EntityModel : MonoBehaviour, IActor
     public int mnRegenAmout = 5;
     public float invinciTimer = 1.0f;
 
+    public float effectMaxTime = 5f;
+    public float effectTime = 0;
+
     public TerrainEffects status { get; protected set; }
     public UnityEngine.Object statusObject { get; protected set; }
     void Update()
@@ -36,9 +39,27 @@ public class EntityModel : MonoBehaviour, IActor
 
         if (PV <= 0)
             Die();
+        if (statusObject != null)
+        {
+            if (effectTime == 0) effectTime = effectMaxTime;
+            else
+            {
+                StatusEffectTimer();
+            }
+        }
     }
 
-    
+    private void StatusEffectTimer()
+    {
+        effectTime -= Time.deltaTime;
+        if (effectTime <= 0)
+        {
+            Destroy(statusObject);
+            statusObject = null;
+            effectTime = 0;
+        }
+    }
+
     public virtual int AlterarMN(int alteracao)
     {
         MN += alteracao;
@@ -71,6 +92,7 @@ public class EntityModel : MonoBehaviour, IActor
 
     public virtual void AlterarStatus(TerrainEffects status)
     {
+        Debug.Log("StatusObject = " + statusObject);
         if (statusObject == null)
         {
             if (status == TerrainEffects.OnFire)
