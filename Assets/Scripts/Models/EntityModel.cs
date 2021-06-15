@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class EntityModel : MonoBehaviour, IActor
+
+public class EntityModel : ThingModel, IActor
 {
     public virtual int PV { get; protected set; }
 
@@ -26,11 +27,6 @@ public class EntityModel : MonoBehaviour, IActor
     public int mnRegenAmout = 5;
     public float invinciTimer = 1.0f;
 
-    public float effectMaxTime = 5f;
-    public float effectTime = 0;
-
-    public TerrainEffects status { get; protected set; }
-    public UnityEngine.Object statusObject { get; protected set; }
     void Update()
     {
         checkPAMinMax();
@@ -39,26 +35,9 @@ public class EntityModel : MonoBehaviour, IActor
 
         if (PV <= 0)
             Die();
-        if (statusObject != null)
-        {
-            if (effectTime == 0) effectTime = effectMaxTime;
-            else
-            {
-                StatusEffectTimer();
-            }
-        }
+        
     }
 
-    private void StatusEffectTimer()
-    {
-        effectTime -= Time.deltaTime;
-        if (effectTime <= 0)
-        {
-            Destroy(statusObject);
-            statusObject = null;
-            effectTime = 0;
-        }
-    }
 
     public virtual int AlterarMN(int alteracao)
     {
@@ -89,19 +68,7 @@ public class EntityModel : MonoBehaviour, IActor
         yield return new WaitForSeconds(invinciTimer);
         invinciFrames = false;
     }
-
-    public virtual void AlterarStatus(TerrainEffects status)
-    {
-        Debug.Log("StatusObject = " + statusObject);
-        if (statusObject == null)
-        {
-            if (status == TerrainEffects.OnFire)
-            {
-                var effect = Resources.Load("Prefabs/Effects/OnFireEntityEffect");
-                statusObject = Instantiate(effect, transform.GetComponent<SpriteRenderer>().bounds.center, transform.rotation, transform);
-            }
-        }
-    }
+    
     private void checkPVMinMax()
     {
         if (PV != PVMax && !pvRegen)

@@ -66,7 +66,7 @@ public class TerrainEffectsManagement : MonoBehaviour
         {
             try
             {
-                EntityModel colliderType = collision.transform.parent.GetComponent<EntityModel>();
+                ThingModel colliderType = collision.transform.parent.GetComponent<ThingModel>();
                 if (colliderType != null)
                 {
                     colliderType.AlterarStatus(effectType);

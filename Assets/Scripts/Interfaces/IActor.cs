@@ -2,7 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IActor
+public interface IThing
+{
+
+}
+
+
+public interface IActor: IThing
 {
     int PV { get; }
     int MN { get; }
