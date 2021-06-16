@@ -40,7 +40,6 @@ public class bolaDeFogo_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Esta no update");
         if (ativo == true)
         {
             if(tempo < 0.5)
@@ -49,11 +48,12 @@ public class bolaDeFogo_Script : MonoBehaviour
 
                 if (tempo >= 0.5)
                 {
-                    actionMakerMoveAnimation.AnimacaoLancandoMagiaInicio();
+                    actionMakerMoveAnimation.ResetarParametrosDasAnimacoes();
+                    actionMakerMoveAnimation.TrocarAnimacao("Lancando Magia - Inicio");
                 }
             }
 
-            if(actionMakerMoveAnimation.animacao == Animacao.AnimacaoEnum.LancandoMagiaLooping)
+            if(actionMakerMoveAnimation.animacao == "Lancando Magia - Looping")
             {
                 ativo = false;
                 seMovendo = true;
@@ -65,7 +65,7 @@ public class bolaDeFogo_Script : MonoBehaviour
         {
             posicao += vel / tempoMax * Time.deltaTime;
             posicao.y += alturaP * Mathf.Sin(angulo) * Time.deltaTime;
-            Debug.Log("Vel: " + (alturaP * Mathf.Sin(angulo) * Time.deltaTime) + "\nPosicao Y: " + posicao.y);
+            //Debug.Log("Vel: " + (alturaP * Mathf.Sin(angulo) * Time.deltaTime) + "\nPosicao Y: " + posicao.y);
             //Debug.Log("Angulo: " + angulo + "\nSeno: " + Mathf.Sin(angulo) + "\nPosicao Y: " + posicao.y);
 
             angulo += (6.28f / tempoMax) * Time.deltaTime;

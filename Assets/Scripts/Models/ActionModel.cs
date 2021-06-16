@@ -44,7 +44,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         targets = new List<GameObject>();
         ArcAttacks = new List<GameObject>();
         actionMakerMove = actionMaker.GetComponent<MovementModel>();
-        actionMakerMoveAnimation = actionMakerMove.GetComponent<Animacao>();
+        actionMakerMoveAnimation = actionMaker.GetComponent<Animacao>();
         skillHolder = gameObject.transform.parent;
         if (actionMaker.GetComponent<Player>() != null) onButton = FindStoredButton();
         sprite = GetSkillSprite();
@@ -69,16 +69,30 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             }
         }
     }
+
+    public void ButtonActivate(EntityModel actionCaller)
+    {
+        var input = actionCaller.GetComponent<InputSys>();
+        if (input.holdingSkill == false)
+        {
+            input.holdingSkill = true;
+            Activate(actionCaller);
+        }
+    }
+
     public void Activate(EntityModel actionCaller)
     {
         actionMaker = actionCaller;
+        
         StartingParameters();
+        
         if (actionMaker.PA <= PACost)
         {
             Debug.Log("No AP for execution");
             End();
             return;
         }
+        //Allows the main loop to follow
         activated = true;
         if (targetType == ActionTargets.Self) 
         {
@@ -164,7 +178,6 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
     public void ChargeIni()
     {
         //_GridManager.TargetedOutline(targets);
-        Debug.Log("Bla");
         if (AOE <= 1) 
         {
             foreach (var target in targets)
@@ -180,8 +193,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         chargeTime = chargeTimeMax;
 
         actionMakerMove.PermitirMovimento(false);
-        actionMakerMoveAnimation.AnimacaoIniciarCasting();
         actionMakerMoveAnimation.DefinirDirecaoAtaque(AOE, pointClicked, targets);
+        PlayChargeAnimation();
     }
 
     private void CreateArc(GameObject target)
@@ -249,7 +262,6 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
 
     public void Charge()
     {
-        Debug.Log("Bla");
         chargeTime -= Time.deltaTime;
         actionMakerMove.PermitirMovimento(false);
         if (chargeTime <= 0)
@@ -258,6 +270,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             PlayAnimation();
             playingAnimation = true;
         }
+    }
+
+    public virtual void PlayChargeAnimation()
+    {
+        return;
     }
 
     public virtual void PlayAnimation()
@@ -332,12 +349,10 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             if (actionMakerInput.CancelPress() ||
                 actionMakerInput.DashPress())
             {
-                Debug.Log("true");
                 return true;
             }
             else
             {
-                Debug.Log("false");
                 return false;
             }
         }

@@ -31,7 +31,8 @@ public class InputSys : MonoBehaviour
     }
     private void Update()
     {
-        ShowHoldingSkill();
+        //Debugging
+        //ShowHoldingSkill();
         MovePress(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         DashPress(Input.GetButtonDown("Dash"));
@@ -90,7 +91,6 @@ public class InputSys : MonoBehaviour
 
     private void ShowHoldingSkill()
     {
-        
         Debug.Log(skillNum + "" + holdingSkill);
     }
 

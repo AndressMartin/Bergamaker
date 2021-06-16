@@ -37,7 +37,7 @@ public class ManageButtons : MonoBehaviour
             abilitySlotTransform.gameObject.SetActive(true);
 
             abilitySlotTransformButton.onClick.RemoveAllListeners();
-            abilitySlotTransformButton.onClick.AddListener(delegate { skill.Activate(FindObjectOfType<Player>()); });
+            abilitySlotTransformButton.onClick.AddListener(delegate { skill.ButtonActivate(FindObjectOfType<Player>()); });
             abilitySlotTransformButton.onClick.AddListener(CustomButton_onClick);
 
             buttons.Add(abilitySlotTransformButton);
@@ -53,7 +53,7 @@ public class ManageButtons : MonoBehaviour
 
     void CustomButton_onClick()
     {
-        Debug.Log("tttttt");
+        Debug.Log("Custom button!!!");
     }
     // Update is called once per frame
     void Update()

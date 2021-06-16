@@ -62,12 +62,12 @@ public class GridEntity : GridManager
     {
         if (onSearchMode)
         {
-            Debug.Log("Entrou no search");
+            //Debug.Log("Entrou no search");
             CleanEntities();
             if (_isAuto) 
             { 
                 AutoRange(_actionMaker, _range, tilesRange);
-                //_gridGlobal.FillGrid(tilesRange, _gridGlobal.tileMapRange, tilesIgnore); //NOTE: AUTOATTACK SHOULDNT FILL GRID BECAUSE OF AI. LATER: IMPLEMENT NEVER TO FILL GRID IF AI.
+                //NOTE: AUTOATTACK SHOULDNT FILL GRID BECAUSE OF AI. LATER: IMPLEMENT NEVER TO FILL GRID IF AI.
                 FindEntities(_desiredTargets);
                 TargetFirstFoundEntity();
                 CleanAllAreas();
@@ -112,12 +112,12 @@ public class GridEntity : GridManager
                 }
                 if (selection != null)
                 {
-                    Debug.Log("Selection Not Null");
+                    //Debug.Log("Selection Not Null");
                     pointClicked = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, +10f));
                     
                     if (_AOE <= 0)
                     {
-                        Debug.Log("Targetting Once");
+                        //Debug.Log("Targetting Once");
                         targetOnce(selection);
                     }
                 }
@@ -240,7 +240,7 @@ public class GridEntity : GridManager
             {
                 for (int iteration = 1; iteration < 5; iteration++)
                 {
-                    Debug.Log("Painting");
+                    //Debug.Log("Painting");
                     if (!tilesFull.Contains(Coordinates(iteration, i, center)))
                         _tiles.Add(Coordinates(iteration, i, center));
                 }
@@ -248,7 +248,7 @@ public class GridEntity : GridManager
                 {
                     for (int f = 1; f <= i; f++)
                     {
-                        Debug.Log("Painting");
+                        //Debug.Log("Painting");
                         for (int iteration = 1; iteration < 5; iteration++)
                         {
                             if (!tilesFull.Contains(Coordinates(iteration, i, f, center)))

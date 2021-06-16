@@ -13,4 +13,9 @@ public class BarragemDeFogo : ActionModel
     public override bool multiTargetsOnly => false;
     public override int targetsNum => 5;
     public override ActionTargets targetType => ActionTargets.Enemy;
+
+    public override void PlayChargeAnimation()
+    {
+        actionMakerMoveAnimation.TrocarAnimacao("Castando Magia");
+    }
 }

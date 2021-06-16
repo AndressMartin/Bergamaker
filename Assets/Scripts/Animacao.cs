@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Animacao : MonoBehaviour
 {
+    private Rigidbody2D rb;
     private SpriteRenderer spriteRend;
-    public Movement movementScript;
+    public MovementModel movementModelScript;
     private Animator animator;
 
     //Variaveis para as animacoes
@@ -20,119 +21,151 @@ public class Animacao : MonoBehaviour
         Cima
     };
 
-    //Enumerador das animacoes do personagem
-    public enum AnimacaoEnum
-    {
-        Idle,
-        Andando,
-        SubindoEscadas,
-        CastandoMagia,
-        LancandoMagiaInicio,
-        LancandoMagiaLooping,
-        TomandoDano,
-        Morto,
-        AtaqueBasico
-    };
+    public string animacao = "Idle"; //A animacao atual do personagem
 
-    public AnimacaoEnum animacao = AnimacaoEnum.Idle; //A animacao atual do personagem
+    //Guarda as posicoes para calcular a velocidade dos inimigos
+    private Vector3 posicaoAnterior,
+                    posicaoAtual;
+
+    //Guarda as velocidades dos inimigos
+    float velocidadeX,
+          velocidadeY;
 
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         spriteRend = GetComponent<SpriteRenderer>();
-        movementScript = GetComponent<Movement>();
+        movementModelScript = GetComponent<MovementModel>();
         animator = GetComponent<Animator>();
+    }
+
+    // Fixed Update is called
+    void FixedUpdate()
+    {
+        posicaoAtual = transform.position;
+
+        velocidadeX = posicaoAtual.x - posicaoAnterior.x;
+        velocidadeY = posicaoAtual.y - posicaoAnterior.y;
+
+        posicaoAnterior = transform.position;
+
+        //Debug.Log("Velocidade X: " + velocidadeX + "\nVelocidadeY" + velocidadeY);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Muda a animacao caso o personagem possa se mover
+        if(movementModelScript._permissaoAndar == true)
+        {
+            if(transform.tag == "Player")
+            {
+                AnimacaoMovimento();
+            }
+            else if(transform.tag == "Enemy")
+            {
+                Debug.Log("Entrou na Funcao do Inimigo");
+                AnimacaoMovimentoInimigo();
+            }
+        }
+
+        //Roda a animacao
+        Animar();
     }
 
-    public void AnimacaoMovimento(float horizontal, float vertical)
+    public void AnimacaoMovimento()
     {
+        Movement movementScript = (Movement)movementModelScript;
+
         if (movementScript.isClimbing)
         {
             spriteRend.flipX = false;
             animator.SetFloat("Direcao", (float)Direcao.Cima);
-            animacao = AnimacaoEnum.SubindoEscadas;
+            TrocarAnimacao("Subindo Escadas");
         }
         else
         {
-            if (horizontal != 0 || vertical != 0)
+            if (rb.velocity.x != 0 || rb.velocity.y != 0)
             {
-                animacao = AnimacaoEnum.Andando;
+                TrocarAnimacao("Andando");
 
-                if (horizontal == -1f)
-                {
-                    spriteRend.flipX = true;
-                    animator.SetFloat("Direcao", (float)Direcao.Lado);
-                }
-                else if (horizontal == +1f)
-                {
-                    spriteRend.flipX = false;
-                    animator.SetFloat("Direcao", (float)Direcao.Lado);
-                }
-
-                if (vertical == -1f)
+                if (rb.velocity.y < 0)
                 {
                     spriteRend.flipX = false;
                     animator.SetFloat("Direcao", (float)Direcao.Baixo);
                 }
-                else if (vertical == +1f)
+                else if (rb.velocity.y > 0)
                 {
                     spriteRend.flipX = false;
                     animator.SetFloat("Direcao", (float)Direcao.Cima);
                 }
+                else if (rb.velocity.x < 0)
+                {
+                    spriteRend.flipX = true;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+                else
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
             }
-            else if (horizontal == 0 && vertical == 0)
+            else if (rb.velocity.x == 0 && rb.velocity.y == 0)
             {
-                animacao = AnimacaoEnum.Idle;
+                TrocarAnimacao("Idle");
             }
+        }
+    }
+
+    public void AnimacaoMovimentoInimigo()
+    {
+        if (velocidadeX != 0 || velocidadeY != 0)
+        {
+            TrocarAnimacao("Andando");
+
+            if (velocidadeY < 0)
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Baixo);
+            }
+            else if (velocidadeY > 0)
+            {
+                spriteRend.flipX = false;
+                animator.SetFloat("Direcao", (float)Direcao.Cima);
+            }
+
+            if (velocidadeX < 0)
+            {
+                if (velocidadeY > -0.01 && velocidadeY < 0.01)
+                {
+                    spriteRend.flipX = true;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+            }
+            else if (velocidadeY > 0)
+            {
+                if (velocidadeY > -0.01 && velocidadeY < 0.01)
+                {
+                    spriteRend.flipX = false;
+                    animator.SetFloat("Direcao", (float)Direcao.Lado);
+                }
+            }
+        }
+        else if (velocidadeX == 0 && velocidadeY == 0)
+        {
+            TrocarAnimacao("Idle");
         }
     }
 
     public void Animar()
     {
-        switch (animacao)
-        {
-            case AnimacaoEnum.Idle:
-                animator.Play("Idle");
-                break;
+        animator.Play(animacao);
+    }
 
-            case AnimacaoEnum.Andando:
-                animator.Play("Andando");
-                break;
-
-            case AnimacaoEnum.SubindoEscadas:
-                animator.Play("Subindo Escadas");
-                break;
-
-            case AnimacaoEnum.CastandoMagia:
-                animator.Play("Castando Magia");
-                break;
-
-            case AnimacaoEnum.LancandoMagiaInicio:
-                animator.Play("Lancando Magia - Inicio");
-                break;
-
-            case AnimacaoEnum.LancandoMagiaLooping:
-                animator.Play("Lancando Magia - Looping");
-                break;
-
-            case AnimacaoEnum.TomandoDano:
-                animator.Play("Tomando Dano");
-                break;
-
-            case AnimacaoEnum.Morto:
-                animator.Play("Morto");
-                break;
-
-            case AnimacaoEnum.AtaqueBasico:
-                animator.Play("Ataque Basico");
-                break;
-        }
+    public void TrocarAnimacao(string novaAnimacao)
+    {
+        animacao = novaAnimacao;
     }
 
     public void AnimacaoEventoAcertarAtaque()
@@ -145,19 +178,8 @@ public class Animacao : MonoBehaviour
         terminandoAtaque = true;
     }
 
-    public void AnimacaoEventoIniciarLancandoMagiaLooping()
-    {
-        animacao = AnimacaoEnum.LancandoMagiaLooping;
-    }
-
-    public void AnimacaoIniciarCasting()
-    {
-        animacao = AnimacaoEnum.CastandoMagia;
-    }
-
     public void DefinirDirecaoAtaque(int AOE, Vector3 pointClicked, List<GameObject> targets)
     {
-        Debug.Log("Entrou na funcao");
         float DistanciaX,
               DistanciaY;
 
@@ -228,17 +250,9 @@ public class Animacao : MonoBehaviour
         }
     }
 
-    public void AnimacaoLancandoMagiaInicio()
+    public void ResetarParametrosDasAnimacoes()
     {
         acertandoAtaque = false;
         terminandoAtaque = false;
-        animacao = AnimacaoEnum.LancandoMagiaInicio;
-    }
-
-    public void AnimacaoAtaqueBasico()
-    {
-        acertandoAtaque = false;
-        terminandoAtaque = false;
-        animacao = AnimacaoEnum.AtaqueBasico;
     }
 }

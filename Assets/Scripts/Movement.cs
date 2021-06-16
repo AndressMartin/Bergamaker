@@ -60,9 +60,6 @@ public class Movement : MovementModel
             {
                 velocidadeM = 1;
             }
-
-            //Define a animacao
-            animacao.AnimacaoMovimento(horizontal, vertical);
         }
         else
         {
@@ -71,8 +68,5 @@ public class Movement : MovementModel
 
         //Faz o personagem se mover, utilizando sua velocidade base e o modificador da velocidade
         rb.velocity = new Vector2(horizontal, vertical).normalized * (velocidade * velocidadeM);
-
-        //Roda a animacao
-        animacao.Animar();
     }
 }

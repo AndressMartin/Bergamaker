@@ -25,19 +25,21 @@ public class TerrainEffectsManagement : MonoBehaviour
 
     private void Update()
     {
-        foreach (var tile in area)
-        {
-            Debug.Log(tile);
-        }
+        //DEBUG
+        //foreach (var tile in area)
+        //{
+        //    Debug.Log(tile);
+        //}
         if (areas.Any())    AreaTimer();
     }
 
     internal void GetEffectParams(List<Vector3> area, TerrainEffects effectType)
     {
-        foreach (var tile in area)
-        {
-            Debug.Log(tile);
-        }
+        //DEBUG
+        //foreach (var tile in area)
+        //{
+        //    Debug.Log(tile);
+        //}
         this.effectType = effectType;
         this.area = area;
         areas.Add(area);
