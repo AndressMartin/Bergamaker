@@ -13,4 +13,9 @@ public class SetaDeGelo : ActionModel
     public override int AOE => 1;
     public override ActionTargets targetType => ActionTargets.Enemy;
     public override Shapes shapeType => Shapes.Line;
+
+    public override void PlayChargeAnimation()
+    {
+        actionMakerMoveAnimation.TrocarAnimacao("Castando Magia");
+    }
 }

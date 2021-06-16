@@ -38,6 +38,11 @@ public class BolaDeFogo : ActionModel
         Destroy(bolaDeFogoAnimacao);
     }
 
+    public override void PlayChargeAnimation()
+    {
+        actionMakerMoveAnimation.TrocarAnimacao("Castando Magia");
+    }
+
     public override void PlayAnimation()
     {
         bolaDeFogoAnimacao = Instantiate(Resources.Load<GameObject>("Prefabs/Magias/BolaDeFogo_Animacao"), centerOfAOE, new Quaternion(0, 0, 0, 0));

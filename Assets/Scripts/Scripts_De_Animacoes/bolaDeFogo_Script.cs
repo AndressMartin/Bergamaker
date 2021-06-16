@@ -49,11 +49,12 @@ public class bolaDeFogo_Script : MonoBehaviour
 
                 if (tempo >= 0.5)
                 {
-                    actionMakerMoveAnimation.AnimacaoLancandoMagiaInicio();
+                    actionMakerMoveAnimation.ResetarParametrosDasAnimacoes();
+                    actionMakerMoveAnimation.TrocarAnimacao("Lancando Magia - Inicio");
                 }
             }
 
-            if(actionMakerMoveAnimation.animacao == Animacao.AnimacaoEnum.LancandoMagiaLooping)
+            if(actionMakerMoveAnimation.animacao == "Lancando Magia - Looping")
             {
                 ativo = false;
                 seMovendo = true;

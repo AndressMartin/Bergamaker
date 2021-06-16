@@ -44,7 +44,7 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         targets = new List<GameObject>();
         ArcAttacks = new List<GameObject>();
         actionMakerMove = actionMaker.GetComponent<MovementModel>();
-        actionMakerMoveAnimation = actionMakerMove.GetComponent<Animacao>();
+        actionMakerMoveAnimation = actionMaker.GetComponent<Animacao>();
         skillHolder = gameObject.transform.parent;
         if (actionMaker.GetComponent<Player>() != null) onButton = FindStoredButton();
         sprite = GetSkillSprite();
@@ -180,8 +180,8 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
         chargeTime = chargeTimeMax;
 
         actionMakerMove.PermitirMovimento(false);
-        actionMakerMoveAnimation.AnimacaoIniciarCasting();
         actionMakerMoveAnimation.DefinirDirecaoAtaque(AOE, pointClicked, targets);
+        PlayChargeAnimation();
     }
 
     private void CreateArc(GameObject target)
@@ -258,6 +258,11 @@ public class ActionModel: MonoBehaviour, IDirect, IArea, IMagic, ISkill
             PlayAnimation();
             playingAnimation = true;
         }
+    }
+
+    public virtual void PlayChargeAnimation()
+    {
+        return;
     }
 
     public virtual void PlayAnimation()
