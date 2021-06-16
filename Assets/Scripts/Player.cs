@@ -17,22 +17,27 @@ public class Player: EntityModel
     protected float ResAgu, ResTer, ResAr, ResFog, ResLuz, ResSom;
     
 
-    [SerializeField] private UI_Inventory uiInventory;
+    internal UI_Inventory UI_Inventory;
     public Inventory inventory;
     private GameObject child;
 
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
+        UI_Inventory = FindObjectOfType<UI_Inventory>();
+    }
+    private void Start()
+    {
+
         SetMaxTestStats();
         PVMax = PVMaxCalc();
         MNMax = MNMaxCalc();
         PAMax = PAMaxCalc();
         SetTestStats();
-
         inventory = new Inventory(UseItem);
-        uiInventory.SetPlayer(this);
-        uiInventory.SetInventory(inventory);
+        UI_Inventory.SetPlayer(this);
+        UI_Inventory.SetInventory(inventory);
         child = transform.GetChild(0).gameObject;
 
         child.GetComponent<ItemCollision>().inventory = inventory;

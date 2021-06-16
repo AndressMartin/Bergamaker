@@ -14,14 +14,15 @@ public class InputSys : MonoBehaviour
     public bool holdingSkill { get; set; }
 	public bool interactPress { get; private set; }
     private GameObject SkillManager;
-    public List<ActionModel> quickActions = new List<ActionModel>();
-    public UI_Inventory uI_Inventory;
+    internal List<ActionModel> quickActions = new List<ActionModel>();
+    internal UI_Inventory UI_Inventory;
+    internal List<int> buttons = new List<int>();
 
-    public List<int> buttons = new List<int>();
     private void Start()
     {
-        HideMenu();
         SkillManager = GameObject.FindGameObjectWithTag("SkillHolder");
+        UI_Inventory = FindObjectOfType<UI_Inventory>();
+        HideMenu();
         foreach (Transform child in SkillManager.transform)
         {
             quickActions.Add(child.GetComponent<ActionModel>());
@@ -81,12 +82,12 @@ public class InputSys : MonoBehaviour
     private void HideMenu()
     {
         Debug.Log("Apertou I");
-        uI_Inventory.uI_Inventory.SetActive(!uI_Inventory.uI_Inventory.active);
+        UI_Inventory.uI_Inventory.SetActive(!UI_Inventory.uI_Inventory.active);
     }
 
     public void HideMenu(bool estado)
     {
-        uI_Inventory.uI_Inventory.SetActive(estado);
+        UI_Inventory.uI_Inventory.SetActive(estado);
     }
 
     private void ShowHoldingSkill()
