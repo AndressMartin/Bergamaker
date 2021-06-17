@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bolaDeFogo_Script : MonoBehaviour
+public class BolaDeFogo_Script : MonoBehaviour
 {
     //Variaveis
     private bool ativo = false,
-                 seMovendo = false,
-                 acertandoAtaque = false,
-                 terminandoAtaque = false;
+                 seMovendo = false;
 
     private Vector3 posicao, //Guarda a posicao da magia no mapa do jogo
                     vel; //Guarda a velocidade da magia em direcao ao seu alvo
@@ -23,19 +21,9 @@ public class bolaDeFogo_Script : MonoBehaviour
     public EntityModel actionMaker;//Guarda o objeto que esta lancando a magia
     private SpriteRenderer actionMakerSprite, //Guarda o sprite do objeto que esta lancando a magia
                            sprite; //Guarda o sprite da magia
-    public Animacao actionMakerMoveAnimation { get; private set; } //Guarda o script de animacao do objeto que esta lancando a magia
+    public Animacao actionMakerAnimation { get; private set; } //Guarda o script de animacao do objeto que esta lancando a magia
 
     private Vector3 alvo; //Guarda a posicao que a magia deve acertar
-
-    //Enumerador das animacoes da magia
-    private enum AnimacaoEnum
-    {
-        Surgindo,
-        NoAr,
-        Explodindo
-    };
-
-    private AnimacaoEnum animacao = 0; //A animacao atual da magia
 
     // Update is called once per frame
     void Update()
@@ -48,12 +36,12 @@ public class bolaDeFogo_Script : MonoBehaviour
 
                 if (tempo >= 0.5)
                 {
-                    actionMakerMoveAnimation.ResetarParametrosDasAnimacoes();
-                    actionMakerMoveAnimation.TrocarAnimacao("Lancando Magia - Inicio");
+                    actionMakerAnimation.ResetarParametrosDasAnimacoes();
+                    actionMakerAnimation.TrocarAnimacao("Lancando Magia");
                 }
             }
 
-            if(actionMakerMoveAnimation.animacao == "Lancando Magia - Looping")
+            if(actionMakerAnimation.animacao == "Lancando Magia - Looping")
             {
                 ativo = false;
                 seMovendo = true;
@@ -105,11 +93,11 @@ public class bolaDeFogo_Script : MonoBehaviour
 
         actionMaker = actionCaller;
         actionMakerSprite = actionMaker.GetComponent<SpriteRenderer>();
-        actionMakerMoveAnimation = actionMaker.GetComponent<Animacao>();
+        actionMakerAnimation = actionMaker.GetComponent<Animacao>();
         alvo = centerOfAOE;
 
-        posicao.x = actionMaker.transform.position.x;
-        posicao.y = (float)(actionMaker.transform.position.y + (actionMakerSprite.bounds.size.y * 0.77));
+        posicao.x = actionMakerSprite.bounds.center.x;
+        posicao.y = (float)(actionMakerSprite.bounds.center.y + (actionMakerSprite.bounds.size.y / 2));
 
         transform.position = posicao;
 
@@ -120,12 +108,12 @@ public class bolaDeFogo_Script : MonoBehaviour
 
     public void AnimacaoEventoAcertarAtaque()
     {
-        actionMakerMoveAnimation.acertandoAtaque = true;
+        actionMakerAnimation.acertandoAtaque = true;
     }
 
     public void AnimacaoEventoTerminarAtaque()
     {
-        actionMakerMoveAnimation.terminandoAtaque = true;
+        actionMakerAnimation.terminandoAtaque = true;
         Destroy(gameObject);
     }
 

@@ -105,7 +105,7 @@ public class GridEntity : GridManager
             }
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Clicking");
+                //Debug.Log("Clicking");
                 if (_AOE > 0)
                 {
                     targetAoe(selection);
