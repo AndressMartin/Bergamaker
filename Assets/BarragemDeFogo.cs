@@ -16,6 +16,6 @@ public class BarragemDeFogo : ActionModel
 
     public override void PlayChargeAnimation()
     {
-        actionMakerMoveAnimation.TrocarAnimacao("Castando Magia");
+        actionMakerAnimation.TrocarAnimacao("Castando Magia");
     }
 }

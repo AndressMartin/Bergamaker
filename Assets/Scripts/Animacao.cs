@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,14 @@ public class Animacao : MonoBehaviour
     private SpriteRenderer spriteRend;
     public MovementModel movementModelScript;
     private Animator animator;
+    public TextAsset tabelaDeAnimacoes;
 
     //Variaveis para as animacoes
     public bool acertandoAtaque = false,
                 terminandoAtaque = false;
 
     //Enumerador das direcoes do personagem
-    private enum Direcao : int
+    public enum Direcao : int
     {
         Baixo,
         Lado,
@@ -22,6 +24,8 @@ public class Animacao : MonoBehaviour
     };
 
     public string animacao = "Idle"; //A animacao atual do personagem
+
+    public Dictionary<string, string> animacaoLista = new Dictionary<string, string>(); 
 
     //Guarda as posicoes para calcular a velocidade dos inimigos
     private Vector3 posicaoAnterior,
@@ -38,6 +42,8 @@ public class Animacao : MonoBehaviour
         spriteRend = GetComponent<SpriteRenderer>();
         movementModelScript = GetComponent<MovementModel>();
         animator = GetComponent<Animator>();
+
+        ReadCsv(tabelaDeAnimacoes, 2);
     }
 
     // Fixed Update is called
@@ -59,19 +65,16 @@ public class Animacao : MonoBehaviour
         //Muda a animacao caso o personagem possa se mover
         if(movementModelScript._permissaoAndar == true)
         {
-            if(transform.tag == "Player")
+            if(transform.CompareTag("Player"))
             {
                 AnimacaoMovimento();
             }
-            else if(transform.tag == "Enemy")
+            else if(transform.CompareTag("Enemy"))
             {
                 Debug.Log("Entrou na Funcao do Inimigo");
                 AnimacaoMovimentoInimigo();
             }
         }
-
-        //Roda a animacao
-        Animar();
     }
 
     public void AnimacaoMovimento()
@@ -158,14 +161,16 @@ public class Animacao : MonoBehaviour
         }
     }
 
-    public void Animar()
-    {
-        animator.Play(animacao);
-    }
-
     public void TrocarAnimacao(string novaAnimacao)
     {
         animacao = novaAnimacao;
+        animator.Play(animacaoLista[animacao]);
+
+        /*
+        Debug.Log("Animacao: " + animacao + " Tipo: " + animacao.GetType());
+        Debug.Log("Animacao do Dicionario: " + animacaoLista[animacao] + " Tipo: " + animacaoLista[animacao].GetType());
+        Debug.Log("Sao iguais? R: " + (animacao == animacaoLista[animacao]));
+        */
     }
 
     public void AnimacaoEventoAcertarAtaque()
@@ -254,5 +259,20 @@ public class Animacao : MonoBehaviour
     {
         acertandoAtaque = false;
         terminandoAtaque = false;
+    }
+
+    void ReadCsv(TextAsset textAsset, int colunas)
+    {
+        string[] data = textAsset.text.Split(new string[] { ";", "\r\n" }, StringSplitOptions.None);
+
+        int tablesize = data.Length / colunas - 1;
+
+        //Debug.Log(data[0] + "," + data[1]);
+        for (int i = 0; i < tablesize; i++)
+        {
+            //Debug.Log(data[colunas * (i + 1)] + ", " + data[colunas * (i + 1) + 1]);
+            animacaoLista.Add(data[colunas * (i + 1)], data[colunas * (i + 1) + 1]);
+        }
+        //Debug.Log("Fim da Tabela");
     }
 }

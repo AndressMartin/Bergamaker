@@ -17,7 +17,7 @@ public class AtaqueBasico : ActionModel
 
     public override void PlayAnimation()
     {
-        actionMakerMoveAnimation.ResetarParametrosDasAnimacoes();
-        actionMakerMoveAnimation.TrocarAnimacao("Ataque Basico");
+        actionMakerAnimation.ResetarParametrosDasAnimacoes();
+        actionMakerAnimation.TrocarAnimacao("Ataque Basico");
     }
 }
