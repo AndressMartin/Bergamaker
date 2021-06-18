@@ -7,7 +7,7 @@ public class AtaqueInimigo : ActionModel
     public override int PACost => 10;
     public override int range => 2;
     public override int efeito => -10;
-    public override float chargeTimeMax => 0f;
+    public override float chargeTimeMax => 0.5f;
     public override float CD => .5f;
     public override bool isInstant => false;
     public override bool isAuto => true;

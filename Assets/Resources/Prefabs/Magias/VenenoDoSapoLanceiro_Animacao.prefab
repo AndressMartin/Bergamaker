@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2788305755151700064}
   - component: {fileID: 2788305755151700065}
   m_Layer: 0
-  m_Name: VenenoDoSapoLanceiro
+  m_Name: VenenoDoSapoLanceiro_Animacao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

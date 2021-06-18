@@ -16,6 +16,9 @@ public class EnemyIA : MovementModel
     public Transform transformInicial;
     public Transform transformFinal;
 
+    public List<ActionModel> ListaDeAcoes = new List<ActionModel>();
+    private int numeroAleatorio;
+
     public enum State
     {
         Stop,
@@ -44,12 +47,11 @@ public class EnemyIA : MovementModel
         target = aIDestinationSetter.target;
 
         transformInicial = transform;
-
-     
     }
 
     public void Update()
     {
+        Debug.Log("Numero Aleatorio: " + numeroAleatorio);
         aIPath.maxSpeed = aIPath.maxSpeed * velocidadeM;
 
         if (state == State.Stop || state == State.Attacking)
@@ -85,6 +87,7 @@ public class EnemyIA : MovementModel
             else if (Vector3.Distance(transform.position, player.transform.position) < rangeAtaque)
             {
                 //se tem distancia para atacar ataque
+                numeroAleatorio = Random.Range(0, ListaDeAcoes.Count);
                 Attacking();
             }
 
@@ -113,6 +116,7 @@ public class EnemyIA : MovementModel
             if (Vector3.Distance(transform.position, player.transform.position) < rangeAtaque)
             {
                 //se tem distancia para atacar ataque
+                numeroAleatorio = Random.Range(0, ListaDeAcoes.Count);
                 Attacking();
             }
         }
@@ -128,6 +132,7 @@ public class EnemyIA : MovementModel
 
     public void Attacking()
     {
+        /*
         state = State.Attacking;
         if (transform.GetComponent<AtaqueInimigo>().activated == false)
         {
@@ -137,6 +142,19 @@ public class EnemyIA : MovementModel
         {
             state = State.Following;
         }
+        */
+
+        state = State.Attacking;
+
+        if (ListaDeAcoes[numeroAleatorio].activated == false)
+        {
+            ListaDeAcoes[numeroAleatorio].Activate(transform.GetComponent<EntityModel>());
+        }
+        else
+        {
+            state = State.Following;
+        }
+
     }
 
 

@@ -5,7 +5,8 @@ using UnityEngine;
 public class VenenoDoSapoLanceiro_Script : MonoBehaviour
 {
     //Variaveis
-    private bool seMovendo = false;
+    private bool ativo = false,
+                 seMovendo = false;
 
     private Vector3 posicao, //Guarda a posicao da magia no mapa do jogo
                     vel; //Guarda a velocidade da magia em direcao ao seu alvo
@@ -23,9 +24,17 @@ public class VenenoDoSapoLanceiro_Script : MonoBehaviour
 
     private Vector3 alvo; //Guarda a posicao que a magia deve acertar
 
+    public Animation animacaoAtual;
+
     // Update is called once per frame
     void Update()
     {
+        if(ativo == true)
+        {
+            SeMover();
+            ativo = false;
+        }
+
         if (seMovendo == true)
         {
             posicao += vel / tempoMax * Time.deltaTime;
@@ -77,6 +86,7 @@ public class VenenoDoSapoLanceiro_Script : MonoBehaviour
 
                 if(actionMakerSprite.flipX == true)
                 {
+                    sprite.flipX = true;
                     posicao.x = (float)(actionMakerSprite.bounds.center.x - 0.5);
                 }
                 else
@@ -92,6 +102,16 @@ public class VenenoDoSapoLanceiro_Script : MonoBehaviour
 
         vel = alvo - posicao;
 
+        Debug.Log("Entrou na funcao");
+        ActionMakerAnimation.TrocarAnimacao("Lancando Magia");
+
+        sprite.enabled = false;
+        ativo = true;
+    }
+
+    public void SeMover()
+    {
+        sprite.enabled = true;
         AnimacaoNoAr();
     }
 
@@ -109,7 +129,7 @@ public class VenenoDoSapoLanceiro_Script : MonoBehaviour
     private void AnimacaoNoAr()
     {
         seMovendo = true;
-        animator.Play("NoAr");
+        animator.Play("No Ar");
     }
 
     private void AnimacaoExplodindo()
